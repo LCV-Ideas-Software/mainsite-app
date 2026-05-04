@@ -19,13 +19,13 @@
 
 The version history at a glance:
 
-| Release | Scope |
-|---|---|
+| Release                                                         | Scope                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`mainsite-worker v02.18.00` + `mainsite-frontend v03.22.00`** | **Security + UX audit + TipTap parity.** Worker: SumUp checkout idempotency + ownership table, magic-byte upload validation, sentiment timeout, prompt-injection envelope, cron handler bugfix. Frontend: Error Boundary, ESC handler in all modals (read-gate preserved on disclaimer), fetch timeout, localStorage validation, PostReader↔PostEditor parity (embedded hljs theme, responsive iframes, image max-width, `data-width` whitelist). |
-| **`mainsite-worker v02.17.06` + `mainsite-frontend v03.21.08`** | **README organizational standardization.** Adopted the shared repository README opening pattern and introduced the top-level version-history table for the monorepo. |
-| **`mainsite-frontend v03.21.06`** | **Typography parity fix.** Restored default text indentation for HTML paragraph rendering so saved PostEditor content matches the intended reading layout. |
-| **`mainsite-worker v02.17.05` + `mainsite-frontend v03.21.05`** | **Pages + Sponsors public surface.** Added the GitHub Pages donation site, corrected the Sponsors custom URL, and modernized the Pages workflow. |
-| **`mainsite-worker v02.17.04` + `mainsite-frontend v03.21.04`** | **Security and history cleanup.** Closed CodeQL issues, removed a leaked legacy Cloudflare token from Git history, and tightened sanitization paths. |
+| **`mainsite-worker v02.17.06` + `mainsite-frontend v03.21.08`** | **README organizational standardization.** Adopted the shared repository README opening pattern and introduced the top-level version-history table for the monorepo.                                                                                                                                                                                                                                                                              |
+| **`mainsite-frontend v03.21.06`**                               | **Typography parity fix.** Restored default text indentation for HTML paragraph rendering so saved PostEditor content matches the intended reading layout.                                                                                                                                                                                                                                                                                        |
+| **`mainsite-worker v02.17.05` + `mainsite-frontend v03.21.05`** | **Pages + Sponsors public surface.** Added the GitHub Pages donation site, corrected the Sponsors custom URL, and modernized the Pages workflow.                                                                                                                                                                                                                                                                                                  |
+| **`mainsite-worker v02.17.04` + `mainsite-frontend v03.21.04`** | **Security and history cleanup.** Closed CodeQL issues, removed a leaked legacy Cloudflare token from Git history, and tightened sanitization paths.                                                                                                                                                                                                                                                                                              |
 
 ## What it does
 
@@ -62,6 +62,7 @@ Public-flip prep: D1 ID lives in CI as a GitHub Actions secret; both `wrangler.j
 ## Deploy your own fork
 
 You will need:
+
 - A Cloudflare account ([free tier](https://www.cloudflare.com/plans/)) with Pages + Workers + D1 + R2 enabled.
 - The Cloudflare CLI [`wrangler`](https://developers.cloudflare.com/workers/wrangler/).
 - Node.js 24+.
@@ -92,6 +93,7 @@ npx wrangler r2 bucket create mainsite-media
 ### 3. Wire `database_id` into both `wrangler.json`
 
 Replace `00000000-0000-0000-0000-000000000000` in:
+
 - `mainsite-frontend/wrangler.json` (Pages app)
 - `mainsite-worker/wrangler.json` (Worker)
 
@@ -157,4 +159,4 @@ If you only deploy this app for your own infrastructure (no external users), §1
 
 ---
 
-<p align="center"><sub>© LCV Ideas &amp; Software<br>LEONARDO CARDOZO VARGAS TECNOLOGIA DA INFORMACAO LTDA<br>Rua Pais Leme, 215 Conj 1713  - Pinheiros<br>São Paulo - SP<br>CEP 05.424-150<br>CNPJ: 66.584.678/0001-77<br>IM 05.424-150</sub></p>
+<p align="center"><span style="font-size: 1.5em;"><strong>© LCV Ideas &amp; Software</strong></span><br><sub>LEONARDO CARDOZO VARGAS TECNOLOGIA DA INFORMACAO LTDA<br>Rua Pais Leme, 215 Conj 1713&nbsp;&nbsp;- Pinheiros<br>São Paulo - SP<br>CEP 05.424-150<br>CNPJ: 66.584.678/0001-77<br>IM 05.424-150</sub></p>
