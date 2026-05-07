@@ -21,6 +21,7 @@ The version history at a glance:
 
 | Release | Scope |
 |---|---|
+| **`Unreleased`** | **Sponsor page alignment.** The public project site now uses the shared LCV sponsor-page pattern and routes support to `https://www.lcv.dev/sponsor?project=mainsite-app`, without loading payment SDKs or collecting card data. |
 | **`mainsite-worker v02.19.00` + `mainsite-frontend v03.23.00`** | **Donation/payment removal + dependency/workflow hygiene.** Removed public donation/payment UI, SumUp widget/routes/secrets/dependencies, PIX/payment CSP/PWA cache allowances, and the payment landing page; updated direct dependencies and expanded Dependabot coverage for the root package. |
 | **`mainsite-worker v02.18.00` + `mainsite-frontend v03.22.00`** | **Security + UX audit + TipTap parity.** Worker: magic-byte upload validation, sentiment timeout, prompt-injection envelope, cron handler bugfix. Frontend: Error Boundary, ESC handler in all modals (read-gate preserved on disclaimer), fetch timeout, localStorage validation, PostReader↔PostEditor parity (embedded hljs theme, responsive iframes, image max-width, `data-width` whitelist). |
 | **`mainsite-worker v02.17.06` + `mainsite-frontend v03.21.08`** | **README organizational standardization.** Adopted the shared repository README opening pattern and introduced the top-level version-history table for the monorepo. |

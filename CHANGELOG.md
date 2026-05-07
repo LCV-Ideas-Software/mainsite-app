@@ -1,5 +1,9 @@
 # Changelog — MainSite App
 
+## [Unreleased]
+### Alterado — página pública de sponsor
+- `site/index.html` foi alinhado ao padrão das páginas de apoio dos demais repositórios: CTA central para `https://www.lcv.dev/sponsor?project=mainsite-app`, link do repositório, acesso ao Reflexos da Alma, aviso de ausência de SDK/coleta de cartão e rodapé legal completo da LCV Ideas & Software.
+
 ## [mainsite-worker v02.19.00 + mainsite-frontend v03.23.00] - 2026-05-06
 ### BREAKING / Removido — doações, pagamentos, SumUp e PIX
 **Worker (`mainsite-worker`)**
