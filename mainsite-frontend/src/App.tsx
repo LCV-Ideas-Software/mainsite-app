@@ -39,7 +39,7 @@ const DisclaimerModal = lazy(() => import('./components/DisclaimerModal'));
 const ChatWidget = lazy(() => import('./components/ChatWidget'));
 
 const API_URL = '/api';
-const APP_VERSION = 'APP v03.23.01';
+const APP_VERSION = 'APP v03.23.02';
 const SITE_NAME = 'Reflexos da Alma';
 const SITE_URL = 'https://www.reflexosdaalma.blog';
 const ABOUT_PATH = '/sobre-este-site';
