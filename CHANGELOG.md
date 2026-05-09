@@ -5,8 +5,10 @@
 - **`/api/ai/public/chat`** deixou de aplicar o cap global D1 redundante (`chat-public-global` / `mainsite_rate_limit`) que retornava 429 antes da chamada ao Gemini quando a tabela auxiliar inexistia ou falhava.
 - **`src/lib/rate-limit.ts`** agora normaliza apenas toggles administrativos (`chatbot`, `email`, `comments`); os limites efetivos permanecem nos bindings nativos `ratelimits` do Cloudflare Worker.
 
-### Alterado — página pública de sponsor
-- `site/index.html` foi alinhado ao padrão das páginas de apoio dos demais repositórios: CTA central para `https://www.lcv.dev/sponsor?project=mainsite-app`, link do repositório, acesso ao Reflexos da Alma, aviso de ausência de SDK/coleta de cartão e rodapé legal completo da LCV Ideas & Software.
+## [v03.23.01 / v02.19.01] - 2026-05-09
+### Alterado
+- **`site/index.html`** — `<style>` block reskinneado pra nova identidade visual dark-first navy/cyan da org LCV (paleta `#050b18`/`#38bdf8`/`#34d399`, gradientes radiais, glow shadows, gradient text no h1). Coordinated companion ship Phase 2 com `calculadora-app` v04.01.17, `oraculo-financeiro` v01.10.04, `astrologo-app` v02.17.23, `admin-app` v02.01.01, `maestro-app` v0.5.17, `mtasts-motor` v02.00.10. Companion à Phase 1 (cross-review-v1 1.12.9, cross-review-v2 v02.18.07, deepseek-cli 0.3.1, grok-cli 1.6.2, sponsor-motor APP v01.02.02, `.github-org/site`). APP_VERSION bumpada em ambos `mainsite-frontend/src/App.tsx` (v03.23.00 → v03.23.01) e `mainsite-worker/src/index.ts` (v02.19.00 → v02.19.01) por consistência multi-repo, embora o reskin afete apenas a página GitHub Pages do repo. Sem mudança no Cloudflare Pages frontend ou no Worker runtime.
+- Entrada [Unreleased] anterior (sponsor page alignment) consolidada com o novo reskin — a página continua alinhada ao padrão das demais e agora usa a nova identidade dark-first.
 
 ## [mainsite-worker v02.19.00 + mainsite-frontend v03.23.00] - 2026-05-06
 ### BREAKING / Removido — doações, pagamentos, SumUp e PIX

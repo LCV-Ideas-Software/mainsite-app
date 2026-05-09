@@ -15,13 +15,14 @@
 - **`mainsite-frontend`** — React 19 + Vite 8 single-page app on Cloudflare Pages, primary domain `reflexosdaalma.blog` (+ secondary aliases). Public-facing site with reading experience, comments, ratings, AI chatbot, share-by-email, and accessibility-first design.
 - **`mainsite-worker`** — Hono backend on Cloudflare Workers serving `/api/*` for the frontend. AI surfaces (Gemini), moderation (GCP Natural Language API + Turnstile), email relay (Resend), and R2 media.
 
-**Status.** Stable. Current release: **mainsite-frontend v03.23.00** paired with **mainsite-worker v02.19.00**. See [CHANGELOG.md](./CHANGELOG.md) for the full release history.
+**Status.** Stable. Current release: **mainsite-frontend v03.23.01** paired with **mainsite-worker v02.19.01**. See [CHANGELOG.md](./CHANGELOG.md) for the full release history.
 
 The version history at a glance:
 
 | Release | Scope |
 |---|---|
 | **`Unreleased`** | **Sponsor page alignment.** The public project site now uses the shared LCV sponsor-page pattern and routes support to `https://www.lcv.dev/sponsor?project=mainsite-app`, without loading payment SDKs or collecting card data. |
+| **`mainsite-worker v02.19.01` + `mainsite-frontend v03.23.01`** | **Site visual identity refresh.** `site/index.html` (GitHub Pages) reskinneada para a nova identidade dark-first navy/cyan da org LCV (`#050b18`/`#38bdf8`/`#34d399`, gradientes radiais, glow shadows, gradient text no h1). Coordinated Phase 2 companion ship (calculadora, oraculo, astrologo, admin, mainsite, maestro, mtasts). APP_VERSION bumpada em ambos frontend e worker por consistência multi-repo, mas o reskin afeta apenas a página GitHub Pages. Sem mudança no app runtime. |
 | **`mainsite-worker v02.19.00` + `mainsite-frontend v03.23.00`** | **Donation/payment removal + dependency/workflow hygiene.** Removed public donation/payment UI, SumUp widget/routes/secrets/dependencies, PIX/payment CSP/PWA cache allowances, and the payment landing page; updated direct dependencies and expanded Dependabot coverage for the root package. |
 | **`mainsite-worker v02.18.00` + `mainsite-frontend v03.22.00`** | **Security + UX audit + TipTap parity.** Worker: magic-byte upload validation, sentiment timeout, prompt-injection envelope, cron handler bugfix. Frontend: Error Boundary, ESC handler in all modals (read-gate preserved on disclaimer), fetch timeout, localStorage validation, PostReader↔PostEditor parity (embedded hljs theme, responsive iframes, image max-width, `data-width` whitelist). |
 | **`mainsite-worker v02.17.06` + `mainsite-frontend v03.21.08`** | **README organizational standardization.** Adopted the shared repository README opening pattern and introduced the top-level version-history table for the monorepo. |
