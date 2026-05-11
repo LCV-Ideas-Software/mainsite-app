@@ -45,7 +45,7 @@
     "happy-dom": "^20.8.9",
     "husky": "^9.0.0",
     "knip": "^6.12.2",
-    "lint-staged": "^17.0.2",
+    "lint-staged": "^17.0.4",
     "rollup-plugin-visualizer": "^7.0.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.2",
