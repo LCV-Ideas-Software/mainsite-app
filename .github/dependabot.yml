@@ -1,6 +1,7 @@
 version: 2
 
 # StepSecurity Secure Registry auth for manifests that inherit
+# Install/dependency resolution only; operational npm commands use registry.npmjs.org.
 # mainsite-frontend/.npmrc.
 registries:
   stepsecurity-javascript:
