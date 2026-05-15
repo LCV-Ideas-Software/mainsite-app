@@ -32,10 +32,7 @@ export class HttpTimeoutError extends Error {
 
 export type FetchWithTimeoutInit = RequestInit & { timeoutMs?: number };
 
-export async function fetchWithTimeout(
-  input: RequestInfo | URL,
-  init: FetchWithTimeoutInit = {},
-): Promise<Response> {
+export async function fetchWithTimeout(input: RequestInfo | URL, init: FetchWithTimeoutInit = {}): Promise<Response> {
   const { timeoutMs = DEFAULT_FETCH_TIMEOUT_MS, signal: externalSignal, ...rest } = init;
   // If the caller already passed a signal, compose: we still abort on
   // our own timeout, AND we abort if their signal aborts.

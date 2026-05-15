@@ -4,9 +4,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-04-06",
   "preview_urls": false,
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
     {
       "binding": "DB",
@@ -70,9 +68,7 @@
     }
   },
   "triggers": {
-    "crons": [
-      "*/5 * * * *"
-    ]
+    "crons": ["*/5 * * * *"]
   },
   "placement": {
     "mode": "smart"

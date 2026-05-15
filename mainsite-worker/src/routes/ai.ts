@@ -238,13 +238,11 @@ ai.post('/api/ai/public/chat', async (c) => {
       // forge a closing tag, and tell the model NOT to interpret the
       // envelope contents as instructions. The 500/12000-char cap and
       // the `[]{}` strip are kept as defense in depth.
-      const escapeXml = (raw: string): string =>
-        raw
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;');
+      const escapeXml = (raw: string): string => raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       const safeCtxTitle = escapeXml(
-        String(currentContext.title).substring(0, 500).replace(/[[\]{}]/g, ''),
+        String(currentContext.title)
+          .substring(0, 500)
+          .replace(/[[\]{}]/g, ''),
       );
       const safeCtxContent = escapeXml(
         stripHtml(String(currentContext.content || ''))

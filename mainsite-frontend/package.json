@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "biome": "biome check .",
+    "biome:write": "biome check --write .",
     "test": "node ./scripts/run-vitest.mjs run",
     "test:ui": "node ./scripts/run-vitest.mjs --ui",
     "test:e2e": "playwright test",

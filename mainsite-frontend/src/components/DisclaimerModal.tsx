@@ -284,7 +284,6 @@ const DisclaimerItemView = ({
             Role o texto até o final para habilitar o botão.
           </span>
         )}
-
       </div>
     </div>
   );

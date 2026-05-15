@@ -94,10 +94,7 @@ const ChatWidget = ({ isOpen, onClose, currentPost, activePalette, API_URL }: Ch
 
       const rawText: string = data.reply || data.text || 'Processamento concluído.';
 
-      setMessages((prev) => [
-        ...prev,
-        { id: createMessageId(), role: 'bot', text: rawText },
-      ]);
+      setMessages((prev) => [...prev, { id: createMessageId(), role: 'bot', text: rawText }]);
       setAiVisualStatus('responding');
       aiStatusTimeoutRef.current = setTimeout(() => {
         setAiVisualStatus('idle');

@@ -49,7 +49,9 @@ describe('GET /api/about', () => {
         updated_at: '2026-04-24 13:00:00',
       }),
     );
-    const body = (await res.json()) as { about: { title: string; content: string; author: string; source_post_id: number } };
+    const body = (await res.json()) as {
+      about: { title: string; content: string; author: string; source_post_id: number };
+    };
 
     expect(res.status).toBe(200);
     expect(body.about.title).toBe('Sobre Este Site');

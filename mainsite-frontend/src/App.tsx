@@ -39,7 +39,7 @@ const DisclaimerModal = lazy(() => import('./components/DisclaimerModal'));
 const ChatWidget = lazy(() => import('./components/ChatWidget'));
 
 const API_URL = '/api';
-const APP_VERSION = 'APP v03.23.02';
+const APP_VERSION = 'APP v03.23.03';
 const SITE_NAME = 'Reflexos da Alma';
 const SITE_URL = 'https://www.reflexosdaalma.blog';
 const ABOUT_PATH = '/sobre-este-site';
@@ -299,7 +299,11 @@ const App = () => {
         return;
       }
 
-      const canonicalUrl = showAbout ? `${SITE_URL}${ABOUT_PATH}` : currentPost ? `${SITE_URL}/p/${currentPost.id}` : `${SITE_URL}/`;
+      const canonicalUrl = showAbout
+        ? `${SITE_URL}${ABOUT_PATH}`
+        : currentPost
+          ? `${SITE_URL}/p/${currentPost.id}`
+          : `${SITE_URL}/`;
       const attribution = showAbout
         ? `\n\nFonte: Sobre Este Site — ${canonicalUrl} — ${SITE_NAME}`
         : currentPost
@@ -684,26 +688,24 @@ const App = () => {
           <Suspense fallback={null}>
             <AboutPage about={aboutContent} onBack={closeAboutPage} zoomLevel={zoomLevel} />
           </Suspense>
+        ) : error ? (
+          <div className="site-error">{error}</div>
+        ) : siteStatus?.mode === 'hidden' || currentPost ? (
+          <PostReader
+            post={currentPost}
+            activePalette={activePalette}
+            onShare={handleShare}
+            onContact={() => setShowContactModal(true)}
+            onComment={() => setShowCommentModal(true)}
+            isSendingEmail={isSendingEmail}
+            isNotHomePage={isDeepLinkedPost}
+            zoomLevel={zoomLevel}
+            apiUrl={API_URL}
+            turnstileSiteKey={TURNSTILE_SITE_KEY}
+            maintenance={siteStatus?.mode === 'hidden' ? siteStatus : null}
+          />
         ) : (
-          error ? (
-            <div className="site-error">{error}</div>
-          ) : siteStatus?.mode === 'hidden' || currentPost ? (
-            <PostReader
-              post={currentPost}
-              activePalette={activePalette}
-              onShare={handleShare}
-              onContact={() => setShowContactModal(true)}
-              onComment={() => setShowCommentModal(true)}
-              isSendingEmail={isSendingEmail}
-              isNotHomePage={isDeepLinkedPost}
-              zoomLevel={zoomLevel}
-              apiUrl={API_URL}
-              turnstileSiteKey={TURNSTILE_SITE_KEY}
-              maintenance={siteStatus?.mode === 'hidden' ? siteStatus : null}
-            />
-          ) : (
-            <div className="site-empty">A MENTE ESTÁ EM SILÊNCIO. NENHUM FRAGMENTO ENCONTRADO.</div>
-          )
+          <div className="site-empty">A MENTE ESTÁ EM SILÊNCIO. NENHUM FRAGMENTO ENCONTRADO.</div>
         )}
       </main>
 

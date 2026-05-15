@@ -22,8 +22,7 @@ type AboutRow = {
   updated_at?: string | null;
 };
 
-const isMissingTableError = (error: unknown) =>
-  error instanceof Error && /no such table/i.test(error.message);
+const isMissingTableError = (error: unknown) => error instanceof Error && /no such table/i.test(error.message);
 
 const mapAboutRow = (row: AboutRow | null) => {
   if (!row) return null;

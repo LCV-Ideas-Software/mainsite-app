@@ -52,7 +52,8 @@ function inferExtensionFromMagicBytes(buffer: ArrayBuffer): string | null {
     view[5] === 0x0a &&
     view[6] === 0x1a &&
     view[7] === 0x0a
-  ) return 'png';
+  )
+    return 'png';
   // GIF: 47 49 46 38 ('GIF8')
   if (view[0] === 0x47 && view[1] === 0x49 && view[2] === 0x46 && view[3] === 0x38) return 'gif';
   // WebP: 52 49 46 46 .. .. .. .. 57 45 42 50 ('RIFF????WEBP')
@@ -65,7 +66,8 @@ function inferExtensionFromMagicBytes(buffer: ArrayBuffer): string | null {
     view[9] === 0x45 &&
     view[10] === 0x42 &&
     view[11] === 0x50
-  ) return 'webp';
+  )
+    return 'webp';
   // AVIF: ?? ?? ?? ?? 66 74 79 70 (offset 4-7 = 'ftyp'); ftyp brand at 8-11
   // We check 'ftyp' marker + accept 'avif'/'avis'/'heic'/'mif1' brands
   if (view[4] === 0x66 && view[5] === 0x74 && view[6] === 0x79 && view[7] === 0x70) {
@@ -143,10 +145,7 @@ uploads.post('/api/upload', requireAuth, async (c) => {
         inferredExt,
         declaredType: file.type,
       });
-      return c.json(
-        { error: 'Conteúdo do arquivo não corresponde à extensão declarada.' },
-        400,
-      );
+      return c.json({ error: 'Conteúdo do arquivo não corresponde à extensão declarada.' }, 400);
     }
 
     await c.env.BUCKET.put(safeName, buffer, {
@@ -186,7 +185,10 @@ function applySvgSafetyHeaders(filename: string, headers: Headers) {
   const contentType = headers.get('Content-Type')?.split(';')[0].trim().toLowerCase();
   if (contentType !== 'image/svg+xml' && !filename.toLowerCase().endsWith('.svg')) return;
 
-  headers.set('Content-Security-Policy', "sandbox; default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'");
+  headers.set(
+    'Content-Security-Policy',
+    "sandbox; default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'",
+  );
   headers.set('X-Content-Type-Options', 'nosniff');
 }
 

@@ -91,12 +91,10 @@ export class ErrorBoundary extends Component<Props, State> {
           gap: '16px',
         }}
       >
-        <h1 style={{ fontSize: '24px', margin: 0 }}>
-          Algo inesperado aconteceu ao carregar esta página.
-        </h1>
+        <h1 style={{ fontSize: '24px', margin: 0 }}>Algo inesperado aconteceu ao carregar esta página.</h1>
         <p style={{ fontSize: '15px', margin: 0, maxWidth: '480px', textAlign: 'center', opacity: 0.7 }}>
-          Tentamos preservar o que você estava lendo, mas precisamos recarregar para continuar. Se o
-          problema persistir, escreva para o operador ou tente novamente em alguns minutos.
+          Tentamos preservar o que você estava lendo, mas precisamos recarregar para continuar. Se o problema persistir,
+          escreva para o operador ou tente novamente em alguns minutos.
         </p>
         <button
           type="button"

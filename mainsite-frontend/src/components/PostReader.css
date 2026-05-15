@@ -699,8 +699,12 @@
 .site-shell.theme-dark .post-reader .hljs-bullet {
   color: #7ee787;
 }
-.site-shell.theme-dark .post-reader .hljs-emphasis { font-style: italic; }
-.site-shell.theme-dark .post-reader .hljs-strong { font-weight: 700; }
+.site-shell.theme-dark .post-reader .hljs-emphasis {
+  font-style: italic;
+}
+.site-shell.theme-dark .post-reader .hljs-strong {
+  font-weight: 700;
+}
 .site-shell.theme-dark .post-reader .hljs-deletion {
   color: #ffa198;
   background: rgba(248, 81, 73, 0.15);
@@ -749,8 +753,12 @@
 .site-shell.theme-light .post-reader .hljs-bullet {
   color: #116329;
 }
-.site-shell.theme-light .post-reader .hljs-emphasis { font-style: italic; }
-.site-shell.theme-light .post-reader .hljs-strong { font-weight: 700; }
+.site-shell.theme-light .post-reader .hljs-emphasis {
+  font-style: italic;
+}
+.site-shell.theme-light .post-reader .hljs-strong {
+  font-weight: 700;
+}
 .site-shell.theme-light .post-reader .hljs-deletion {
   color: #82071e;
   background: rgba(255, 129, 130, 0.4);

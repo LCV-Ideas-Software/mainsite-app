@@ -54,6 +54,7 @@ jobs:
           npm ci
           npm audit --audit-level=high --registry=https://registry.npmjs.org/
           npm run lint
+          npm run biome
           npm test
           npx --registry=https://registry.npmjs.org/ wrangler@${WRANGLER_VERSION} deploy
         env:
@@ -65,6 +66,7 @@ jobs:
           npm ci
           npm audit --audit-level=high --registry=https://registry.npmjs.org/
           npm run lint
+          npm run biome
           npm test
           npm run build
           npx --registry=https://registry.npmjs.org/ wrangler@${WRANGLER_VERSION} pages deploy ./dist --project-name=mainsite-frontend --branch=main --commit-dirty=true

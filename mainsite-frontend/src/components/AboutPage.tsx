@@ -38,7 +38,17 @@ const sanitizeContent = (content: string) => {
   const safeHtml = DOMPurify.sanitize(normalizeInternalLinks(content), {
     USE_PROFILES: { html: true },
     ADD_TAGS: ['iframe'],
-    ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling', 'target', 'rel', 'data-type', 'data-checked', 'style'],
+    ADD_ATTR: [
+      'allow',
+      'allowfullscreen',
+      'frameborder',
+      'scrolling',
+      'target',
+      'rel',
+      'data-type',
+      'data-checked',
+      'style',
+    ],
   });
   const container = document.createElement('div');
   container.innerHTML = safeHtml;

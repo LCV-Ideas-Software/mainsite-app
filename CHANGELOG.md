@@ -5,6 +5,28 @@
 - **`/api/ai/public/chat`** deixou de aplicar o cap global D1 redundante (`chat-public-global` / `mainsite_rate_limit`) que retornava 429 antes da chamada ao Gemini quando a tabela auxiliar inexistia ou falhava.
 - **`src/lib/rate-limit.ts`** agora normaliza apenas toggles administrativos (`chatbot`, `email`, `comments`); os limites efetivos permanecem nos bindings nativos `ratelimits` do Cloudflare Worker.
 
+## [v03.23.03 / v02.19.03] - 2026-05-15
+
+**Patch — 4-gate quality directive compliance (eslint + biome + prettier + cross-review).** Workspace directive 2026-05-15: every code change must pass eslint + biome + prettier + cross-review before Commit & Sync / tag / release / deploy / publish.
+
+### Adicionado
+
+- `mainsite-frontend` + `mainsite-worker`: `npm run biome` (biome check .) + `npm run biome:write` (biome check --write .) scripts.
+- `deploy.yml` workflow runs `npm run biome` after `npm run lint` (eslint) and before `npm test`/`npm run build` in BOTH sub-apps.
+
+### Configurado
+
+- `mainsite-frontend/biome.json` schema URL `2.4.12` → `2.4.14` (installed CLI version).
+- `mainsite-worker/biome.json` schema URL `2.4.11` → `2.4.14` + `files.includes` scoped to `src/**/*.{ts,js}` (excludes `dist/`, `build/`, `.wrangler/`, `node_modules/`, `coverage/`). Sem o scope explícito, biome estava varrendo `dist/index.js` (build artifacts) e produzindo 45+ errors em código gerado.
+
+### Alterado
+
+- `mainsite-frontend`: 10 source files reformatted by `biome check --write .` (cosmetic only; no semantic changes).
+- `mainsite-worker`: 1 source file (`src/lib/moderation.ts`) reformatted by `biome check --write .` (cosmetic only).
+- APP_VERSION bumped:
+  - `mainsite-frontend/src/App.tsx`: `v03.23.02` → `v03.23.03`.
+  - `mainsite-worker/src/index.ts`: `v02.19.02` → `v02.19.03`.
+
 ## [v03.23.02 / v02.19.02] - 2026-05-09
 ### Alterado
 - **`site/index.html`** — iframe `github.com/sponsors/.../card` (caixa branca cross-origin) substituído por link card dark navy com ❤ pink + meta cyan + seta animada; card movido para DEPOIS dos botões (lcv.dev/sponsor primário, GitHub Sponsors alternativa). Companion ship Phase 3 (12 repos). APP_VERSION bumpada em ambos frontend e worker por consistência multi-repo, mas o reskin afeta apenas a página GitHub Pages.

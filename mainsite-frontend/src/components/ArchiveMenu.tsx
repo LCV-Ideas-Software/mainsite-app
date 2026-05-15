@@ -32,7 +32,14 @@ interface ArchiveMenuProps {
   onViewAbout: () => void;
 }
 
-const ArchiveMenu = ({ posts, currentPost, setCurrentPost, activePalette, APP_VERSION, onViewAbout }: ArchiveMenuProps) => {
+const ArchiveMenu = ({
+  posts,
+  currentPost,
+  setCurrentPost,
+  activePalette,
+  APP_VERSION,
+  onViewAbout,
+}: ArchiveMenuProps) => {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [showOlderYears, setShowOlderYears] = useState(false);

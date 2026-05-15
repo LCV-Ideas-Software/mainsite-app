@@ -47,12 +47,11 @@ const SENTIMENT_TIMEOUT_MS = 2000;
 async function getSentimentPrefix(env: Env, text: string): Promise<string> {
   try {
     const aiPromise = env.AI.run('@cf/huggingface/distilbert-sst-2-int8', { text: text.substring(0, 500) });
-    const timeoutPromise = new Promise<null>((resolve) =>
-      setTimeout(() => resolve(null), SENTIMENT_TIMEOUT_MS),
-    );
-    const response = (await Promise.race([aiPromise, timeoutPromise])) as
-      | Array<{ label?: string; score?: number }>
-      | null;
+    const timeoutPromise = new Promise<null>((resolve) => setTimeout(() => resolve(null), SENTIMENT_TIMEOUT_MS));
+    const response = (await Promise.race([aiPromise, timeoutPromise])) as Array<{
+      label?: string;
+      score?: number;
+    }> | null;
     if (!Array.isArray(response)) return '';
     const negative = response.find((r) => r.label === 'NEGATIVE');
     if (negative && typeof negative.score === 'number' && negative.score > 0.8) {
