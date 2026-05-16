@@ -112,7 +112,7 @@ function sanitizeFilename(filename: string): string | null {
 uploads.post('/api/upload', requireAuth, async (c) => {
   try {
     const body = await c.req.parseBody();
-    const file = body['file'] as File | undefined;
+    const file = body.file as File | undefined;
     if (!file) throw new Error('Nenhum arquivo submetido.');
 
     // Size validation

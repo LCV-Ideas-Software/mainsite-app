@@ -647,7 +647,6 @@
   height: auto;
 }
 
-/* biome-ignore lint: figure.tiptap-figure img above wins for figure children; this covers raw <img> inside .html-content */
 .post-reader .html-content img {
   max-width: 100%;
   height: auto;

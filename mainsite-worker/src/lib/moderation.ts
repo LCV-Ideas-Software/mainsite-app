@@ -171,7 +171,7 @@ export async function moderateText(content: string, apiKey: string): Promise<Mod
         return { categories: [], languageCode: 'pt', languageSupported: true };
       }
       authUrl = GCP_NL_API_URL;
-      authHeaders['Authorization'] = `Bearer ${accessToken}`;
+      authHeaders.Authorization = `Bearer ${accessToken}`;
     } else {
       // API Key simples (AIzaSy...)
       authUrl = `${GCP_NL_API_URL}?key=${encodeURIComponent(trimmedKey)}`;

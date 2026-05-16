@@ -208,7 +208,7 @@ ai.post('/api/ai/public/chat', async (c) => {
     const dbContext = contextPosts
       .map((p) => {
         const content = stripHtml(String((p as Record<string, unknown>).content || ''));
-        const truncatedContent = content.length > 1200 ? content.substring(0, 1200) + '...[truncado]' : content;
+        const truncatedContent = content.length > 1200 ? `${content.substring(0, 1200)}...[truncado]` : content;
         return `ID: ${(p as Record<string, unknown>).id}\nTÍTULO: ${(p as Record<string, unknown>).title}\nDATA: ${(p as Record<string, unknown>).created_at || 'N/A'}\nCONTEÚDO: ${truncatedContent}`;
       })
       .join('\n\n---\n\n');

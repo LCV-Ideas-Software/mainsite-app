@@ -129,8 +129,8 @@
     ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      // biome-ignore lint/complexity/noArguments: snippet oficial Google Analytics 4 — usar `arguments` preserva compatibilidade com o contrato da dataLayer.push
       function gtag() {
+        // biome-ignore lint/complexity/noArguments: snippet oficial Google Analytics 4 — usar `arguments` preserva compatibilidade com o contrato da dataLayer.push
         dataLayer.push(arguments);
       }
       gtag("js", new Date());

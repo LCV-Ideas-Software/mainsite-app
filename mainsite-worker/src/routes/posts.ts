@@ -271,7 +271,7 @@ posts.put('/api/posts/:id/pin', requireAuth, async (c) => {
     const post = await c.env.DB.prepare('SELECT is_pinned FROM mainsite_posts WHERE id = ?')
       .bind(id)
       .first<{ is_pinned: number }>();
-    const newStatus = post && post.is_pinned ? 0 : 1;
+    const newStatus = post?.is_pinned ? 0 : 1;
     if (newStatus === 1) await c.env.DB.prepare('UPDATE mainsite_posts SET is_pinned = 0').run();
     await c.env.DB.prepare('UPDATE mainsite_posts SET is_pinned = ? WHERE id = ?').bind(newStatus, id).run();
     c.executionCtx.waitUntil(bumpContentVersion(c.env.DB));
