@@ -66,6 +66,7 @@
     "undici": "6.24.0",
     "vite": "$vite",
     "serialize-javascript": "^7.0.5",
+    "ws": "8.20.1",
     "workbox-build": {
       "glob": "13.0.6"
     },
