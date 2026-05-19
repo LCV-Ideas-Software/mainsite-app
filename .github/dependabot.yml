@@ -13,10 +13,9 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
+      interval: "daily"
+      time: "03:00"
+      timezone: "America/Sao_Paulo"
     labels:
       - "dependencies"
       - "github-actions"
@@ -28,10 +27,9 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
+      interval: "daily"
+      time: "03:00"
+      timezone: "America/Sao_Paulo"
     labels:
       - "dependencies"
       - "npm"
@@ -55,10 +53,9 @@ updates:
     registries:
       - stepsecurity-javascript
     schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
+      interval: "daily"
+      time: "03:00"
+      timezone: "America/Sao_Paulo"
     labels:
       - "dependencies"
       - "npm"
@@ -119,10 +116,9 @@ updates:
   - package-ecosystem: "npm"
     directory: "/mainsite-worker"
     schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
+      interval: "daily"
+      time: "03:00"
+      timezone: "America/Sao_Paulo"
     labels:
       - "dependencies"
       - "npm"
