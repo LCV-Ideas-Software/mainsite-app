@@ -19,7 +19,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20260518.1",
+    "@cloudflare/workers-types": "^4.20260519.1",
     "@tanstack/react-query": "^5.100.10",
     "dompurify": "^3.4.5",
     "lucide-react": "^1.16.0",
@@ -34,8 +34,8 @@
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^16.0.0",
-    "@types/node": "^25.8.0",
-    "@types/react": "^19.2.14",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "@vitest/coverage-v8": "^4.1.6",
