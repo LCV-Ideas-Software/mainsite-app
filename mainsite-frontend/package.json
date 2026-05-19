@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20260519.1",
-    "@tanstack/react-query": "^5.100.10",
+    "@tanstack/react-query": "^5.100.11",
     "dompurify": "^3.4.5",
     "lucide-react": "^1.16.0",
     "react": "^19.2.6",
@@ -30,7 +30,7 @@
     "@biomejs/biome": "^2.4.15",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.60.0",
-    "@tanstack/react-query-devtools": "^5.100.10",
+    "@tanstack/react-query-devtools": "^5.100.11",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^16.0.0",
