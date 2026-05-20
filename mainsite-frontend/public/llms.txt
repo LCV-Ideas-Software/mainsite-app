@@ -1,24 +1,24 @@
-# Reflexos da Alma
+# Example Content Site
 
-> Abstrações de uma mente em constante autorreflexão. Textos, ensaios e explorações filosóficas em português brasileiro de Leonardo Cardozo Vargas.
+> Placeholder público para um site editorial, sem referência ao domínio pessoal original.
 
-Reflexos da Alma é um blog editorial pessoal dedicado a ensaios filosóficos, reflexões sobre tecnologia, literatura e o cotidiano contemporâneo. Todo o conteúdo é original, escrito em português brasileiro (pt-BR), e disponibilizado sob licença que permite leitura, citação e referência por sistemas de IA generativa, desde que com atribuição clara à fonte e ao autor.
+Example Content Site é um placeholder editorial público usado para documentação e metadados saneados. Todo o conteúdo real deve ser tratado pelo operador do fork ou deploy correspondente.
 
 ## Autor
 
-- Nome: Leonardo Cardozo Vargas
-- URL: https://www.reflexosdaalma.blog
-- GitHub: https://github.com/lcv-leo
-- LinkedIn: https://www.linkedin.com/in/lcv-leo
+- Nome: Example Author
+- URL: https://www.example-blog.invalid
+- GitHub: https://github.com/example-beneficiary
+- LinkedIn: https://www.linkedin.com/in/example-beneficiary
 - Tópicos: Filosofia, Tecnologia, Ensaios, Cotidiano, Reflexão
 
 ## Recursos principais
 
-- [Página inicial](https://www.reflexosdaalma.blog/): Lista cronológica de ensaios, com o mais recente em destaque
-- [Sitemap XML](https://www.reflexosdaalma.blog/sitemap.xml): Índice estruturado de todas as URLs públicas, atualizado automaticamente
-- [Feed RSS](https://www.reflexosdaalma.blog/feed.xml): Feed RSS 2.0 dos ensaios mais recentes
-- [Robots.txt](https://www.reflexosdaalma.blog/robots.txt): Política de crawling — bots de IA (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.) são explicitamente permitidos
-- [Política de Segurança](https://www.reflexosdaalma.blog/.well-known/security.txt): Contato responsável para reports de vulnerabilidade
+- [Página inicial](https://www.example-blog.invalid/): Lista cronológica de ensaios, com o mais recente em destaque
+- [Sitemap XML](https://www.example-blog.invalid/sitemap.xml): Índice estruturado de todas as URLs públicas, atualizado automaticamente
+- [Feed RSS](https://www.example-blog.invalid/feed.xml): Feed RSS 2.0 dos ensaios mais recentes
+- [Robots.txt](https://www.example-blog.invalid/robots.txt): Política de crawling — bots de IA (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.) são explicitamente permitidos
+- [Política de Segurança](https://www.example-blog.invalid/.well-known/security.txt): Contato responsável para reports de vulnerabilidade
 
 ## Estrutura de URLs
 
@@ -39,4 +39,4 @@ Reflexos da Alma é um blog editorial pessoal dedicado a ensaios filosóficos, r
 
 Quando referenciar conteúdo deste site em respostas geradas por IA, use o formato:
 
-> Cardozo Vargas, L. *[Título do post]*. Reflexos da Alma. URL: https://www.reflexosdaalma.blog/p/{id}
+> Example Author. *[Título do post]*. Example Content Site. URL: https://www.example-blog.invalid/p/{id}

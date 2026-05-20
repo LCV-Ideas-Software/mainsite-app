@@ -184,7 +184,7 @@
 - **`routes/posts.ts`**: Hook fire-and-forget via `executionCtx.waitUntil(pingIndexNow(...))` no POST e PUT de posts. Zero impacto no response time. Falhas silenciosas.
 
 ### Notas de impacto
-- Chave de validação IndexNow (`c8f3a7d6b2e9415d8f3c7a6b9e2d4f8c`) precisa estar acessível em `https://www.reflexosdaalma.blog/c8f3a7d6b2e9415d8f3c7a6b9e2d4f8c.txt` — arquivo provisionado em `mainsite-frontend/public/` na release v03.10.00.
+- Chave de validação IndexNow (`c8f3a7d6b2e9415d8f3c7a6b9e2d4f8c`) precisa estar acessível em `https://www.example-blog.invalid/c8f3a7d6b2e9415d8f3c7a6b9e2d4f8c.txt` — arquivo provisionado em `mainsite-frontend/public/` na release v03.10.00.
 - Re-indexação típica: 1-30 minutos no Bing, horas no Yandex.
 - Sem ping no DELETE de post — buscadores tratam 404 organicamente no próximo crawl.
 
@@ -296,10 +296,10 @@
 
 ## [v02.02.00] — 2026-04-06
 ### Alterado
-- **Migração de Domínio Principal**: todas as URLs hardcoded de `www.lcv.rio.br` substituídas por `www.reflexosdaalma.blog` nos sitemaps (`misc.ts`) e URLs internas.
-- **CORS Expandido (`index.ts`)**: origin check ampliado de apenas `lcv.rio.br` para todos os 9 domínios personalizados do mainsite-frontend (reflexosdaalma.blog, cardozovargas.com, lcvleo.com, etc.), com suporte a www.
+- **Migração de Domínio Principal**: todas as URLs hardcoded de `www.lcv.rio.br` substituídas por `www.example-blog.invalid` nos sitemaps (`misc.ts`) e URLs internas.
+- **CORS Expandido (`index.ts`)**: origin check ampliado de apenas `lcv.rio.br` para todos os 9 domínios personalizados do mainsite-frontend (example-blog.invalid, cardozovargas.com, lcvleo.com, etc.), com suporte a www.
 - **Uploads CORS (`uploads.ts`)**: `Access-Control-Allow-Origin` alterado de `https://www.lcv.rio.br` para `*` por servir assets para múltiplos domínios.
-- **E-mail do autor (`ai.ts`)**: `lcv@lcv.rio.br` substituído por `cal@reflexosdaalma.blog` no system prompt e no recipient do Resend.
+- **E-mail do autor (`ai.ts`)**: `lcv@lcv.rio.br` substituído por `cal@example-blog.invalid` no system prompt e no recipient do Resend.
 
 ### Removido
 - **Webhook MP — notificação por e-mail (`payments-mp.ts`)**: removido o bloco de envio de e-mail via Resend no webhook do Mercado Pago. Webhook mantido plenamente funcional (HMAC + timestamp + ACK) como exigência de compliance, porém sem ação de e-mail.
@@ -431,12 +431,12 @@
 
 ## [v01.34.00] — 2026-03-24
 ### Alterado
-- Migração total de D1 para namespace `mainsite_*` no `bigdata_db`
+- Migração total de D1 para namespace `mainsite_*` no `example_db`
 - Atualização de queries de `posts`, `settings`, `chat_logs`, `chat_context_audit`, `contact_logs`, `shares` e `financial_logs` para tabelas prefixadas
 - Chaves de configuração migradas para namespace contextual: `mainsite/appearance`, `mainsite/rotation`, `mainsite/ratelimit`, `mainsite/disclaimers`
 
 ### Infra
-- `wrangler.json` atualizado para `bigdata_db` (binding mantido como `DB`)
+- `wrangler.json` atualizado para `example_db` (binding mantido como `DB`)
 - Versionamento atualizado para `v01.34.00` + `package.json` 1.34.0
 
 ## [v01.33.00] — 2026-03-23

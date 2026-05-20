@@ -10,9 +10,9 @@
 [![backend: Hono on Workers](https://img.shields.io/badge/backend-Hono%20on%20Workers-f97316.svg)](https://hono.dev/)
 [![license: AGPL-3.0-or-later](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](./LICENSE)
 
-**Reflexos da Alma** — public personal blog + companion services. Two independent Cloudflare deploys served from this monorepo, both reading from a shared Cloudflare D1 database (`bigdata_db`):
+**Reflexos da Alma** — public personal blog + companion services. Two independent Cloudflare deploys served from this monorepo, both reading from a shared Cloudflare D1 database (`example_db`):
 
-- **`mainsite-frontend`** — React 19 + Vite 8 single-page app on Cloudflare Pages, primary domain `reflexosdaalma.blog` (+ secondary aliases). Public-facing site with reading experience, comments, ratings, AI chatbot, share-by-email, and accessibility-first design.
+- **`mainsite-frontend`** — React 19 + Vite 8 single-page app on Cloudflare Pages, primary domain `example-blog.invalid` (+ secondary aliases). Public-facing site with reading experience, comments, ratings, AI chatbot, share-by-email, and accessibility-first design.
 - **`mainsite-worker`** — Hono backend on Cloudflare Workers serving `/api/*` for the frontend. AI surfaces (Gemini), moderation (GCP Natural Language API + Turnstile), email relay (Resend), and R2 media.
 
 **Status.** Stable. Current release: **mainsite-frontend v03.23.02** paired with **mainsite-worker v02.19.02**. See [CHANGELOG.md](./CHANGELOG.md) for the full release history.
@@ -57,7 +57,7 @@ Browser
         │  theme.css, content-fingerprint, uploads
         ├─ admin surface (CF-Access JWT or bearer): post CRUD, settings, moderation,
         │  share-email logs
-        └──→ D1 (bigdata_db) + R2 (mainsite-media) + Workers AI + Gemini API
+        └──→ D1 (example_db) + R2 (mainsite-media) + Workers AI + Gemini API
 ```
 
 Public-flip prep: D1 ID lives in CI as a GitHub Actions secret; both `wrangler.json` files carry a nil-UUID placeholder (`00000000-0000-0000-0000-000000000000`) replaced by `jq` injection at deploy time.
@@ -86,7 +86,7 @@ cd mainsite-worker && npm ci && cd ..
 ### 2. Create D1 database + R2 bucket
 
 ```bash
-npx wrangler d1 create bigdata_db
+npx wrangler d1 create example_db
 # wrangler outputs:
 #   database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 npx wrangler r2 bucket create mainsite-media
@@ -144,7 +144,7 @@ This repo's [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) runs 
 
 ## License
 
-Copyright (C) 2026 Leonardo Cardozo Vargas.
+Copyright (C) 2026 LCV Ideas & Software
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

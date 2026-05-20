@@ -2,8 +2,8 @@
 
 Thanks for your interest. Quick guide for filing issues and opening pull requests.
 
-This repo hosts two independent deploys that share a D1 database (`bigdata_db`):
-- **`mainsite-frontend`** — public React 19 + Vite Pages site at `reflexosdaalma.blog` (+ secondary domains).
+This repo hosts two independent deploys that share a D1 database (`example_db`):
+- **`mainsite-frontend`** — public React 19 + Vite Pages site at `example-blog.invalid` (+ secondary domains).
 - **`mainsite-worker`** — Cloudflare Worker backend serving `/api/*`.
 
 ---
@@ -86,4 +86,4 @@ By participating, you agree to follow [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
 
 ## Maintainer
 
-Single maintainer: [@lcv-leo](https://github.com/lcv-leo). Response time best-effort.
+Single maintainer: [@example-beneficiary](https://github.com/example-beneficiary). Response time best-effort.

@@ -118,7 +118,7 @@
 ### Adicionado — Phase 3 sweep (flip readiness, puramente aditivo)
 - **`CONTRIBUTING.md`**: guia para issues + PRs cobrindo gates locais por sub-app (mainsite-frontend + mainsite-worker), wrangler dry-run, action pinning, versioning, regra de `public/_headers` intocável.
 - **`CODE_OF_CONDUCT.md`**: Contributor Covenant 2.1 com canal `alert@lcvmail.com`.
-- **`.github/CODEOWNERS`**: `* @lcv-leo` como owner default.
+- **`.github/CODEOWNERS`**: `* @example-beneficiary` como owner default.
 - **`.npmignore`**: baseline de ignore para tarball npm (segredo/secrets store/.wrangler/AI memory/internal docs como `NEXTJS_MIGRATION_PLAN.md`).
 - **`THIRDPARTY.md`**: inventário completo de dependências mainsite-frontend + mainsite-worker com licenças e origens.
 ### Corrigido — pre-existing lint warnings em `mainsite-worker/src/index.ts`
@@ -127,7 +127,7 @@
 
 ## [mainsite-worker v02.17.02 + mainsite-frontend v03.21.02] - 2026-04-26
 ### Phase 1 sweep — audit residuals
-- **lcv-rio → lcv-leo (audit MEDIUM #14)**: 4 arquivos no `mainsite-frontend` (`index.html`, `functions/[[path]].ts`, `public/llms.txt`, `src/components/PostReader.tsx`) atualizados para apontar à org canônica `lcv-leo` em GitHub e LinkedIn (JSON-LD `sameAs` arrays + llms.txt + meta tags). ComplianceBanner já estava correto.
+- **lcv-rio → example-beneficiary (audit MEDIUM #14)**: 4 arquivos no `mainsite-frontend` (`index.html`, `functions/[[path]].ts`, `public/llms.txt`, `src/components/PostReader.tsx`) atualizados para apontar à org canônica `example-beneficiary` em GitHub e LinkedIn (JSON-LD `sameAs` arrays + llms.txt + meta tags). ComplianceBanner já estava correto.
 - **mainsite-worker dead code purge (audit NIT)**: `src/routes/misc.ts` (router Hono vazio mountado sem rotas) deletado; import e mount removidos de `src/index.ts`.
 - **mainsite-worker type tightening (audit NIT)**: `src/env.ts` `AI: any` → `AI: Ai` (tipo nativo de `@cloudflare/workers-types`).
 - **mainsite-worker GCP_NL_API_KEY type-drift fix (audit MEDIUM #44)**: tipo passa de `SecretStoreBinding` para `string` em `RawEnv` com comentário explicativo de que é native Worker secret (>1024 chars JSON SA não cabe em Secrets Store). Resolver permanece duck-typed via `typeof binding.get === 'function'`.

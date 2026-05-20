@@ -19,7 +19,7 @@
 ## [v03.21.07] - 2026-04-27
 ### Alterado — migração GitHub org + Pages/Sponsors custom domain
 - Repositório transferido para `LCV-Ideas-Software/mainsite-app`; README e rodapé de compliance apontam para o repositório público da organização.
-- `.github/FUNDING.yml` preserva o link custom `https://mainsite-app.lcv.app.br/` para o botão Sponsor, com `github: lcv-leo`.
+- `.github/FUNDING.yml` preserva o link custom `https://mainsite-app.lcv.app.br/` para o botão Sponsor, com `github: example-beneficiary`.
 - Dependabot deixa de atribuir PRs ao usuário e ganha workflow `Dependabot Automerge` restrito a `dependabot[bot]`, sem checkout de código de PR.
 ### Validação
 - `npm run lint`.
@@ -95,7 +95,7 @@
 - **`/api/site-status` integrado ao ciclo de fetch**: novo estado `siteStatus: SiteStatus | null` no `App.tsx`, consultado (1) no fetch inicial antes de chamar `/api/posts` e (2) em cada `refreshPosts` disparado via `ContentUpdateToast`. Quando `mode='hidden'`, pula completamente a árvore de fetch de posts, limpa `currentPost=null` e `posts=[]`, e passa `maintenance={siteStatus}` ao `PostReader`. URLs diretas tipo `/p/42` abertas em modo hidden caem na mesma folha em branco (sem 404 do browser, sem redirect).
 ### Alterado
 - **`types.ts`**: `Post.is_published?: number | boolean` (opcional para compatibilidade com payloads antigos); novos tipos `PublishingMode = 'normal'|'hidden'` e `SiteStatus = { mode, notice_title, notice_message }`.
-- **`PostReader.tsx`**: `post` passou de `Post` para `Post | null` (guardas null-safe em todo o componente); construção de JSON-LD envolvida em ternário com fallback vazio; `canonicalUrl` aceita fallback para `https://www.reflexosdaalma.blog/`; `aria-label` do article usa `displayTitle || 'Área de leitura'`.
+- **`PostReader.tsx`**: `post` passou de `Post` para `Post | null` (guardas null-safe em todo o componente); construção de JSON-LD envolvida em ternário com fallback vazio; `canonicalUrl` aceita fallback para `https://www.example-blog.invalid/`; `aria-label` do article usa `displayTitle || 'Área de leitura'`.
 ### Motivação
 - **Folha em branco como metáfora de design**: exigência explícita do proprietário — a estrutura visual do site nunca muda; só o que está escrito na "folha" muda (ou desaparece). Implementação rigorosamente blindada contra crashes por ausência de post, mesmo em URLs diretas / deep-links antigos salvos por leitores. Complementa o kill switch no worker (v02.13.00) e a configuração no admin (v01.92.00).
 
@@ -206,7 +206,7 @@
 - **UX de segurança**: `ContactModal`, `CommentModal`, `CommentsSection` e `ShareOverlay` agora exibem erro/expiração do Turnstile e limpam tokens vencidos, em vez de falhar silenciosamente.
 - **Meta PWA**: `index.html` passou a incluir `mobile-web-app-capable`, preservando a compatibilidade antiga com `apple-mobile-web-app-capable` e removendo o warning de deprecação no browser.
 ### Corrigido
-- **Allowlist do widget Turnstile**: o widget publicado `mainsite-comments` teve a lista de hostnames alinhada via API da Cloudflare para cobrir `mainsite-frontend.pages.dev`, `reflexosdaalma.blog` e os domínios-base customizados ativos do projeto.
+- **Allowlist do widget Turnstile**: o widget publicado `mainsite-comments` teve a lista de hostnames alinhada via API da Cloudflare para cobrir `mainsite-frontend.pages.dev`, `example-blog.invalid` e os domínios-base customizados ativos do projeto.
 ### Notas
 - **`_headers` preservado**: nenhuma alteração em `mainsite-frontend/public/_headers`.
 
@@ -281,7 +281,7 @@
 - **`functions/sitemap.xml.ts`**: Inclui `/feed.xml`, páginas de autor (uma por autor único, derivado do banco), `xhtml:link rel="alternate" hreflang="pt-BR"` em URLs principais.
 
 ### Alterado
-- **`public/robots.txt`**: Sitemap directive corrigida para o domínio canônico `www.reflexosdaalma.blog` (antes apontava para `www.lcv.rio.br`).
+- **`public/robots.txt`**: Sitemap directive corrigida para o domínio canônico `www.example-blog.invalid` (antes apontava para `www.lcv.rio.br`).
 
 ### Notas de impacto
 - Nenhuma mudança em `_headers` (preservado por restrição SumUp).
@@ -445,10 +445,10 @@
 
 ## [v03.05.00] - 2026-04-06
 ### Alterado
-- **Migração de Domínio Principal**: domínio primário migrado de `lcv.rio.br` para `reflexosdaalma.blog` (com e sem www) em todos os metadados, URLs canônicas, Open Graph, Twitter Cards e Schema.org JSON-LD.
-- **SITE_URL**: constante global atualizada de `https://www.lcv.rio.br` para `https://www.reflexosdaalma.blog`.
-- **Edge Function `[[path]].ts`**: redirect de `*.pages.dev` agora aponta para `reflexosdaalma.blog`; canonical URLs, Schema.org Article, BreadcrumbList e author/publisher URLs atualizados.
-- **Sitemap `sitemap.xml.ts`**: `siteUrl` atualizado para `https://www.reflexosdaalma.blog`.
+- **Migração de Domínio Principal**: domínio primário migrado de `lcv.rio.br` para `example-blog.invalid` (com e sem www) em todos os metadados, URLs canônicas, Open Graph, Twitter Cards e Schema.org JSON-LD.
+- **SITE_URL**: constante global atualizada de `https://www.lcv.rio.br` para `https://www.example-blog.invalid`.
+- **Edge Function `[[path]].ts`**: redirect de `*.pages.dev` agora aponta para `example-blog.invalid`; canonical URLs, Schema.org Article, BreadcrumbList e author/publisher URLs atualizados.
+- **Sitemap `sitemap.xml.ts`**: `siteUrl` atualizado para `https://www.example-blog.invalid`.
 - **`index.html`**: todas as meta tags OG/Twitter/canonical e Schema.org WebSite/Person atualizados.
 - **`PostReader.tsx`**: Schema.org Article JSON-LD (author, publisher, logo, mainEntityOfPage) atualizados.
 
@@ -838,8 +838,8 @@
 - Eliminação de todas as URLs externas (`https://mainsite-app.lcv.rio.br`) na comunicação intra-app
 - `API_URL` convertido de URL externa para rota relativa `/api`
 - Brand icons fallback convertido para `/api/uploads/brands` (interno)
-- OG tags (`functions/[[path]].js`) reescrito para consultar `bigdata_db` via binding D1 direto
-- Sitemap (`functions/sitemap.xml.js`) reescrito para consultar `bigdata_db` via binding D1 direto
+- OG tags (`functions/[[path]].js`) reescrito para consultar `example_db` via binding D1 direto
+- Sitemap (`functions/sitemap.xml.js`) reescrito para consultar `example_db` via binding D1 direto
 - CSP `connect-src` removido referência ao domínio externo do worker
 
 ### Adicionado
@@ -853,7 +853,7 @@
 
 ## [v02.12.00] — 2026-03-24
 ### Alterado
-- Migração de binding D1 para `bigdata_db` no `wrangler.json`, mantendo binding lógico `DB`
+- Migração de binding D1 para `example_db` no `wrangler.json`, mantendo binding lógico `DB`
 
 ### Infra
 - Consolidação do versionamento para `APP v02.12.00` + `package.json` 2.12.0

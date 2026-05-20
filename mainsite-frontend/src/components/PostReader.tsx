@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 Leonardo Cardozo Vargas
+ * Copyright (C) 2026 LCV Ideas & Software
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 // Module: mainsite-frontend/src/components/PostReader.tsx
@@ -179,7 +179,7 @@ const PostReader = ({
           '@type': 'Person',
           name: postAuthor,
           url: 'https://www.reflexosdaalma.blog',
-          sameAs: ['https://github.com/lcv-leo', 'https://www.linkedin.com/in/lcv-leo'],
+          sameAs: ['https://github.com/example-beneficiary', 'https://www.linkedin.com/in/example-beneficiary'],
         },
         datePublished: post.created_at
           ? new Date(`${post.created_at.replace(' ', 'T')}Z`).toISOString()

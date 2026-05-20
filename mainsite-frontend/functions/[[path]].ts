@@ -148,8 +148,8 @@ export async function onRequest(context: EventContext<Env, string, Record<string
         "name": postAuthor,
         "url": "https://www.reflexosdaalma.blog",
         "sameAs": [
-          "https://github.com/lcv-leo",
-          "https://www.linkedin.com/in/lcv-leo"
+          "https://github.com/example-beneficiary",
+          "https://www.linkedin.com/in/example-beneficiary"
         ]
       },
       "datePublished": datePublished,
