@@ -47,7 +47,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo): void {
+  override componentDidCatch(error: Error, info: ErrorInfo): void {
     if (typeof console !== 'undefined' && console.error) {
       console.error('[mainsite] ErrorBoundary caught:', error, info.componentStack);
     }
@@ -70,7 +70,7 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({ hasError: false, error: null });
   };
 
-  render(): ReactNode {
+  override render(): ReactNode {
     if (!this.state.hasError) return this.props.children;
     if (this.props.fallback && this.state.error) {
       return this.props.fallback(this.state.error, this.handleReset);

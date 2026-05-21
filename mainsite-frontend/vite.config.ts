@@ -117,12 +117,13 @@ export default defineConfig({
     cssCodeSplit: false,
     rollupOptions: {
       output: {
-        manualChunks(id) {
+        manualChunks(id): string | undefined {
           if (id.includes('node_modules')) {
             if (id.includes('lucide-react')) return 'vendor-icons';
             if (id.includes('react') || id.includes('react-dom')) return 'vendor-react';
             return 'vendor';
           }
+          return undefined;
         },
       },
     },

@@ -56,7 +56,11 @@ export async function onRequest(context: EventContext<Env, 'slug', Params<'slug'
     const candidates = allPosts.filter((p) => nameToSlug(p.author || '') === slug);
     if (candidates.length === 0) return new Response('Author Not Found', { status: 404 });
 
-    const authorName = candidates[0].author || slugToName(slug);
+    const firstCandidate = candidates[0];
+    if (!firstCandidate) return new Response('Author Not Found', { status: 404 });
+
+    const authorName = firstCandidate.author || slugToName(slug);
+    const [firstName = authorName] = authorName.split(' ');
     const pageUrl = `${SITE_URL}/autor/${slug}`;
     const pageTitle = `${authorName} | ${SITE_NAME}`;
     const description = `Todos os ensaios e textos publicados por ${authorName} em ${SITE_NAME}.`;
@@ -122,7 +126,7 @@ export async function onRequest(context: EventContext<Env, 'slug', Params<'slug'
 <meta property="og:url" content="${pageUrl}" />
 <meta property="og:site_name" content="${SITE_NAME}" />
 <meta property="og:image" content="${SITE_URL}/og-image.png" />
-<meta property="profile:first_name" content="${escapeHtml(authorName.split(' ')[0])}" />
+<meta property="profile:first_name" content="${escapeHtml(firstName)}" />
 <meta property="profile:last_name" content="${escapeHtml(authorName.split(' ').slice(1).join(' '))}" />
 
 <meta name="twitter:card" content="summary_large_image" />

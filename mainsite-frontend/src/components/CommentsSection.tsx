@@ -30,7 +30,7 @@ interface CommentsSectionProps {
   postId: number;
   activePalette: ActivePalette;
   apiUrl: string;
-  turnstileSiteKey?: string;
+  turnstileSiteKey?: string | undefined;
 }
 
 // ── Cloudflare Turnstile Type Augmentation ──────────────────────────────────

@@ -29,7 +29,7 @@ interface PostReaderProps {
   isNotHomePage: boolean;
   zoomLevel: number;
   apiUrl: string;
-  turnstileSiteKey?: string;
+  turnstileSiteKey?: string | undefined;
   /**
    * Kill switch global recebido de /api/site-status. Quando presente com mode='hidden',
    * RatingWidget e CommentsSection são omitidos (dependem de postId real) e a área de
@@ -120,34 +120,40 @@ const PostReader = ({
       .filter((p) => p.trim() !== '')
       .map((text, index) => {
         const ytMatch = text.match(/^\[YT:(.+?)(\|(.*?))?\]$/);
-        if (ytMatch)
+        if (ytMatch) {
+          const videoId = ytMatch[1] ?? '';
+          const caption = ytMatch[3]?.trim();
           return (
             // biome-ignore lint/suspicious/noArrayIndexKey: parágrafos do post divididos por \n, ordem imutável em render único
             <div key={index} className="media-container">
               <iframe
                 className="media-iframe"
-                src={`https://www.youtube-nocookie.com/embed/${ytMatch[1].trim()}`}
-                title={ytMatch[3] ? ytMatch[3].trim() : `Vídeo incorporado ${index + 1}`}
+                src={`https://www.youtube-nocookie.com/embed/${videoId.trim()}`}
+                title={caption || `Vídeo incorporado ${index + 1}`}
                 frameBorder="0"
                 allowFullScreen
               ></iframe>
-              {ytMatch[3] && <div className="media-caption">{ytMatch[3].trim()}</div>}
+              {caption && <div className="media-caption">{caption}</div>}
             </div>
           );
+        }
         const imgMatch = text.match(/^\[IMG:(.+?)(\|(.*?))?\]$/);
-        if (imgMatch)
+        if (imgMatch) {
+          const imageSrc = imgMatch[1] ?? '';
+          const caption = imgMatch[3]?.trim();
           return (
             // biome-ignore lint/suspicious/noArrayIndexKey: parágrafos do post divididos por \n, ordem imutável em render único
             <div key={index} className="media-container">
               <img
-                src={imgMatch[1].trim()}
-                alt={imgMatch[3] ? imgMatch[3].trim() : `Ilustração do artigo`}
+                src={imageSrc.trim()}
+                alt={caption || `Ilustração do artigo`}
                 className="media-image"
                 loading="lazy"
               />
-              {imgMatch[3] && <div className="media-caption">{imgMatch[3].trim()}</div>}
+              {caption && <div className="media-caption">{caption}</div>}
             </div>
           );
+        }
         return (
           // biome-ignore lint/suspicious/noArrayIndexKey: parágrafos do post divididos por \n, ordem imutável em render único
           <p key={index} className="p-content">

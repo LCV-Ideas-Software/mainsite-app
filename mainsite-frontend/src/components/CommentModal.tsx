@@ -15,11 +15,14 @@ import { isDarkPalette } from '../types';
 interface CommentModalProps {
   show: boolean;
   onClose: () => void;
-  onSubmit: (data: ContactFormData & { post_title?: string; turnstile_token?: string }, resetForm: () => void) => void;
+  onSubmit: (
+    data: ContactFormData & { post_title?: string | undefined; turnstile_token?: string | undefined },
+    resetForm: () => void,
+  ) => void;
   activePalette: ActivePalette;
   isSubmitting: boolean;
   currentPost: Post | null;
-  turnstileSiteKey?: string;
+  turnstileSiteKey?: string | undefined;
 }
 
 const CommentModal = ({
@@ -115,9 +118,11 @@ const CommentModal = ({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (turnstileSiteKey && !turnstileToken) return;
-    const payload = turnstileToken
-      ? { ...formData, turnstile_token: turnstileToken, post_title: currentPost?.title }
-      : { ...formData, post_title: currentPost?.title };
+    const payload = {
+      ...formData,
+      ...(currentPost ? { post_title: currentPost.title } : {}),
+      ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
+    };
     onSubmit(payload, () => {
       setFormData({ name: '', phone: '', email: '', message: '' });
       setTurnstileToken('');

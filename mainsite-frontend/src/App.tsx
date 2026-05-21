@@ -233,7 +233,7 @@ const App = () => {
     const queryId = urlParams.get('p');
     if (queryId) return queryId;
     const pathMatch = window.location.pathname.match(/^\/(?:p|post|materia|m|s)\/(\d+)\/?$/i);
-    return pathMatch ? pathMatch[1] : null;
+    return pathMatch?.[1] ?? null;
   };
 
   const isEditableTarget = (target: EventTarget | null): boolean => {
@@ -353,11 +353,12 @@ const App = () => {
           if (postId) {
             const detailed = await fetchPostDetail(postId);
             const found = detailed || dataPosts.find((p) => p.id === parseInt(postId, 10)) || null;
-            setCurrentPost(
-              found || (dataPosts.length > 0 ? (await fetchPostDetail(dataPosts[0].id)) || dataPosts[0] : null),
-            );
+            const firstPost = dataPosts[0] ?? null;
+            const fallbackPost = firstPost ? (await fetchPostDetail(firstPost.id)) || firstPost : null;
+            setCurrentPost(found || fallbackPost);
           } else {
-            setCurrentPost(dataPosts.length > 0 ? (await fetchPostDetail(dataPosts[0].id)) || dataPosts[0] : null);
+            const firstPost = dataPosts[0] ?? null;
+            setCurrentPost(firstPost ? (await fetchPostDetail(firstPost.id)) || firstPost : null);
           }
         }
 
@@ -538,7 +539,7 @@ const App = () => {
   const cycleTheme = () => {
     const modes: ThemePreference[] = settings.allowAutoMode ? ['auto', 'light', 'dark'] : ['light', 'dark'];
     const nextIndex = (modes.indexOf(userTheme) + 1) % modes.length;
-    const next = modes[nextIndex];
+    const next = modes[nextIndex] ?? modes[0] ?? 'dark';
     setUserTheme(next);
     localStorage.setItem('themePref', next);
   };
