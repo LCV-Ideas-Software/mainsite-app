@@ -68,6 +68,14 @@ updates:
       include: "scope"
     versioning-strategy: increase
     groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
       pwa-build-chain:
         patterns:
           - "vite-plugin-pwa"
