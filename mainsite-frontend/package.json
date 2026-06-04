@@ -19,7 +19,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20260603.1",
+    "@cloudflare/workers-types": "^4.20260604.1",
     "@tanstack/react-query": "^5.101.0",
     "dompurify": "^3.4.8",
     "lucide-react": "^1.17.0",
