@@ -132,7 +132,7 @@ export default defineConfig({
     exclude: ['lightningcss'],
   },
   test: {
-    environment: 'happy-dom',
+    environment: 'jsdom',
     setupFiles: ['./src/test-setup.ts'],
     exclude: ['**/node_modules/**', '**/dist/**', 'e2e/**'],
     coverage: {

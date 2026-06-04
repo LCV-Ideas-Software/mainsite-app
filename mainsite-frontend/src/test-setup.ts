@@ -8,13 +8,13 @@ import '@testing-library/jest-dom/vitest';
  * (caso do Node 25.x observado em Windows sob Git Bash), o objeto exposto existe mas
  * não implementa `clear`/`setItem`/`getItem`/etc. — só tem keys vazias.
  *
- * Esse global quebrado tem precedência sobre o `window.localStorage` que o happy-dom
+ * Esse global quebrado tem precedência sobre o `window.localStorage` que o test DOM
  * registra ao criar o ambiente de teste, fazendo com que qualquer `localStorage.clear()`
  * nos testes lance `TypeError: localStorage.clear is not a function`.
  *
  * Fix: se `globalThis.localStorage.clear` não for função, substituímos por uma
  * implementação Map-based in-memory. Idempotente: se já existe um impl válido
- * (happy-dom, jsdom, browser real), não mexemos.
+ * (jsdom, browser real), não mexemos.
  */
 const ensureStorage = (name: 'localStorage' | 'sessionStorage') => {
   const current = (globalThis as unknown as Record<string, unknown>)[name] as Storage | undefined;
