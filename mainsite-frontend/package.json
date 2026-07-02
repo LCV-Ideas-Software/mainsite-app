@@ -47,7 +47,7 @@
     "globals": "^17.7.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "knip": "^6.23.0",
+    "knip": "^6.24.0",
     "lint-staged": "^17.0.8",
     "rollup-plugin-visualizer": "^7.0.1",
     "typescript": "^6.0.3",
