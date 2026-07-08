@@ -19,7 +19,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^5.20260707.1",
+    "@cloudflare/workers-types": "^5.20260708.1",
     "@tanstack/react-query": "^5.101.2",
     "dompurify": "^3.4.11",
     "lucide-react": "^1.23.0",
@@ -34,7 +34,7 @@
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
@@ -47,7 +47,7 @@
     "globals": "^17.7.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "knip": "^6.24.0",
+    "knip": "^6.25.0",
     "lint-staged": "^17.0.8",
     "rollup-plugin-visualizer": "^7.0.1",
     "typescript": "^6.0.3",
