@@ -10,11 +10,9 @@ jobs:
   prettier-public:
     name: Check index.html formatting
     runs-on: ubuntu-latest
-    env:
-      STEPSECURITY_NPM_TOKEN: ${{ secrets.STEPSECURITY_NPM_TOKEN }}
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
         with:
           egress-policy: audit
 
@@ -25,11 +23,36 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            mainsite-worker/package-lock.json
+            mainsite-frontend/package-lock.json
       - name: Install dependencies
-        run: npm ci --ignore-scripts --no-audit --no-fund
+        run: npm ci --registry=https://registry.npmjs.org/ --ignore-scripts --no-audit --no-fund
       - name: Check public page formatting
         run: npm run format:public:check
-    timeout-minutes: 15
+      - name: Install worker dependencies
+        working-directory: mainsite-worker
+        run: npm ci --registry=https://registry.npmjs.org/ --no-audit --no-fund
+      - name: Validate worker
+        working-directory: mainsite-worker
+        run: |
+          npm audit --audit-level=high --registry=https://registry.npmjs.org/
+          npm run lint
+          npm run biome
+          npm test
+      - name: Install frontend dependencies
+        working-directory: mainsite-frontend
+        run: npm ci --registry=https://registry.npmjs.org/ --no-audit --no-fund
+      - name: Validate frontend
+        working-directory: mainsite-frontend
+        run: |
+          npm audit --audit-level=high --registry=https://registry.npmjs.org/
+          npm run lint
+          npm run biome
+          npm test
+          npm run build
+    timeout-minutes: 30
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true

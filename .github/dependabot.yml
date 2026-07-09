@@ -126,6 +126,9 @@ updates:
           - "major"
           - "minor"
           - "patch"
+    ignore:
+      - dependency-name: "typescript"
+        versions: [">=6.1.0"]
     open-pull-requests-limit: 10
 
   - package-ecosystem: "npm"
@@ -167,4 +170,7 @@ updates:
           - "major"
           - "minor"
           - "patch"
+    ignore:
+      - dependency-name: "typescript"
+        versions: [">=6.1.0"]
     open-pull-requests-limit: 10
