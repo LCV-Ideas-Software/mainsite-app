@@ -18,7 +18,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@google/genai": "^2.11.0",
+    "@google/genai": "^2.12.0",
     "@types/sanitize-html": "^2.16.1",
     "hono": "^4.12.30",
     "sanitize-html": "^2.17.6",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.4",
-    "@cloudflare/workers-types": "^5.20260715.1",
+    "@cloudflare/workers-types": "^5.20260717.1",
     "@eslint/js": "^10.0.1",
     "@vitest/ui": "^4.1.10",
     "eslint": "^10.7.0",
