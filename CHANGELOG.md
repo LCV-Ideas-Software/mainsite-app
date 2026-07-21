@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Corrigido — automação de release
+
+- O extrator de notas agora reconhece headings combinados de frontend e worker, evitando releases com descrição genérica quando o changelog usa o formato `## [vFrontend / vWorker]`.
+
 ## [v03.23.04 / v02.19.04] - 2026-07-21
 
 ### Segurança
