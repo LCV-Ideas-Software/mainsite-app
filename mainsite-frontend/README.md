@@ -19,12 +19,13 @@ Currently, two official plugins are available:
 
 ## Change History
 
-**Status.** Stable. Current release: **v03.23.03**. See [CHANGELOG.md](../CHANGELOG.md) for the full release history.
+**Status.** Stable. Current release: **v03.23.04**. See [CHANGELOG.md](../CHANGELOG.md) for the full release history.
 
 The version history at a glance:
 
 | Release     | Notes                                                                                                                                          |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `v03.23.04` | Corrige GHSA-3jxr-9vmj-r5cp com versões de `brace-expansion` compatíveis com cada major de `minimatch`. |
 | `v03.23.03` | 4-gate quality directive compliance for the frontend release train, including Biome gating and APP_VERSION alignment.                          |
 | `v03.23.02` | Release-train alignment for the repository Pages sponsor-card iteration; no separate frontend runtime behavior change.                         |
 | `v03.23.01` | Release-train alignment for the repository Pages visual identity refresh and sponsor-page alignment; no separate frontend runtime behavior change. |

@@ -2,7 +2,7 @@
 
 ## Supported status
 
-Latest supported release: v03.23.03, covering mainsite-frontend v03.23.03 and mainsite-worker v02.19.03. The current main branch is also supported for security fixes until the next release is published.
+Latest supported release: v03.23.04, covering mainsite-frontend v03.23.04 and mainsite-worker v02.19.04. The current main branch is also supported for security fixes until the next release is published.
 
 ## Reporting a vulnerability
 

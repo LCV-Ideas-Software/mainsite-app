@@ -1,7 +1,15 @@
 # Changelog — Mainsite Worker (Backend)
 
 ## [Unreleased]
+
+## [v02.19.04] - 2026-07-21
+
+### Segurança
+
+- Atualiza `brace-expansion` para `5.0.7` e o override transitivo de `protobufjs` para `7.6.5`, corrigindo GHSA-3jxr-9vmj-r5cp e GHSA-j3f2-48v5-ccww nas cadeias de desenvolvimento e runtime.
+
 ### Corrigido — rate limit nativo Cloudflare
+
 - **`/api/ai/public/chat`** deixou de consultar e registrar hits em `mainsite_rate_limit`; o bloqueio 429 agora fica somente no middleware com binding nativo `RL_CHATBOT`.
 - **`src/lib/rate-limit.ts`** foi reduzido a normalizador de toggles administrativos. Limites numericos seguem declarados em `wrangler.json` (`ratelimits`), nao em D1.
 

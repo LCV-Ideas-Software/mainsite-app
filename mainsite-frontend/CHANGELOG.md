@@ -1,5 +1,11 @@
 # Changelog — Mainsite Frontend
 
+## [v03.23.04] - 2026-07-21
+
+### Segurança
+
+- Corrige GHSA-3jxr-9vmj-r5cp / CVE-2026-13149 com overrides separados por major: `brace-expansion@5.0.7` para `minimatch` 10.x e `brace-expansion@2.1.2` para o consumidor legado de `minimatch` 5.x.
+
 ## [v03.23.03] - 2026-05-15
 ### Alterado
 - **4-gate quality directive compliance** — frontend release train aligned with Biome gating, deploy workflow quality checks, cosmetic source formatting, and `APP_VERSION` v03.23.03.

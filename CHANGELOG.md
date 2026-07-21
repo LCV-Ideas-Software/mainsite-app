@@ -1,7 +1,16 @@
 # Changelog — MainSite App
 
 ## [Unreleased]
+
+## [v03.23.04 / v02.19.04] - 2026-07-21
+
+### Segurança
+
+- **Frontend:** fixa `brace-expansion` em `5.0.7` para consumidores `minimatch` 10.x e em `2.1.2` para o consumidor legado 5.x, corrigindo expansão exponencial de grupos vazios consecutivos sem forçar um major incompatível (GHSA-3jxr-9vmj-r5cp / CVE-2026-13149).
+- **Worker:** fixa `brace-expansion` em `5.0.7` e atualiza o override transitivo de `protobufjs` de `7.6.3` para `7.6.5`, corrigindo também o loop infinito em opções `.proto` malformadas na cadeia do `@google/genai` (GHSA-j3f2-48v5-ccww / CVE-2026-59877).
+
 ### Corrigido — worker / rate limit
+
 - **`/api/ai/public/chat`** deixou de aplicar o cap global D1 redundante (`chat-public-global` / `mainsite_rate_limit`) que retornava 429 antes da chamada ao Gemini quando a tabela auxiliar inexistia ou falhava.
 - **`src/lib/rate-limit.ts`** agora normaliza apenas toggles administrativos (`chatbot`, `email`, `comments`); os limites efetivos permanecem nos bindings nativos `ratelimits` do Cloudflare Worker.
 
