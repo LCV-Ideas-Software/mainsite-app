@@ -96,7 +96,7 @@ jobs:
           if [ -f CHANGELOG.md ]; then
             for pattern in "APP v$RAW_VERSION" "v$RAW_VERSION" "v$STRIPPED" "$RAW_VERSION" "$STRIPPED"; do
               CANDIDATE=$(awk -v ver="$pattern" '
-                $0 ~ "^## \\[" ver "\\]" { found=1; next }
+                index($0, "## [" ver "]") == 1 || index($0, "## [" ver " /") == 1 { found=1; next }
                 found && /^## \[/ { exit }
                 found { print }
               ' CHANGELOG.md 2>/dev/null || true)
