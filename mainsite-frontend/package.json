@@ -78,6 +78,7 @@
       "glob": "13.0.6"
     },
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@1.5.5",
-    "@babel/core": "7.29.6"
+    "@babel/core": "7.29.6",
+    "fast-uri": "4.1.1"
   }
 }
