@@ -19,10 +19,10 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^5.20260721.1",
+    "@cloudflare/workers-types": "^5.20260723.1",
     "@tanstack/react-query": "^5.101.4",
     "dompurify": "^3.4.12",
-    "lucide-react": "^1.25.0",
+    "lucide-react": "^1.26.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
