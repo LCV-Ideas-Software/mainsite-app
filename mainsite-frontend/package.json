@@ -64,11 +64,9 @@
   },
   "overrides": {
     "minimatch@^10.0.0": {
-      "brace-expansion": "5.0.7"
+      "brace-expansion": "5.0.8"
     },
-    "minimatch@^5.0.0": {
-      "brace-expansion": "2.1.2"
-    },
+    "filelist": "2.0.2",
     "picomatch": "4.0.4",
     "vite": "$vite",
     "serialize-javascript": "^7.0.5",
