@@ -1,14 +1,5 @@
 version: 2
 
-# StepSecurity Secure Registry auth for manifests that inherit
-# Install/dependency resolution only; operational npm commands use registry.npmjs.org.
-# mainsite-frontend/.npmrc.
-registries:
-  stepsecurity-javascript:
-    type: npm-registry
-    url: https://registry.stepsecurity.io/javascript
-    token: ${{ secrets.DEPENDABOT_STEPSECURITY_NPM_TOKEN }}
-
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -28,21 +19,6 @@ updates:
         patterns:
           - "github/codeql-action*"
 
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
-    labels:
-      - "dependencies"
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    allow:
-      - dependency-name: "socketsecurity"
-      - dependency-name: "gitpython"
-    open-pull-requests-limit: 10
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -69,8 +45,6 @@ updates:
 
   - package-ecosystem: "npm"
     directory: "/mainsite-frontend"
-    registries:
-      - stepsecurity-javascript
     schedule:
       interval: "daily"
       time: "01:00"
