@@ -220,7 +220,7 @@ const CommentsSection = ({ postId, activePalette, apiUrl, turnstileSiteKey }: Co
           author_name: authorName.trim() || undefined,
           author_email: authorEmail.trim() || undefined,
           content: content.trim(),
-          turnstile_token: turnstileToken || undefined,
+          turnstile_token: turnstileToken,
           _hp: honeypot || undefined,
         }),
       });

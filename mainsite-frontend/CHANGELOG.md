@@ -1,5 +1,17 @@
 # Changelog — Mainsite Frontend
 
+## [v03.23.05] - 2026-08-03
+
+### Segurança
+
+- Atualiza os overrides de `brace-expansion` para `5.0.9` e `fast-uri` para `4.1.2`, corrigindo GHSA-rgw5-rvv9-x895 e GHSA-7p8r-x3mc-p8w7, e remove do workflow a variável pública `VITE_BRAND_ICONS_BASE_URL`, que não possui consumidor no frontend atual.
+
+### Qualidade
+
+- Simplifica o envio do token Turnstile após sua guarda obrigatória e remove
+  valores não utilizados dos exemplos interativos; o bloco CSS de exemplo passa
+  a ser um export intencional, em vez de código morto.
+
 ## [v03.23.04] - 2026-07-21
 
 ### Segurança

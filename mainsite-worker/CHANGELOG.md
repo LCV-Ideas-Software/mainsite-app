@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [v02.19.05] - 2026-08-03
+
+### Segurança
+
+- Atualiza Hono para `4.12.34`, corrigindo o ReDoS no parsing de
+  `Access-Control-Request-Headers` descrito em GHSA-8j4g-w8fx-2239.
+- Atualiza os overrides transitivos de `brace-expansion` para `5.0.9` e PostCSS para `8.5.25`; o primeiro corrige GHSA-rgw5-rvv9-x895 e o grafo auditado passa a reportar zero vulnerabilidades.
+- Atualiza Wrangler para `4.118.0` e o override de sua cadeia exclusiva `miniflare → undici` para `7.29.0`, corrigindo GHSA-8xcm-r25x-g524 e GHSA-4cwx-7wf7-3272.
+- Alinha o schema e o preset recomendado do Biome à CLI 2.5.6, eliminando
+  avisos de configuração obsoleta.
+
 ## [v02.19.04] - 2026-07-21
 
 ### Segurança

@@ -83,7 +83,6 @@ jobs:
           npm test
           npm run build
         env:
-          VITE_BRAND_ICONS_BASE_URL: /api/uploads/brands
           VITE_TURNSTILE_SITE_KEY: 0x4AAAAAAC11tvghUM34XXGV
       - name: Deploy Worker
         working-directory: ./mainsite-worker

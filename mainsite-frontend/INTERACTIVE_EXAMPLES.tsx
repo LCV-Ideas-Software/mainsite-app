@@ -76,7 +76,7 @@ export const ArticleWithZoom = ({ article }) => {
 import { useTextZoom } from '../hooks/useTextZoom';
 
 export const TrackedPostReader = ({ post }) => {
-  const { zoomLevel, percentage, increase, decrease, reset } = useTextZoom();
+  const { percentage, increase, decrease, reset } = useTextZoom();
   const [zoomStartTime] = useState(Date.now());
 
   // Rastrear mudanças de zoom
@@ -178,7 +178,7 @@ const DYSLEXIA_PRESETS: DyslexiaPresets = {
 };
 
 export const PostReaderWithA11y = ({ post, userProfile }) => {
-  const { zoomLevel, setZoomLevel } = useTextZoom();
+  const { setZoomLevel } = useTextZoom();
 
   // Auto-apply dyslexia preset
   useEffect(() => {
@@ -248,8 +248,6 @@ export const ABTestedPostReader = ({ post }) => {
     variant2: 'compact',
   }) as TextZoomUIVariant;
 
-  const { zoomLevel, percentage, increase, decrease, reset, setZoomLevel } = useTextZoom();
-
   trackEvent('text_zoom_variant_shown', { variant });
 
   return (
@@ -308,7 +306,7 @@ export const TextZoomControlWithPresets = (props: TextZoomControlProps) => {
 // EXEMPLO 9: CSS Classes para diferentes states
 // ============================================================================
 
-const styles = `
+export const textZoomExampleStyles = `
   /* Normal state */
   .text-zoom-active {
     --text-zoom-scale: var(--user-zoom-level);

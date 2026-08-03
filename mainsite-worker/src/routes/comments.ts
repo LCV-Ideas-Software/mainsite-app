@@ -101,7 +101,7 @@ async function getCommentDepth(
       .bind(currentId)
       .first<{ id: number; parent_id: number | null; post_id: number; status: string }>();
 
-    if (!current || current.status !== 'approved') {
+    if (current?.status !== 'approved') {
       return { depth, error: 'Comentário pai não encontrado ou não aprovado.' };
     }
 

@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+## [v03.23.05 / v02.19.05] - 2026-08-03
+
+### Segurança
+
+- **Worker:** atualiza Hono para `4.12.34`, corrigindo o ReDoS no parsing de
+  `Access-Control-Request-Headers` descrito em GHSA-8j4g-w8fx-2239.
+- **Frontend e Worker:** atualiza o override transitivo de `brace-expansion` de `5.0.8` para `5.0.9`, corrigindo o bypass do limite de expansões descrito em GHSA-rgw5-rvv9-x895.
+- **Frontend:** atualiza `fast-uri` de `4.1.1` para `4.1.2`, corrigindo a confusão de autoridade por barra invertida descrita em GHSA-7p8r-x3mc-p8w7; `npm audit --audit-level=moderate` retorna zero vulnerabilidades nos dois grafos.
+- **Worker:** atualiza Wrangler para `4.118.0`, PostCSS para `8.5.25` e o override exclusivo da cadeia `miniflare → undici` para `7.29.0`, corrigindo GHSA-8xcm-r25x-g524 e GHSA-4cwx-7wf7-3272 e preservando a política de acompanhar as versões mais novas da Cloudflare e do toolchain web.
+- **Worker:** alinha o schema e o preset recomendado do Biome à CLI 2.5.6,
+  eliminando avisos de configuração obsoleta.
+- **Deploy do frontend:** deixa de injetar `VITE_BRAND_ICONS_BASE_URL`, variável sem consumidor no código atual, reduzindo configuração pública obsoleta no bundle de build.
+
+### Qualidade
+
+- **Frontend:** simplifica o token Turnstile depois da guarda obrigatória e
+  elimina valores não usados nos exemplos de zoom, incluindo a conversão do CSS
+  demonstrativo em export intencional.
+
 ### Corrigido — automação de release
 
 - O extrator de notas agora reconhece headings combinados de frontend e worker, evitando releases com descrição genérica quando o changelog usa o formato `## [vFrontend / vWorker]`.
