@@ -19,32 +19,33 @@ jobs:
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
+          check-latest: true
           cache: npm
           cache-dependency-path: |
             package-lock.json
             mainsite-worker/package-lock.json
             mainsite-frontend/package-lock.json
       - name: Install dependencies
-        run: npm ci --registry=https://registry.npmjs.org/ --ignore-scripts --no-audit --no-fund
+        run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Check public page formatting
         run: npm run format:public:check
       - name: Install worker dependencies
         working-directory: mainsite-worker
-        run: npm ci --registry=https://registry.npmjs.org/ --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Validate worker
         working-directory: mainsite-worker
         run: |
-          npm audit --audit-level=high --registry=https://registry.npmjs.org/
+          npm audit --audit-level=high
           npm run lint
           npm run biome
           npm test
       - name: Install frontend dependencies
         working-directory: mainsite-frontend
-        run: npm ci --registry=https://registry.npmjs.org/ --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Validate frontend
         working-directory: mainsite-frontend
         run: |
-          npm audit --audit-level=high --registry=https://registry.npmjs.org/
+          npm audit --audit-level=high
           npm run lint
           npm run biome
           npm test
