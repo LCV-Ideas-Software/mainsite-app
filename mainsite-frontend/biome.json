@@ -3,6 +3,7 @@
   "files": {
     "includes": [
       "**",
+      "!!.wrangler",
       "!dist",
       "!dist-ssr",
       "!INTERACTIVE_EXAMPLES.tsx",
