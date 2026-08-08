@@ -199,8 +199,8 @@ posts.post('/api/posts', requireAuth, async (c) => {
       .run();
 
     // Fire-and-forget: gerar resumo IA para compartilhamento
-    const geminiKey = c.env.GEMINI_API_KEY;
-    if (geminiKey && title && content && result.meta?.last_row_id) {
+    const vertexKey = c.env.VERTEX_SA_KEY;
+    if (vertexKey && title && content && result.meta?.last_row_id) {
       c.executionCtx.waitUntil(triggerSummaryGeneration(c.env.DB, result.meta.last_row_id, title, content, c.env));
     }
 
@@ -234,8 +234,8 @@ posts.put('/api/posts/:id', requireAuth, async (c) => {
       .bind(title, content, authorVal, id)
       .run();
 
-    const geminiKey = c.env.GEMINI_API_KEY;
-    if (geminiKey && title && content && id) {
+    const vertexKey = c.env.VERTEX_SA_KEY;
+    if (vertexKey && title && content && id) {
       c.executionCtx.waitUntil(triggerSummaryGeneration(c.env.DB, id, title, content, c.env));
     }
 

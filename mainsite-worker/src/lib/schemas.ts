@@ -110,7 +110,10 @@ export type ShareLogInput = z.infer<typeof ShareLogSchema>;
 export const EnvSecretsSchema = z.object({
   // Sempre obrigatório
   CLOUDFLARE_PW: z.string().min(1),
-  GEMINI_API_KEY: z.string().min(1),
+  // Credencial Vertex AI (SA JSON) — transporte atual da IA.
+  VERTEX_SA_KEY: z.string().min(1),
+  // Legado AI Studio: binding permanece até o descomissionamento coordenado.
+  GEMINI_API_KEY: z.string().min(1).optional(),
   RESEND_API_KEY: z.string().min(1),
   // Feature-gated (handlers retornam 503 quando faltam): require para alinhar schema/runtime
   GCP_NL_API_KEY: z.string().min(1),

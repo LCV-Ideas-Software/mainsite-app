@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+## [v02.20.00] - 2026-08-08
+
+### Alterado
+
+- Migra o transporte de IA do endpoint AI Studio (API key `GEMINI_API_KEY`) para o **Vertex AI** (Gemini Enterprise Agent Platform), autenticando com service account via JWT RS256 (WebCrypto) trocado por access token OAuth2. Com isso o consumo de IA deixa o plano pré-pago do AI Studio e passa a faturar no pós-pago padrão do Cloud Billing. A superfície pública de `lib/genai.ts` (`createClient`, `getConfiguredModel`, `generate`, `countTokens`, `extractText`, `extractUsage`) é preservada — os call sites (`routes/ai.ts`, `routes/post-summaries.ts`, `routes/posts.ts`, `lib/gemini.ts`) permanecem inalterados no contrato. Prompts, seletor de modelo por D1 (`mainsite_settings` → `chat/summary/editor/import`), retries, safety settings e telemetria intactos.
+
+### Adicionado
+
+- Novo módulo `src/lib/vertex.ts`: cliente REST mínimo que espelha a superfície usada do SDK (`models.generateContent` / `models.countTokens`), com cache de access token por identidade de chave, single-flight para mints concorrentes, endpoints global/regional e erros diagnósticos. `VERTEX_SA_KEY` (Secret Store) obrigatório; `VERTEX_PROJECT`/`VERTEX_LOCATION` são overrides opcionais (defaults `lcv-ideas-and-software`/`global`).
+- Binding `VERTEX_SA_KEY` em `wrangler.json` (Secret Store, `secret_name: vertex-sa-key`); `SECRET_KEYS` do resolver e `EnvSecretsSchema` atualizados. O binding legado `GEMINI_API_KEY` permanece (agora opcional no schema) até o descomissionamento coordenado da frota.
+
+### Removido
+
+- Dependência `@google/genai` (e o override transitivo `protobufjs`, exclusivo da cadeia dela). O override `ws` permanece por ser da cadeia miniflare/wrangler.
+
+### Testes
+
+- Novo `src/lib/vertex.test.ts` — 18 testes do cliente Vertex, incluindo assinatura JWT verificada criptograficamente e o teste de regressão do `fetch` global desacoplado do `this` (Illegal invocation no workerd de produção). Suíte total: 41/41.
+
 ## [v02.19.05] - 2026-08-03
 
 ### Segurança

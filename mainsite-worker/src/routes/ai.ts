@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 /**
- * Rotas de Inteligência Artificial (via @google/genai SDK).
+ * Rotas de Inteligência Artificial (via Vertex AI, ver lib/genai.ts).
  * Domínio: /api/ai/* + /api/chat-logs + /api/chat-context-audit
  *
  * 10 features preservadas do monolito:

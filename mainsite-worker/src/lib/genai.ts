@@ -3,22 +3,24 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 /**
- * Abstração centralizada do @google/genai SDK para o mainsite-worker.
+ * Abstração centralizada do cliente de IA para o mainsite-worker.
+ *
+ * Transporte: Vertex AI (Gemini Enterprise Agent Platform) via service account
+ * OAuth (ver ./vertex.ts). A superfície pública deste módulo (createClient,
+ * getConfiguredModel, generate, countTokens, extractText, extractUsage) é
+ * preservada para manter os call sites (routes/*, lib/gemini.ts) intactos.
  *
  * Responsabilidades:
- * - Factory do GoogleGenAI (per-request, pois apiKey vem do env)
+ * - Factory do cliente Vertex (per-request, pois a credencial vem do env)
  * - Configuração padronizada de safety settings
  * - Helper de geração tipada com logging estruturado
  * - Token counting tipado
  */
-import {
-  type GenerateContentResponse,
-  GoogleGenAI,
-  HarmBlockThreshold,
-  HarmCategory,
-  ThinkingLevel,
-} from '@google/genai';
 import { structuredLog } from './logger.ts';
+import { VertexGenAI, type VertexGenerateContentResponse } from './vertex.ts';
+
+/** Categorias de harm block, valores literais aceitos pela API REST do Vertex. */
+const HARM_BLOCK_ONLY_HIGH = 'BLOCK_ONLY_HIGH';
 
 // ========== CONFIG CENTRALIZADA ==========
 
@@ -29,11 +31,11 @@ const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 800;
 
 export const GEMINI_SAFETY_SETTINGS = [
-  { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
-  { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
-  { category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
-  { category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
-  { category: HarmCategory.HARM_CATEGORY_CIVIC_INTEGRITY, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
+  { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: HARM_BLOCK_ONLY_HIGH },
+  { category: 'HARM_CATEGORY_HARASSMENT', threshold: HARM_BLOCK_ONLY_HIGH },
+  { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: HARM_BLOCK_ONLY_HIGH },
+  { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: HARM_BLOCK_ONLY_HIGH },
+  { category: 'HARM_CATEGORY_CIVIC_INTEGRITY', threshold: HARM_BLOCK_ONLY_HIGH },
 ];
 
 export const ENDPOINT_CONFIGS = {
@@ -48,13 +50,18 @@ export type EndpointName = keyof typeof ENDPOINT_CONFIGS;
 
 import type { Env } from '../env.ts';
 
-/** Creates a GoogleGenAI client per-request.
+const DEFAULT_VERTEX_PROJECT = 'lcv-ideas-and-software';
+const DEFAULT_VERTEX_LOCATION = 'global';
+
+/** Creates a Vertex AI client per-request.
  *  Secret Store bindings are resolved to strings by middleware in index.ts
  *  before handlers execute, so env values are plain strings here.
  */
-export function createClient(env: Env): GoogleGenAI {
-  return new GoogleGenAI({
-    apiKey: env.GEMINI_API_KEY,
+export function createClient(env: Env): VertexGenAI {
+  return new VertexGenAI({
+    saKeyJson: env.VERTEX_SA_KEY,
+    project: env.VERTEX_PROJECT || DEFAULT_VERTEX_PROJECT,
+    location: env.VERTEX_LOCATION || DEFAULT_VERTEX_LOCATION,
   });
 }
 
@@ -99,7 +106,7 @@ export async function getConfiguredModel(db: D1Database, configKey: keyof Mainsi
 
 // ========== TOKEN COUNTING ==========
 
-export async function countTokens(client: GoogleGenAI, text: string, model?: string): Promise<number> {
+export async function countTokens(client: VertexGenAI, text: string, model?: string): Promise<number> {
   if (!text) return 0;
   try {
     const result = await client.models.countTokens({
@@ -166,7 +173,7 @@ function logAiUsage(
 // ========== CONTENT GENERATION (with retry) ==========
 
 interface GenerateOptions {
-  client: GoogleGenAI;
+  client: VertexGenAI;
   prompt: string;
   endpoint: EndpointName;
   model?: string;
@@ -176,10 +183,10 @@ interface GenerateOptions {
 }
 
 /**
- * Generates content via Gemini SDK with structured logging and retry.
- * Returns the full SDK response for the caller to extract what it needs.
+ * Generates content via Vertex AI with structured logging and retry.
+ * Returns the full response for the caller to extract what it needs.
  */
-export async function generate(opts: GenerateOptions): Promise<GenerateContentResponse> {
+export async function generate(opts: GenerateOptions): Promise<VertexGenerateContentResponse> {
   const { client, prompt, endpoint, model, enableThinking = true, db } = opts;
   const config = ENDPOINT_CONFIGS[endpoint];
   const resolvedModel = model || DEFAULT_GEMINI_MODEL;
@@ -199,7 +206,7 @@ export async function generate(opts: GenerateOptions): Promise<GenerateContentRe
           temperature: config.temperature,
           maxOutputTokens: config.maxOutputTokens,
           safetySettings: GEMINI_SAFETY_SETTINGS,
-          ...(enableThinking && isThinkingModel ? { thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH } } : {}),
+          ...(enableThinking && isThinkingModel ? { thinkingConfig: { thinkingLevel: 'HIGH' } } : {}),
         },
       });
 
@@ -258,7 +265,7 @@ export async function generate(opts: GenerateOptions): Promise<GenerateContentRe
 
 // ========== USAGE METADATA EXTRACTION ==========
 
-export function extractUsage(response: GenerateContentResponse) {
+export function extractUsage(response: VertexGenerateContentResponse) {
   return {
     promptTokens: response.usageMetadata?.promptTokenCount ?? 0,
     outputTokens: response.usageMetadata?.candidatesTokenCount ?? 0,
@@ -270,10 +277,10 @@ export function extractUsage(response: GenerateContentResponse) {
 
 /**
  * Extracts text from the response, filtering out thinking/thought parts.
- * Uses the SDK's built-in `.text` accessor when available.
+ * O client Vertex já materializa `.text` sem as thought parts; o fallback
+ * manual cobre respostas sem esse campo.
  */
-export function extractText(response: GenerateContentResponse): string {
-  // The SDK's .text getter auto-filters thought parts
+export function extractText(response: VertexGenerateContentResponse): string {
   try {
     return response.text ?? '';
   } catch {

@@ -40,13 +40,22 @@ export interface RawEnv {
   GEMINI_API_KEY: SecretStoreBinding;
   RESEND_API_KEY: SecretStoreBinding;
 
+  // --- Vertex AI (Gemini Enterprise Agent Platform) ---
+  // Service Account JSON completo (~2,4 KB) no Secret Store — o limite
+  // atual de valor é 64 KiB por secret. VERTEX_PROJECT/VERTEX_LOCATION são
+  // overrides opcionais; defaults em lib/genai.ts.
+  VERTEX_SA_KEY: SecretStoreBinding;
+  VERTEX_PROJECT?: string;
+  VERTEX_LOCATION?: string;
+
   // --- Turnstile (Secret Store → .get()) ---
   TURNSTILE_SECRET_KEY: SecretStoreBinding;
 
   // --- GCP Natural Language API ---
-  // GCP_NL_API_KEY contains the full Service Account JSON (>1024 chars)
-  // and CANNOT live in Secret Store; it is a native Worker secret set via
-  // `wrangler secret put GCP_NL_API_KEY`. Resolver in index.ts duck-types
+  // GCP_NL_API_KEY é um secret nativo (`wrangler secret put`) por decisão
+  // histórica — na época o Secret Store limitava valores a 1024 chars; o
+  // limite hoje é 64 KiB (VERTEX_SA_KEY, acima, vive no Store). Mantido
+  // nativo até haver motivo para migrar. Resolver in index.ts duck-types
   // the .get() check and passes the existing string through unchanged.
   GCP_NL_API_KEY: string;
 
@@ -79,6 +88,11 @@ export interface Env {
   CLOUDFLARE_PW: string;
   GEMINI_API_KEY: string;
   RESEND_API_KEY: string;
+
+  // --- Vertex AI (resolved to string by middleware) ---
+  VERTEX_SA_KEY: string;
+  VERTEX_PROJECT?: string;
+  VERTEX_LOCATION?: string;
 
   // --- Moderação (GCP NL API + Turnstile) ---
   GCP_NL_API_KEY: string;

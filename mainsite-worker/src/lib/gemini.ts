@@ -4,7 +4,7 @@
  */
 /**
  * Utilitário compartilhado para geração de resumos de compartilhamento social.
- * Usa o @google/genai SDK via lib/genai.ts.
+ * Usa o cliente de IA (Vertex AI) via lib/genai.ts.
  */
 import type { Env } from '../env.ts';
 import { createClient, DEFAULT_GEMINI_MODEL, extractText, generate, getConfiguredModel } from './genai.ts';
