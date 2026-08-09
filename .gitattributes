@@ -1,3 +1,4 @@
+# Native merge-queue canary: 2026-08-09.
 # Módulo: .gitattributes (Raiz Global)
 # Versão: v01.00.0
 # Descrição: Otimização de rastreamento do Git, normalização de quebras de linha (Windows/Linux) e classificação de binários.
