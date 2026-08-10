@@ -37,7 +37,6 @@ export interface RawEnv {
 
   // --- Secrets & Tokens (Secret Store → .get()) ---
   CLOUDFLARE_PW: SecretStoreBinding;
-  GEMINI_API_KEY: SecretStoreBinding;
   RESEND_API_KEY: SecretStoreBinding;
 
   // --- Vertex AI (Gemini Enterprise Agent Platform) ---
@@ -86,7 +85,6 @@ export interface Env {
 
   // --- Secrets & Tokens (resolved to string by middleware) ---
   CLOUDFLARE_PW: string;
-  GEMINI_API_KEY: string;
   RESEND_API_KEY: string;
 
   // --- Vertex AI (resolved to string by middleware) ---
