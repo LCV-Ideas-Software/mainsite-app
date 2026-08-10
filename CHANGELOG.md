@@ -2,6 +2,58 @@
 
 ## [Unreleased]
 
+## [v03.23.05 / v02.20.01] - 2026-08-10
+
+Release só do worker; o frontend permanece em v03.23.05.
+
+### Removido
+
+- **Worker:** sai o binding legado `GEMINI_API_KEY`. A v02.20.00 o manteve "até o
+  descomissionamento coordenado da frota", e esse momento chegou: saem o binding
+  do `wrangler.json`, as duas declarações em `env.ts` (`SecretStoreBinding` e a
+  forma resolvida), a entrada em `SECRET_KEYS` do resolver e o campo opcional em
+  `EnvSecretsSchema`. Nenhum handler lia a chave desde a migração.
+
+### Corrigido
+
+- **Worker:** `APP_VERSION` estava em `v02.19.05` enquanto o changelog do
+  sub-app já registrava a v02.20.00 da migração Vertex; a constante volta a
+  acompanhar a versão.
+
+## [v03.23.05 / v02.20.00] - 2026-08-08
+
+Release só do worker; o frontend permanece em v03.23.05.
+
+### Alterado
+
+- **Worker:** migra o transporte de IA do endpoint AI Studio (API key
+  `GEMINI_API_KEY`) para o **Vertex AI**, autenticando com service account via
+  JWT RS256 (WebCrypto) trocado por access token OAuth2 — o consumo de IA deixa
+  o plano pré-pago do AI Studio e passa ao pós-pago do Cloud Billing. A
+  superfície pública de `lib/genai.ts` é preservada, então os call sites
+  (`routes/ai.ts`, `routes/post-summaries.ts`, `routes/posts.ts`, `lib/gemini.ts`)
+  ficam inalterados. Prompts, seletor de modelo por D1, retries, safety settings
+  e telemetria intactos.
+
+### Adicionado
+
+- **Worker:** novo `src/lib/vertex.ts` — cliente REST mínimo que espelha a
+  superfície usada do SDK (`models.generateContent` / `models.countTokens`), com
+  cache de access token por identidade de chave, single-flight para mints
+  concorrentes, endpoints global/regional e erros diagnósticos. Binding
+  `VERTEX_SA_KEY` (Secret Store, `secret_name: vertex-sa-key`).
+
+### Removido
+
+- **Worker:** dependência `@google/genai` e o override transitivo de
+  `protobufjs`, exclusivo da cadeia dela.
+
+### Testes
+
+- **Worker:** novo `src/lib/vertex.test.ts` — 18 testes, incluindo assinatura JWT
+  verificada criptograficamente e a regressão do `fetch` global desacoplado do
+  `this` (Illegal invocation no workerd de produção). Suíte total: 41/41.
+
 ## [v03.23.05 / v02.19.05] - 2026-08-03
 
 ### Segurança
