@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [v02.20.01] - 2026-08-10
+
+### Removido
+
+- **Binding legado `GEMINI_API_KEY`.** A v02.20.00 manteve o binding "até o
+  descomissionamento coordenado da frota"; esse momento chegou. Saem o binding
+  do `wrangler.json`, as duas declarações em `env.ts` (`SecretStoreBinding` e a
+  forma resolvida), a entrada em `SECRET_KEYS` do resolver e o campo opcional em
+  `EnvSecretsSchema`. Nenhum handler lia a chave desde a migração — a varredura
+  do repositório não encontra leitura alguma, apenas as declarações.
+
+### Corrigido
+
+- `APP_VERSION` estava em `v02.19.05` enquanto o CHANGELOG já registrava a
+  v02.20.00 da migração Vertex; a constante volta a acompanhar a versão.
+
 ## [v02.20.00] - 2026-08-08
 
 ### Alterado

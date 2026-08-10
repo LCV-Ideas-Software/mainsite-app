@@ -7,7 +7,7 @@
  * Hono-based modular Worker com paridade total ao monolito.
  * Versão modular: todos os domínios em src/routes/*.ts
  */
-export const APP_VERSION = 'APP v02.19.05';
+export const APP_VERSION = 'APP v02.20.01';
 
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -47,10 +47,9 @@ app.use(
 // ========== SECRET STORE RESOLVER MIDDLEWARE ==========
 // Cloudflare Secret Store bindings are Fetcher objects with `.get()`.
 // This middleware eagerly resolves all secret values so downstream
-// handlers can use c.env.GEMINI_API_KEY as a plain string.
+// handlers can use c.env.VERTEX_SA_KEY as a plain string.
 const SECRET_KEYS = [
   'CLOUDFLARE_PW',
-  'GEMINI_API_KEY',
   'VERTEX_SA_KEY',
   'RESEND_API_KEY',
   'GCP_NL_API_KEY',
