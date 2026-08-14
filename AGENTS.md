@@ -19,6 +19,9 @@ compartilhado. Deploy exclusivamente via GitHub Actions.
 ```bash
 npm run format:public:check
 npm run projects:boundaries
+# nos dois pacotes do monorepo, cada um com npm ci antes:
+#   mainsite-worker/   -> npm run lint && npm run biome && npm test
+#   mainsite-frontend/ -> npm run lint && npm run biome && npm test && npm run build
 ```
 
 ## Workspace Policy
