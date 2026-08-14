@@ -19,9 +19,6 @@ compartilhado. Deploy exclusivamente via GitHub Actions.
 ```bash
 npm run format:public:check
 npm run projects:boundaries
-# nos dois pacotes do monorepo, cada um com npm ci antes:
-#   mainsite-worker/   -> npm run lint && npm run biome && npm test
-#   mainsite-frontend/ -> npm run lint && npm run biome && npm test && npm run build
 ```
 
 ## Workspace Policy
@@ -87,7 +84,8 @@ mudar de escopo, vale o texto de la.
 ### Valvula de escape
 
 Bump de dependencia, correcao de typo, lockfile e ajuste de formatacao **dispensam issue**.
-O PR basta — ele entra no quadro sozinho.
+O PR basta — ele entra no quadro sozinho quando o gatilho o alcanca; PR do Dependabot
+e uma lacuna declarada do gatilho e pode depender do backfill/reconciliacao da ativacao.
 
 ### Campos
 
