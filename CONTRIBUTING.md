@@ -2,7 +2,8 @@
 
 Thanks for your interest. Quick guide for filing issues and opening pull requests.
 
-This repo hosts two independent deploys that share a D1 database (`example_db`):
+This repo hosts two independent deploys that share the D1 database `bigdata_db`:
+
 - **`mainsite-frontend`** — public React 19 + Vite Pages site at `example-blog.invalid` (+ secondary domains).
 - **`mainsite-worker`** — Cloudflare Worker backend serving `/api/*`.
 
@@ -68,7 +69,7 @@ D1 is shared between this repo (`mainsite-frontend` Pages Functions + `mainsite-
 
 ### Versioning
 
-`APP_VERSION` lives in `mainsite-frontend/src/App.tsx` and `mainsite-worker/src/index.ts`. Bump per workspace policy: patch for fixes, minor for features, major for breaking changes. CHANGELOG.md entry required.
+`APP_VERSION` lives in `mainsite-frontend/src/App.tsx` and `mainsite-worker/src/index.ts`. Bump per workspace policy: patch for fixes, minor for features, major for breaking changes. A CHANGELOG.md entry is required. These are internal application versions; do not create GitHub Releases or version tags for this web app.
 
 ---
 

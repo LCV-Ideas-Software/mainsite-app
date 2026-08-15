@@ -18,7 +18,6 @@ compartilhado. Deploy exclusivamente via GitHub Actions.
 
 ```bash
 npm run format:public:check
-npm run projects:boundaries
 # nos dois pacotes do monorepo, cada um com npm ci antes:
 #   mainsite-worker/   -> npm run lint && npm run biome && npm test
 #   mainsite-frontend/ -> npm run lint && npm run biome && npm test && npm run build
@@ -73,7 +72,6 @@ enfrentar este problema daqui a tres meses?"_ Se sim, vira Discussion.
 - Conhecimento transversal a varios repos (politica de release, regra de ruleset, restricao
   de plataforma) -> Discussions **da organizacao**.
 
-
 **Excecao de seguranca** (tambem no G3): causa raiz, caminho de exploracao ou licao de
 remediacao ligada a **qualquer caso coberto pelo reporte privado de `SECURITY.md`** nao
 vira Discussion publica antes da divulgacao coordenada. Registre no canal privado de
@@ -93,8 +91,9 @@ mudar de escopo, vale o texto de la.
 ### Valvula de escape
 
 Bump de dependencia, correcao de typo, lockfile e ajuste de formatacao **dispensam issue**.
-O PR basta — ele entra no quadro sozinho quando o gatilho o alcanca; PR do Dependabot
-e uma lacuna declarada do gatilho e pode depender do backfill/reconciliacao da ativacao.
+O PR basta: os workflows Auto-add nativos dos Projects #12 e #17 inserem PRs novos ou
+atualizados que correspondam aos filtros configurados. Se um item antigo nao tiver sido
+capturado, regularize-o diretamente no Project sem criar automacao paralela no repositorio.
 
 ### Campos
 
@@ -115,9 +114,12 @@ com desvios `Bloqueado` e `Descartado`.
 > proprios em cada quadro. Atualize os DOIS quadros — o deste repositorio e o portfolio
 > #17 — a cada transicao; ID de opcao de um quadro nunca vale no outro (Discussion org#176).
 
-### Nada de identificador real em repositorio publico
+### Identificadores e credenciais em repositorio publico
 
-Issues, PRs e Discussions deste repositorio sao publicos e permanentes. Use placeholders
-(`proj-x`, `exemplo-projeto-000`, `exemplo.com`) no lugar de IDs de projeto de nuvem, nomes
-de banco, dominios e contas. Detalhe operacional sensivel vai para o quadro privado ou para
-`.github-private`.
+Tokens, chaves, senhas e outras credenciais reais nunca podem ser versionados ou publicados.
+Em regra, use placeholders para identificadores operacionais. A unica excecao autorizada
+neste repositorio e o `database_name`/`database_id` do binding D1 `bigdata_db` nos dois
+arquivos `wrangler.json`: o UUID e identificador, nao credencial, e a configuracao oficial
+do Wrangler exige o valor para selecionar a D1 existente. Essa autorizacao nao cria
+precedente; qualquer outro identificador real exige pedido fundamentado e nova autorizacao
+explicita do operador.
