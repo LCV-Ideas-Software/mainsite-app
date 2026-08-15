@@ -16,7 +16,7 @@
 **Reflexos da Alma** — public personal blog + companion services. Two independent Cloudflare deploys served from this monorepo, both reading from the shared Cloudflare D1 database `bigdata_db`:
 
 - **`mainsite-frontend`** — React 19 + Vite 8 single-page app on Cloudflare Pages, primary domain `example-blog.invalid` (+ secondary aliases). Public-facing site with reading experience, comments, ratings, AI chatbot, share-by-email, and accessibility-first design.
-- **`mainsite-worker`** — Hono backend on Cloudflare Workers serving `/api/*` for the frontend. AI surfaces (Gemini), moderation (GCP Natural Language API + Turnstile), email relay (Resend), and R2 media.
+- **`mainsite-worker`** — Hono backend on Cloudflare Workers serving `/api/*` for the frontend. AI surfaces (Gemini models through Vertex AI), moderation (GCP Natural Language API + Turnstile), email relay (Resend), and R2 media.
 
 **Status.** Stable. Current internal versions: **mainsite-frontend v03.23.05** and **mainsite-worker v02.20.01**. See [CHANGELOG.md](./CHANGELOG.md) for the full version history.
 
@@ -44,7 +44,7 @@ Public-facing artifact + edge-deployed APIs:
 
 1. **Reading experience** — `PostReader` with smart polling (`useContentSync` + `ContentUpdateToast`) for live updates, JSON-LD + OG/Twitter Card SEO metadata, attribution-based clipboard handling (intentionally NOT a hostile copy-blocker — see [SECURITY.md](./SECURITY.md) ADR), reading-progress accessibility hooks.
 2. **Comments + ratings** — Turnstile-gated public submission, GCP NL sentiment-aware moderation pipeline, threaded replies, idempotent rating accumulation.
-3. **AI public chatbot (`/api/ai/public/chat`)** — Gemini-powered helper with content-aware context grounded on published posts. Hard caps: per-IP rate limit + global hourly budget cap (default-on).
+3. **AI public chatbot (`/api/ai/public/chat`)** — Gemini-powered helper served through Vertex AI, with content-aware context grounded on published posts. Hard caps: per-IP rate limit + global hourly budget cap (default-on).
 4. **Share-by-email + contact** — Turnstile-gated, Resend-relayed, canonical-link-validated, recipient-window-capped (5/recipient/24h).
 5. **Theme system** — `/api/theme.css` same-origin, generated from D1 settings to keep CSP strict.
 6. **R2 media + uploads** — `image/jpeg|png|gif|webp|avif|pdf` allowlisted with magic-byte sniffing, 10 MB cap, SVG explicitly blocked (legacy SVGs served sandboxed with `Content-Security-Policy: sandbox`).
@@ -64,7 +64,7 @@ Browser
         │  theme.css, content-fingerprint, uploads
         ├─ admin surface (CF-Access JWT or bearer): post CRUD, settings, moderation,
         │  share-email logs
-        └──→ D1 (bigdata_db) + R2 (mainsite-media) + Workers AI + Gemini API
+        └──→ D1 (bigdata_db) + R2 (mainsite-media) + Workers AI + Vertex AI (Gemini models)
 ```
 
 The shared D1 binding is declared directly in both `wrangler.json` files. Its UUID is an identifier, not a credential; Cloudflare API tokens and application secrets remain outside the repository.
@@ -76,7 +76,7 @@ You will need:
 - A Cloudflare account ([free tier](https://www.cloudflare.com/plans/)) with Pages + Workers + D1 + R2 enabled.
 - The Cloudflare CLI [`wrangler`](https://developers.cloudflare.com/workers/wrangler/).
 - Node.js 24+.
-- Google AI Studio API key (Gemini integration).
+- A Google Cloud project with Vertex AI enabled and a least-privilege service account whose JSON credential will be stored as `VERTEX_SA_KEY`.
 - Resend API key (transactional email).
 - Cloudflare Turnstile site key + secret (form anti-abuse).
 - (Optional) GCP Service Account with Cloud Natural Language API access (comment moderation).
@@ -99,16 +99,18 @@ npx wrangler d1 create example_db
 npx wrangler r2 bucket create mainsite-media
 ```
 
-### 3. Wire `database_id` into both `wrangler.json`
+### 3. Wire the D1 database into both `wrangler.json` files
 
-Replace the existing `database_id` in:
+Set `database_name` to the name created in step 2 (`example_db` in the example) and `database_id` to the UUID returned by Wrangler in both:
 
 - `mainsite-frontend/wrangler.json` (Pages app)
 - `mainsite-worker/wrangler.json` (Worker)
 
 ### 4. Configure Cloudflare Secrets Store secrets
 
-Per `mainsite-worker/wrangler.json`'s `secrets_store_secrets` list, set values for the keys you intend to use (Gemini, Resend, Turnstile, etc.). `GCP_NL_API_KEY` (Service Account JSON, >1024 chars) cannot live in Secrets Store and must be a native Worker secret:
+Create or select your own Cloudflare Secrets Store, replace the repository-specific `store_id` values, and populate the bindings declared in `mainsite-worker/wrangler.json`. `VERTEX_SA_KEY` must contain the complete service-account JSON used to authenticate Vertex AI; `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` hold their respective service credentials.
+
+`GCP_NL_API_KEY` is separate from Vertex AI and remains a native Worker secret for the Natural Language moderation path:
 
 ```bash
 npx wrangler secret put GCP_NL_API_KEY --config mainsite-worker/wrangler.json
