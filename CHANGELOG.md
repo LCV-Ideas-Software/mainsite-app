@@ -15,6 +15,8 @@
   necessários.
 - O cooldown npm do Dependabot passa a sete dias, sem atrasar security updates
   nem GitHub Actions.
+- Wrangler sobe para 4.123.0 e passa a estar fixado nos manifests/lockfiles dos
+  dois sub-apps, evitando instalação transitória fora do lockfile no deploy.
 
 ### Removido
 
