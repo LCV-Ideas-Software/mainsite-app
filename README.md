@@ -120,6 +120,8 @@ npx wrangler secret put GCP_NL_API_KEY --config mainsite-worker/wrangler.json
 
 ### 5. Deploy
 
+The Turnstile site key is public, but Vite still needs it at build time. Replace `your-public-site-key` below with the site key created for your fork.
+
 ```bash
 cd mainsite-worker
 npm run build
@@ -127,7 +129,7 @@ npx wrangler deploy
 cd ..
 
 cd mainsite-frontend
-npm run build
+VITE_TURNSTILE_SITE_KEY="your-public-site-key" npm run build
 npx wrangler pages deploy dist --project-name=mainsite-frontend
 cd ..
 ```
