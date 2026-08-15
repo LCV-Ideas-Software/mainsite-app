@@ -70,7 +70,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: npm
           workingDirectory: mainsite-worker
-          wranglerVersion: "4.120.1"
+          wranglerVersion: "4.123.0"
           command: deploy --strict
 
       - name: Deploy frontend with Wrangler
@@ -80,5 +80,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: npm
           workingDirectory: mainsite-frontend
-          wranglerVersion: "4.120.1"
+          wranglerVersion: "4.123.0"
           command: pages deploy dist --project-name=mainsite-frontend --branch=main --commit-dirty=true
