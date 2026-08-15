@@ -4,7 +4,6 @@
 
 # React + Vite
 
-[![release](https://img.shields.io/github/v/release/LCV-Ideas-Software/mainsite-app?sort=semver)](https://github.com/LCV-Ideas-Software/mainsite-app/releases)
 [![Deploy](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/deploy.yml/badge.svg)](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/deploy.yml)
 [![CodeQL](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/codeql.yml/badge.svg)](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/codeql.yml)
 [![framework: React 19 + Vite 8](https://img.shields.io/badge/framework-React%2019%20%2B%20Vite%208-61dafb.svg)](https://react.dev/)
@@ -19,17 +18,18 @@ Currently, two official plugins are available:
 
 ## Change History
 
-**Status.** Stable. Current release: **v03.23.04**. See [CHANGELOG.md](../CHANGELOG.md) for the full release history.
+**Status.** Stable. Current internal version: **v03.23.05**. See [CHANGELOG.md](../CHANGELOG.md) for the full version history.
 
 The version history at a glance:
 
-| Release     | Notes                                                                                                                                          |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `v03.23.04` | Corrige GHSA-3jxr-9vmj-r5cp com versões de `brace-expansion` compatíveis com cada major de `minimatch`. |
-| `v03.23.03` | 4-gate quality directive compliance for the frontend release train, including Biome gating and APP_VERSION alignment.                          |
-| `v03.23.02` | Release-train alignment for the repository Pages sponsor-card iteration; no separate frontend runtime behavior change.                         |
-| `v03.23.01` | Release-train alignment for the repository Pages visual identity refresh and sponsor-page alignment; no separate frontend runtime behavior change. |
-| `v03.22.00` | Security, UX, and TipTap parity audit updates for the Mainsite frontend package and public reader experience.                                  |
+| Internal version | Notes                                                                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `v03.23.05`      | Atualiza overrides de segurança, remove uma variável de build sem consumidor e simplifica o envio obrigatório do token Turnstile.                  |
+| `v03.23.04`      | Corrige GHSA-3jxr-9vmj-r5cp com versões de `brace-expansion` compatíveis com cada major de `minimatch`.                                            |
+| `v03.23.03`      | 4-gate quality directive compliance for the frontend release train, including Biome gating and APP_VERSION alignment.                              |
+| `v03.23.02`      | Release-train alignment for the repository Pages sponsor-card iteration; no separate frontend runtime behavior change.                             |
+| `v03.23.01`      | Release-train alignment for the repository Pages visual identity refresh and sponsor-page alignment; no separate frontend runtime behavior change. |
+| `v03.22.00`      | Security, UX, and TipTap parity audit updates for the Mainsite frontend package and public reader experience.                                      |
 
 ## React Compiler
 

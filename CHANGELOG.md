@@ -2,9 +2,33 @@
 
 ## [Unreleased]
 
-### Added
+### Alterado
 
-- Governanca de trabalho sobre GitHub Projects, Issues e Discussions: quadro dedicado do repositorio, formularios de issue para Incident, Maintenance e Spike, atalhos para Discussions no seletor de issues, workflow `add-to-project` (inerte ate a organizacao definir `LCV_PROJECTS_APP_CLIENT_ID`; gatilho `pull_request_target` sem checkout nem execucao de codigo do PR, para alcancar PRs de fork com o secret do environment — cobertura de PRs do Dependabot e de branches com nome tipo SHA nao e garantida por este gatilho e fica declarada no proprio arquivo — com excecao estreita e documentada do zizmor), regressao propria do invariante privilegiado fiada no agregador exigido, e o ritual de registro G1..G4 versionado em `AGENTS.md` e `CLAUDE.md` para Claude Code e ChatGPT-Codex.
+- Os PRs Dependabot #431 e #432 foram consolidados: CodeQL usa v4.37.7 e o
+  Zizmor passa a usar diretamente a Action oficial v0.6.2 com CLI 1.29.0.
+- CodeQL, Dependency Review, OpenSSF Scorecard, Zizmor, GitHub Pages e os dois
+  deploys Cloudflare agora usam somente Actions oficiais fixadas por SHA e
+  permissões mínimas; wrappers, gates e validadores de governança próprios foram
+  aposentados.
+- O binding D1 compartilhado passa a usar a configuração Wrangler oficial
+  versionada; o segredo de CI `D1_DATABASE_ID` e a injeção `jq` deixam de ser
+  necessários.
+- O cooldown npm do Dependabot passa a sete dias, sem atrasar security updates
+  nem GitHub Actions.
+
+### Removido
+
+- Native Auto-merge, Auto-release e a automação customizada de Projects. Os
+  Projects #12 e #17 usam Auto-add nativo, e este web app mantém somente suas
+  versões internas sem GitHub Releases ou tags de versão.
+
+### Adicionado
+
+- Governança de trabalho sobre GitHub Projects, Issues e Discussions: quadro dedicado
+  do repositório, formulários de issue para Incident, Maintenance e Spike, atalhos para
+  Discussions no seletor de issues, Auto-add nativo nos Projects #12 e #17 e o ritual
+  de registro G1..G4 versionado em `AGENTS.md` e `CLAUDE.md` para Claude Code e
+  ChatGPT-Codex.
 
 ## [v03.23.05 / v02.20.01] - 2026-08-10
 

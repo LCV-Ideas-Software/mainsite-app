@@ -2,7 +2,6 @@
   "name": "@lcv-ideas-software/mainsite-app-public-format",
   "private": true,
   "scripts": {
-    "projects:boundaries": "node --test .github/scripts/add-to-project-workflow.regression.mjs",
     "format:public": "prettier --write \"**/index.html\"",
     "format:public:check": "prettier --check \"**/index.html\""
   },
