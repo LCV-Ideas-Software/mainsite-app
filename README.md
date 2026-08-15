@@ -138,7 +138,7 @@ This repo's [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) runs 
 2. `lint`, Biome and tests for both, plus the frontend build.
 3. The official Cloudflare Wrangler Action deploys the Worker and the Pages frontend with the versioned D1 binding.
 
-This web app uses its internal `APP_VERSION` values and does not publish GitHub Releases or version tags.
+This web app uses its internal `APP_VERSION` values. This migration retires publication of GitHub Releases and version tags; legacy objects are removed only after the release workflow is absent from `main`.
 
 ## Repository conventions
 
