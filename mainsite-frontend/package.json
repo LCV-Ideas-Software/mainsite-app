@@ -69,6 +69,7 @@
     },
     "filelist": "2.0.2",
     "picomatch": "4.0.4",
+    "unbash": "4.0.9",
     "vite": "$vite",
     "serialize-javascript": "^7.0.5",
     "ws": "8.21.0",
