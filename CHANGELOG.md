@@ -22,6 +22,11 @@
   para 17.11.0 também em ambos (#447 e #448). Todos são dependências de
   desenvolvimento, sem efeito no runtime publicado — por isso as versões
   internas dos sub-apps permanecem inalteradas.
+- `@cloudflare/workers-types` passa de caret (`^`) para versão exata nos dois
+  sub-apps, aplicando o achado de review do PR #421 (lido na auditoria
+  integral de 20/08): pacote de tipos com versionamento datado sob caret gera
+  instalação não reprodutível fora do lockfile — o mesmo fundamento já adotado
+  para o pin do Wrangler.
 
 ### Removido
 
