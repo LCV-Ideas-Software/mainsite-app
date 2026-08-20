@@ -17,6 +17,11 @@
   nem GitHub Actions.
 - Wrangler sobe para 4.123.0 e passa a estar fixado nos manifests/lockfiles dos
   dois sub-apps, evitando instalação transitória fora do lockfile no deploy.
+- `@biomejs/biome` sobe para 2.5.8 e `@cloudflare/workers-types` para
+  5.20260813.1 nos dois sub-apps (PRs Dependabot #440 e #442); `globals` sobe
+  para 17.11.0 também em ambos (#447 e #448). Todos são dependências de
+  desenvolvimento, sem efeito no runtime publicado — por isso as versões
+  internas dos sub-apps permanecem inalteradas.
 
 ### Removido
 
