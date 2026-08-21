@@ -42,6 +42,19 @@
   de registro G1..G4 versionado em `AGENTS.md` e `CLAUDE.md` para Claude Code e
   ChatGPT-Codex.
 
+## [v03.23.05 / v02.21.00] - 2026-08-21
+
+Release só do worker; o frontend permanece em v03.23.05.
+
+### mainsite-worker v02.21.00
+
+- **Settings JSON Zod schema (issue #410)**: os quatro PUTs de settings validam o
+  payload com schemas Zod antes do upsert em `mainsite_settings` — JSON inválido ou
+  shape estruturalmente errado retorna 400 sem tocar o D1. O texto original continua
+  sendo o que persiste (extras como `isDonationTrigger` sobrevivem; legado
+  root-`enabled` de ratelimit aceito); leitores fail-safe intactos. Fecha o
+  diferimento registrado na v02.18.00.
+
 ## [v03.23.05 / v02.20.01] - 2026-08-10
 
 Release só do worker; o frontend permanece em v03.23.05.

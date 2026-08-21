@@ -117,3 +117,72 @@ export const EnvSecretsSchema = z.object({
   GCP_NL_API_KEY: z.string().min(1),
   TURNSTILE_SECRET_KEY: z.string().min(1),
 });
+
+/**
+ * Schemas dos payloads persistidos em `mainsite_settings` pelos PUTs de
+ * settings (issue #410). São o gate de ESCRITA: o texto original é o que
+ * persiste (extras sobrevivem — os leitores normalizam/descartam na
+ * leitura), mas JSON inválido ou shape estruturalmente errado nunca mais
+ * chega ao D1. Os leitores fail-safe existentes permanecem como estão.
+ */
+const SettingsToggleSchema = z.object({ enabled: z.boolean() });
+
+export const RotationSettingsSchema = z.object({
+  enabled: z.boolean(),
+  // Minutos; o cron multiplica por 60_000 e o admin usa 60 como default.
+  interval: z.number().int().min(1).max(10080),
+  last_rotated_at: z.number().int().min(0),
+});
+
+export const RateLimitToggleSettingsSchema = z.object({
+  chatbot: SettingsToggleSchema.optional(),
+  email: SettingsToggleSchema.optional(),
+  comments: SettingsToggleSchema.optional(),
+  // Legado tolerado pelo leitor: root `enabled` vira fallback do chatbot.
+  enabled: z.boolean().optional(),
+});
+
+const ThemePaletteSchema = z.object({
+  bgColor: z.string().optional(),
+  bgImage: z.string().optional(),
+  fontColor: z.string().optional(),
+  titleColor: z.string().optional(),
+});
+
+export const AppearanceSettingsSchema = z.object({
+  allowAutoMode: z.boolean().optional(),
+  light: ThemePaletteSchema.optional(),
+  dark: ThemePaletteSchema.optional(),
+  shared: z
+    .object({
+      fontSize: z.string().optional(),
+      titleFontSize: z.string().optional(),
+      fontFamily: z.string().optional(),
+      bodyWeight: z.string().optional(),
+      titleWeight: z.string().optional(),
+      lineHeight: z.string().optional(),
+      textAlign: z.string().optional(),
+      textIndent: z.string().optional(),
+      paragraphSpacing: z.string().optional(),
+      contentMaxWidth: z.string().optional(),
+      linkColor: z.string().optional(),
+    })
+    .optional(),
+});
+
+export const DisclaimersSettingsSchema = z.object({
+  enabled: z.boolean().optional(),
+  // looseObject: itens carregam extras consumidos pelo frontend
+  // (ex.: isDonationTrigger) que devem sobreviver ao gate.
+  items: z
+    .array(
+      z.looseObject({
+        id: z.string().min(1),
+        title: z.string(),
+        text: z.string(),
+        buttonText: z.string(),
+        enabled: z.boolean().optional(),
+      }),
+    )
+    .optional(),
+});
