@@ -2,7 +2,7 @@
 
 ## Supported status
 
-Current supported internal versions: mainsite-frontend v03.23.05 and mainsite-worker v02.20.01. The current deployment from `main` is the supported security target. This migration retires GitHub Release and version-tag publication; any legacy objects awaiting post-merge cleanup are not supported security targets.
+Current supported internal versions: mainsite-frontend v03.23.05 and mainsite-worker v02.21.00. The current deployment from `main` is the supported security target. This migration retires GitHub Release and version-tag publication; any legacy objects awaiting post-merge cleanup are not supported security targets.
 
 ## Reporting a vulnerability
 

@@ -2,6 +2,29 @@
 
 ## [Unreleased]
 
+## [v02.21.00] - 2026-08-21
+
+### Added
+
+- **Settings JSON Zod schema (issue #410)**: os quatro PUTs de settings
+  (`/api/settings`, `/rotation`, `/ratelimit`, `/disclaimers`) agora validam o
+  payload com schemas Zod (`AppearanceSettingsSchema`, `RotationSettingsSchema`,
+  `RateLimitToggleSettingsSchema`, `DisclaimersSettingsSchema` em
+  `lib/schemas.ts`) antes do upsert em `mainsite_settings`. JSON inválido ou
+  shape estruturalmente errado retorna 400 sem tocar o D1 — antes qualquer
+  string (JSON inválido inclusive) era persistida crua. O que persiste continua
+  sendo o texto original: campos extras (ex.: `isDonationTrigger` nos itens de
+  disclaimers) sobrevivem para os leitores normalizarem, o shape legado
+  root-`enabled` de ratelimit segue aceito, e todos os leitores fail-safe
+  permanecem intactos. Fecha o diferimento registrado na v02.18.00.
+
+### Validação
+
+- `npx vitest run` — 14 testes em settings.test.ts (8 novos cobrindo os PUTs:
+  rejeição de JSON inválido/shape errado nas 4 rotas sem tocar o D1,
+  persistência byte a byte do texto original e passthrough de extras).
+
+
 ## [v02.20.01] - 2026-08-10
 
 ### Removido

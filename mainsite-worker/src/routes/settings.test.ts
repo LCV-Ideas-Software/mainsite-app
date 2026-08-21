@@ -102,3 +102,113 @@ describe('GET /api/settings/disclaimers — filtro server-side de soft-disable',
     expect(body.items[0].id).toBe('a');
   });
 });
+
+/**
+ * Factory de mock D1 para os PUTs: captura cada payload persistido para
+ * afirmar tanto o bloqueio (writes vazio) quanto a persistência do texto
+ * original (extras preservados byte a byte).
+ */
+const mockEnvForPut = () => {
+  const writes: string[] = [];
+  const prepareImpl = () => ({
+    bind: (payload: string) => ({
+      first: async () => null,
+      run: async () => {
+        writes.push(payload);
+        return {};
+      },
+    }),
+    first: async () => null,
+    run: async () => ({}),
+  });
+  return {
+    env: { DB: { prepare: prepareImpl }, CLOUDFLARE_PW: 'test-pw' } as unknown as Env,
+    writes,
+  };
+};
+
+const putSettings = (path: string, body: string, env: Env) =>
+  settings.request(path, { method: 'PUT', headers: { Authorization: 'Bearer test-pw' }, body }, env);
+
+describe('PUT /api/settings* — validação Zod do payload antes de persistir (v02.21.00, issue #410)', () => {
+  const routes = ['/api/settings', '/api/settings/rotation', '/api/settings/ratelimit', '/api/settings/disclaimers'];
+
+  it('rejeita JSON inválido com 400 nas quatro rotas, sem tocar o D1', async () => {
+    for (const route of routes) {
+      const { env, writes } = mockEnvForPut();
+      const res = await putSettings(route, '{not json', env);
+      expect(res.status, route).toBe(400);
+      expect(writes, route).toHaveLength(0);
+    }
+  });
+
+  it('rejeita payload de shape não-objeto (array/número) com 400 nas quatro rotas', async () => {
+    for (const route of routes) {
+      const { env, writes } = mockEnvForPut();
+      const res = await putSettings(route, JSON.stringify([1, 2, 3]), env);
+      expect(res.status, route).toBe(400);
+      expect(writes, route).toHaveLength(0);
+    }
+  });
+
+  it('rejeita rotation com tipos errados (interval string)', async () => {
+    const { env, writes } = mockEnvForPut();
+    const res = await putSettings(
+      '/api/settings/rotation',
+      JSON.stringify({ enabled: true, interval: 'sessenta', last_rotated_at: 0 }),
+      env,
+    );
+    expect(res.status).toBe(400);
+    expect(writes).toHaveLength(0);
+  });
+
+  it('rejeita disclaimers com item sem id', async () => {
+    const { env, writes } = mockEnvForPut();
+    const res = await putSettings(
+      '/api/settings/disclaimers',
+      JSON.stringify({ items: [{ title: 't', text: 'x', buttonText: 'ok' }] }),
+      env,
+    );
+    expect(res.status).toBe(400);
+    expect(writes).toHaveLength(0);
+  });
+
+  it('aceita rotation válida e persiste o texto original', async () => {
+    const { env, writes } = mockEnvForPut();
+    const body = JSON.stringify({ enabled: true, interval: 60, last_rotated_at: 0 });
+    const res = await putSettings('/api/settings/rotation', body, env);
+    expect(res.status).toBe(200);
+    expect(writes).toEqual([body]);
+  });
+
+  it('aceita appearance parcial válida (campos opcionais)', async () => {
+    const { env, writes } = mockEnvForPut();
+    const body = JSON.stringify({ shared: { fontSize: '18px' }, allowAutoMode: true });
+    const res = await putSettings('/api/settings', body, env);
+    expect(res.status).toBe(200);
+    expect(writes).toEqual([body]);
+  });
+
+  it('aceita ratelimit no shape novo e no legado root-enabled', async () => {
+    for (const body of [
+      JSON.stringify({ chatbot: { enabled: true }, email: { enabled: false }, comments: { enabled: true } }),
+      JSON.stringify({ enabled: true }),
+    ]) {
+      const { env, writes } = mockEnvForPut();
+      const res = await putSettings('/api/settings/ratelimit', body, env);
+      expect(res.status, body).toBe(200);
+      expect(writes).toEqual([body]);
+    }
+  });
+
+  it('preserva campos extras dos itens de disclaimers (isDonationTrigger) byte a byte', async () => {
+    const { env, writes } = mockEnvForPut();
+    const body = JSON.stringify({
+      enabled: true,
+      items: [{ id: 'a', title: 't', text: 'x', buttonText: 'ok', isDonationTrigger: true }],
+    });
+    const res = await putSettings('/api/settings/disclaimers', body, env);
+    expect(res.status).toBe(200);
+    expect(writes).toEqual([body]);
+  });
+});

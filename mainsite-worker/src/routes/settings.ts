@@ -7,14 +7,41 @@
  * Domínio: /api/settings/*, /api/settings/disclaimers
  */
 import { Hono } from 'hono';
+import type { z } from 'zod';
 import type { Env } from '../env.ts';
 import { requireAuth } from '../lib/auth.ts';
 import { getContentFingerprint } from '../lib/content-version.ts';
 import { structuredLog } from '../lib/logger.ts';
 import { DEFAULT_RATE_LIMIT_TOGGLE, normalizeRateLimitToggleConfig } from '../lib/rate-limit.ts';
+import {
+  AppearanceSettingsSchema,
+  DisclaimersSettingsSchema,
+  RateLimitToggleSettingsSchema,
+  RotationSettingsSchema,
+} from '../lib/schemas.ts';
 import { buildThemeStylesheet, DEFAULT_THEME_SETTINGS, loadThemeSettings } from '../lib/theme.ts';
 
 const settings = new Hono<{ Bindings: Env }>();
+
+/**
+ * Gate de escrita dos PUTs de settings (issue #410): valida o payload cru
+ * antes do upsert. O que persiste continua sendo o TEXTO original (extras
+ * sobrevivem para os leitores normalizarem); JSON inválido ou shape
+ * estruturalmente errado retorna 400 sem tocar o D1.
+ */
+const validateSettingsPayload = (payload: string, schema: z.ZodType): { ok: true } | { ok: false; error: string } => {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(payload);
+  } catch {
+    return { ok: false, error: 'Payload não é JSON válido.' };
+  }
+  const result = schema.safeParse(parsed);
+  if (!result.success) {
+    return { ok: false, error: 'Payload não corresponde ao formato esperado.' };
+  }
+  return { ok: true };
+};
 
 // --- Aparência ---
 settings.get('/api/settings', async (c) => {
@@ -48,6 +75,8 @@ settings.get('/api/theme.css', async (c) => {
 settings.put('/api/settings', requireAuth, async (c) => {
   try {
     const payload = await c.req.text();
+    const validation = validateSettingsPayload(payload, AppearanceSettingsSchema);
+    if (!validation.ok) return c.json({ error: validation.error }, 400);
     await c.env.DB.prepare(
       "INSERT INTO mainsite_settings (id, payload) VALUES ('mainsite/appearance', ?) ON CONFLICT(id) DO UPDATE SET payload = excluded.payload",
     )
@@ -77,6 +106,8 @@ settings.get('/api/settings/rotation', async (c) => {
 settings.put('/api/settings/rotation', requireAuth, async (c) => {
   try {
     const payload = await c.req.text();
+    const validation = validateSettingsPayload(payload, RotationSettingsSchema);
+    if (!validation.ok) return c.json({ error: validation.error }, 400);
     await c.env.DB.prepare(
       "INSERT INTO mainsite_settings (id, payload) VALUES ('mainsite/rotation', ?) ON CONFLICT(id) DO UPDATE SET payload = excluded.payload",
     )
@@ -106,6 +137,8 @@ settings.get('/api/settings/ratelimit', requireAuth, async (c) => {
 settings.put('/api/settings/ratelimit', requireAuth, async (c) => {
   try {
     const payload = await c.req.text();
+    const validation = validateSettingsPayload(payload, RateLimitToggleSettingsSchema);
+    if (!validation.ok) return c.json({ error: validation.error }, 400);
     await c.env.DB.prepare(
       "INSERT INTO mainsite_settings (id, payload) VALUES ('mainsite/ratelimit', ?) ON CONFLICT(id) DO UPDATE SET payload = excluded.payload",
     )
@@ -179,6 +212,8 @@ settings.get('/api/settings/disclaimers', async (c) => {
 settings.put('/api/settings/disclaimers', requireAuth, async (c) => {
   try {
     const payload = await c.req.text();
+    const validation = validateSettingsPayload(payload, DisclaimersSettingsSchema);
+    if (!validation.ok) return c.json({ error: validation.error }, 400);
     await c.env.DB.prepare(
       "INSERT INTO mainsite_settings (id, payload) VALUES ('mainsite/disclaimers', ?) ON CONFLICT(id) DO UPDATE SET payload = excluded.payload",
     )
