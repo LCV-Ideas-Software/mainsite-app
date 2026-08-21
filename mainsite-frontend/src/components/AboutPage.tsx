@@ -5,6 +5,7 @@
 import DOMPurify from 'dompurify';
 import { Home } from 'lucide-react';
 import { type CSSProperties, useMemo } from 'react';
+import { enforceInlineStyleAllowlist } from '../lib/inline-style-allowlist';
 import type { AboutContent } from '../types';
 import './PostReader.css';
 
@@ -52,6 +53,9 @@ const sanitizeContent = (content: string) => {
   });
   const container = document.createElement('div');
   container.innerHTML = safeHtml;
+  // issue #411: allowlist de propriedades CSS — mantém os inline styles do
+  // TipTap e derruba o resto (url()/position/etc.), sem remover o atributo.
+  enforceInlineStyleAllowlist(container);
   container.querySelectorAll('a[href]').forEach((anchor) => {
     const href = anchor.getAttribute('href') || '';
     if (/^\s*javascript:/i.test(href)) {

@@ -8,6 +8,7 @@
 import DOMPurify from 'dompurify';
 import { Edit3, Home, Link2, Loader2, Mail, MessageCircle, MessageSquare } from 'lucide-react';
 import type { CSSProperties } from 'react';
+import { enforceInlineStyleAllowlist } from '../lib/inline-style-allowlist';
 import { serializeJsonLd } from '../lib/structuredData';
 import type { ActivePalette, Post, SiteStatus } from '../types';
 import CommentsSection from './CommentsSection';
@@ -99,6 +100,9 @@ const PostReader = ({
       // Force it back on all non-YouTube links after sanitization.
       const container = document.createElement('div');
       container.innerHTML = safeHtml;
+      // issue #411: allowlist de propriedades CSS — mantém os inline styles do
+      // TipTap e derruba o resto (url()/position/etc.), sem remover o atributo.
+      enforceInlineStyleAllowlist(container);
       container.querySelectorAll('a[href]').forEach((a) => {
         const href = a.getAttribute('href') || '';
         // Links internos (relativos) abrem na mesma aba; externos em nova aba

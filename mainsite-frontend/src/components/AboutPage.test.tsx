@@ -36,4 +36,25 @@ describe('AboutPage', () => {
     fireEvent.click(screen.getByRole('button', { name: /home page/i }));
     expect(onBack).toHaveBeenCalledTimes(1);
   });
+
+  it('filtra o valor do style pela allowlist preservando os inline styles do TipTap (issue #411)', () => {
+    const { container } = render(
+      <AboutPage
+        about={{
+          id: 1,
+          title: 'Sobre Este Site',
+          content:
+            '<p style="text-align: center; text-indent: 1.5rem; background-image: url(https://tracker.example/x.png); position: fixed">Texto</p>',
+        }}
+        onBack={() => {}}
+        zoomLevel={1}
+      />,
+    );
+
+    const p = container.querySelector('.post-reader__content-area p') as HTMLElement;
+    expect(p.style.textAlign).toBe('center');
+    expect(p.style.textIndent).toBe('1.5rem');
+    expect(p.getAttribute('style')).not.toContain('url(');
+    expect(p.getAttribute('style')).not.toContain('position');
+  });
 });
