@@ -27,14 +27,14 @@
     "@biomejs/biome": "^2.5.9",
     "@cloudflare/workers-types": "5.20260818.1",
     "@eslint/js": "^10.0.1",
-    "@vitest/ui": "^4.1.10",
+    "@vitest/ui": "^4.1.11",
     "eslint": "^10.8.1",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.11.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.7",
-    "wrangler": "4.123.0"
+    "wrangler": "4.124.0"
   },
   "overrides": {
     "minimatch@^10.0.0": {
