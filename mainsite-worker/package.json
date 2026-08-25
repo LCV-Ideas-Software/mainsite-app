@@ -24,8 +24,8 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.8",
-    "@cloudflare/workers-types": "5.20260817.1",
+    "@biomejs/biome": "^2.5.9",
+    "@cloudflare/workers-types": "5.20260818.1",
     "@eslint/js": "^10.0.1",
     "@vitest/ui": "^4.1.10",
     "eslint": "^10.8.1",
