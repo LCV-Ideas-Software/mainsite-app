@@ -54,6 +54,8 @@ test("Linear Release remains downstream of the exact successful Deploy SHA", () 
     linearReleaseSource,
     /group: linear-release-\$\{\{ github\.event\.workflow_run\.head_branch \}\}-\$\{\{ github\.event\.workflow_run\.conclusion \}\}/u,
   );
+  assert.match(linearReleaseSource, /queue: max/u);
+  assert.doesNotMatch(linearReleaseSource, /cancel-in-progress:/u);
   assert.match(linearReleaseSource, /environment: linear-release/u);
   assert.match(linearReleaseSource, /permissions:\s*\n\s*contents: read/u);
   assert.match(
@@ -68,7 +70,7 @@ test("Linear Release remains downstream of the exact successful Deploy SHA", () 
   assert.match(linearReleaseSource, /persist-credentials: false/u);
 });
 
-test("Linear Release uses the signed official action and preserves best-effort", () => {
+test("Linear Release uses the signed official action and fails closed", () => {
   assert.equal(
     occurrences(
       linearReleaseSource,
@@ -81,7 +83,7 @@ test("Linear Release uses the signed official action and preserves best-effort",
     /access_key: \$\{\{ secrets\.LINEAR_ACCESS_KEY \}\}/u,
   );
   assert.match(linearReleaseSource, /cli_version: v0\.16\.0/u);
-  assert.match(linearReleaseSource, /continue-on-error: true/u);
+  assert.doesNotMatch(linearReleaseSource, /continue-on-error:\s*true/u);
   assert.doesNotMatch(
     linearReleaseSource,
     /linear-release-linux-x64|CLI_SHA256|curl -fsSL|sha256sum/u,

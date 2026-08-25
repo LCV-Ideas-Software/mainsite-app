@@ -5,9 +5,10 @@
 ### Alterado
 
 - O writer pós-deploy da #461/MAISITE-9 troca o instalador customizado pela
-  `linear/linear-release-action` oficial v0.16.0, fixada pelo SHA assinado, sem
-  mudar o contrato best-effort nem o SHA implantado que origina a release. O CLI
-  é selecionado explicitamente como v0.16.0; a falta de verificação do digest no
+  `linear/linear-release-action` oficial v0.16.0, fixada pelo SHA assinado,
+  preservando o SHA implantado que origina a release. A fila usa `queue: max`,
+  e falhas da action tornam o workflow vermelho. O CLI é selecionado
+  explicitamente como v0.16.0; a falta de verificação do digest no
   instalador upstream continua rastreada em `linear/linear-release-action#59`.
 - Os PRs Dependabot #431 e #432 foram consolidados: CodeQL usa v4.37.7 e o
   Zizmor passa a usar diretamente a Action oficial v0.6.2 com CLI 1.29.0.
