@@ -4,6 +4,16 @@
 
 ### Alterado
 
+- `GCP_NL_API_KEY` deixa de ser secret nativo e passa a vir do Secrets Store
+  (`gcp-nl-api-key`), como `VERTEX_SA_KEY`. A restrição de 1024 caracteres que
+  motivara o formato nativo está vencida: o limite atual é 64 KiB por secret.
+  O resolvedor de `index.ts` já aceitava os dois formatos, então nenhuma lógica
+  de moderação mudou.
+- A Service Account da moderação passa a ser
+  `mainsite-moderation@lcv-ideas-and-software.iam.gserviceaccount.com`, no
+  projeto institucional, com o papel mínimo
+  `roles/serviceusage.serviceUsageConsumer` que a documentação da Natural
+  Language API exige. A anterior pertencia a um projeto de conta pessoal.
 - O writer pós-deploy da #461/MAISITE-9 troca o instalador customizado pela
   `linear/linear-release-action` oficial v0.16.0, fixada pelo SHA assinado,
   preservando o SHA implantado que origina a release. A fila usa `queue: max`,
@@ -33,6 +43,15 @@
   integral de 20/08): pacote de tipos com versionamento datado sob caret gera
   instalação não reprodutível fora do lockfile — o mesmo fundamento já adotado
   para o pin do Wrangler.
+
+### Corrigido
+
+- Os 12 erros de typecheck acumulados desde a implantação do Vertex: quatro
+  destructurings de JWT e leituras de bytes sem verificação de existência
+  (`auth.ts`, `uploads.ts`), cinco campos opcionais recebendo `undefined`
+  explícito sob `exactOptionalPropertyTypes` (`auth.ts`, `comments.ts`), dois
+  acessos indexados sem guarda (`index.ts`, `uploads.ts`) e um caminho de
+  retorno implícito em `requireAuth`. `tsc --noEmit` sai limpo.
 
 ### Removido
 

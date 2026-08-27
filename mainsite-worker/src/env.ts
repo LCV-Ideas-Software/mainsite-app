@@ -51,12 +51,12 @@ export interface RawEnv {
   TURNSTILE_SECRET_KEY: SecretStoreBinding;
 
   // --- GCP Natural Language API ---
-  // GCP_NL_API_KEY é um secret nativo (`wrangler secret put`) por decisão
-  // histórica — na época o Secret Store limitava valores a 1024 chars; o
-  // limite hoje é 64 KiB (VERTEX_SA_KEY, acima, vive no Store). Mantido
-  // nativo até haver motivo para migrar. Resolver in index.ts duck-types
-  // the .get() check and passes the existing string through unchanged.
-  GCP_NL_API_KEY: string;
+  // Service Account JSON no Secret Store, como VERTEX_SA_KEY. Migrado do
+  // secret nativo em 27/08/2026: a restrição de 1024 chars que motivou o
+  // formato antigo está vencida — o limite atual é 64 KiB por secret.
+  // A conta anterior era de um projeto pessoal e foi substituída por
+  // mainsite-moderation@lcv-ideas-and-software.iam.gserviceaccount.com.
+  GCP_NL_API_KEY: SecretStoreBinding;
 
   // --- Cloudflare Access (optional hardening for admin routes) ---
   CF_ACCESS_TEAM_DOMAIN?: SecretStoreBinding;

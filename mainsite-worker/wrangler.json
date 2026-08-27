@@ -94,6 +94,7 @@
       "binding": "TURNSTILE_SECRET_KEY",
       "store_id": "df90c0935ba1460899c3c2c457548a90",
       "secret_name": "turnstile-secret-key"
-    }
+    },
+    { "binding": "GCP_NL_API_KEY", "store_id": "df90c0935ba1460899c3c2c457548a90", "secret_name": "gcp-nl-api-key" }
   ]
 }

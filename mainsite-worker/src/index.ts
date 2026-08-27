@@ -167,6 +167,7 @@ function createRateLimiterMiddleware(bucketName: 'chatbot' | 'email' | 'comments
 
     const ip = c.req.header('cf-connecting-ip') || 'unknown';
     const bindingKey = RATE_LIMIT_BINDINGS[bucketName];
+    if (!bindingKey) return next();
     const limiter = c.env[bindingKey];
 
     const { success } = await limiter.limit({ key: `${bucketName}:${ip}` });
