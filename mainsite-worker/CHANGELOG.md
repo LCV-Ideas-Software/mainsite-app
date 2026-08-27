@@ -2,6 +2,35 @@
 
 ## [Unreleased]
 
+## [v02.22.00] - 2026-08-27
+
+### Changed
+
+- **`GCP_NL_API_KEY` migrado para o Secrets Store**: o binding deixa de ser
+  secret nativo e passa a `secrets_store_secrets` (`gcp-nl-api-key`), como
+  `VERTEX_SA_KEY`. O tipo em `RawEnv` volta de `string` para
+  `SecretStoreBinding`. A restrição de 1024 caracteres que motivou o formato
+  nativo na v02.19.05 está vencida — o limite atual é 64 KiB por secret. O
+  resolvedor de `index.ts` já era duck-typed em `.get()`, então nenhuma lógica
+  de moderação mudou. A Service Account foi trocada por uma conta dedicada do
+  projeto institucional, com o papel mínimo
+  `roles/serviceusage.serviceUsageConsumer`; a anterior era de um projeto de
+  conta pessoal.
+
+### Fixed
+
+- **Typecheck zerado (12 erros)**: `noUncheckedIndexedAccess` em
+  `index.ts` (binding de rate limit), `lib/auth.ts` (partes do JWT),
+  `routes/uploads.ts` (bytes do brand ftyp e split do Content-Type);
+  `exactOptionalPropertyTypes` em `lib/auth.ts` e `routes/comments.ts`
+  (propriedades opcionais não recebem mais `undefined` explícito); e TS7030 no
+  middleware de `lib/auth.ts`.
+
+### Validação
+
+- `tsc --noEmit` — 0 erros (era 12); `biome check` e `eslint src` limpos;
+  `vitest run` — 49 testes em 10 arquivos.
+
 ## [v02.21.00] - 2026-08-21
 
 ### Added

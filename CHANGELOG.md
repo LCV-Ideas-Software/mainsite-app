@@ -9,11 +9,11 @@
   motivara o formato nativo está vencida: o limite atual é 64 KiB por secret.
   O resolvedor de `index.ts` já aceitava os dois formatos, então nenhuma lógica
   de moderação mudou.
-- A Service Account da moderação passa a ser
-  `mainsite-moderation@lcv-ideas-and-software.iam.gserviceaccount.com`, no
-  projeto institucional, com o papel mínimo
-  `roles/serviceusage.serviceUsageConsumer` que a documentação da Natural
-  Language API exige. A anterior pertencia a um projeto de conta pessoal.
+- A Service Account da moderação passa a ser uma conta dedicada do projeto
+  institucional, com o papel mínimo `roles/serviceusage.serviceUsageConsumer`
+  que a documentação da Natural Language API exige. A anterior pertencia a um
+  projeto de conta pessoal. O endereço da conta não é versionado (AGENTS.md,
+  "Identificadores e credenciais em repositorio publico").
 - O writer pós-deploy da #461/MAISITE-9 troca o instalador customizado pela
   `linear/linear-release-action` oficial v0.16.0, fixada pelo SHA assinado,
   preservando o SHA implantado que origina a release. A fila usa `queue: max`,

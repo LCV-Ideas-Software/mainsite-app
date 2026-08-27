@@ -110,15 +110,9 @@ Set `database_name` to the name created in step 2 (`example_db` in the example) 
 
 ### 4. Configure Cloudflare Secrets Store secrets
 
-Create or select your own Cloudflare Secrets Store, replace the repository-specific `store_id` values, and populate the bindings declared in `mainsite-worker/wrangler.json`. `VERTEX_SA_KEY` must contain the complete service-account JSON used to authenticate Vertex AI; `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` hold their respective service credentials.
+Create or select your own Cloudflare Secrets Store, replace the repository-specific `store_id` values, and populate the bindings declared in `mainsite-worker/wrangler.json`. `VERTEX_SA_KEY` must contain the complete service-account JSON used to authenticate Vertex AI; `GCP_NL_API_KEY` must likewise contain a complete service-account JSON, for the separate Natural Language moderation path — grant that account `roles/serviceusage.serviceUsageConsumer` and enable `language.googleapis.com` on its project; `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` hold their respective service credentials.
 
 Set the non-secret `VERTEX_PROJECT` Wrangler variable to your Google Cloud project ID; set `VERTEX_LOCATION` as well if you are not using the default `global` location. The worker does not infer either value from `VERTEX_SA_KEY`.
-
-`GCP_NL_API_KEY` is separate from Vertex AI and remains a native Worker secret for the Natural Language moderation path:
-
-```bash
-npx wrangler secret put GCP_NL_API_KEY --config mainsite-worker/wrangler.json
-```
 
 ### 5. Deploy
 

@@ -54,8 +54,9 @@ export interface RawEnv {
   // Service Account JSON no Secret Store, como VERTEX_SA_KEY. Migrado do
   // secret nativo em 27/08/2026: a restrição de 1024 chars que motivou o
   // formato antigo está vencida — o limite atual é 64 KiB por secret.
-  // A conta anterior era de um projeto pessoal e foi substituída por
-  // mainsite-moderation@lcv-ideas-and-software.iam.gserviceaccount.com.
+  // A conta de serviço anterior, de um projeto pessoal, foi substituída por
+  // uma do projeto institucional; o endereço dela não é versionado (AGENTS.md,
+  // "Identificadores e credenciais em repositorio publico").
   GCP_NL_API_KEY: SecretStoreBinding;
 
   // --- Cloudflare Access (optional hardening for admin routes) ---
