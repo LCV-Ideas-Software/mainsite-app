@@ -18,12 +18,13 @@
 - **`mainsite-frontend`** — React 19 + Vite 8 single-page app on Cloudflare Pages, primary domain `example-blog.invalid` (+ secondary aliases). Public-facing site with reading experience, comments, ratings, AI chatbot, share-by-email, and accessibility-first design.
 - **`mainsite-worker`** — Hono backend on Cloudflare Workers serving `/api/*` for the frontend. AI surfaces (Gemini models through Vertex AI), moderation (GCP Natural Language API + Turnstile), email relay (Resend), and R2 media.
 
-**Status.** Stable. Current internal versions: **mainsite-frontend v03.24.00** and **mainsite-worker v02.21.00**. See [CHANGELOG.md](./CHANGELOG.md) for the full version history.
+**Status.** Stable. Current internal versions: **mainsite-frontend v03.24.00** and **mainsite-worker v02.22.00**. See [CHANGELOG.md](./CHANGELOG.md) for the full version history.
 
 The version history at a glance:
 
 | Internal version                                                | Scope                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`mainsite-worker v02.22.00` + `mainsite-frontend v03.24.00`** | **Moderation key moved to the Secrets Store (worker only, issue #488).** `GCP_NL_API_KEY` stops being a native Worker secret and becomes a `secrets_store_secrets` binding, like `VERTEX_SA_KEY` — the 1024-character limit that forced the native format has expired, and the current ceiling is 64 KiB per secret. The resolver was already duck-typed on `.get()`, so no moderation logic changed. The service account was replaced by a dedicated one in the institutional project, holding the minimum `roles/serviceusage.serviceUsageConsumer` role. Also clears the 12 accumulated typecheck errors, so `tsc --noEmit` runs clean. |
 | **`mainsite-frontend v03.24.00` + `mainsite-worker v02.21.00`** | **Inline-style value allowlist (frontend only, issue #411).** Both DOMPurify call sites now rewrite each `style` attribute keeping only the CSS properties the TipTap editor emits, with validated values — published TipTap content survives while `url()`/`expression()`/`position` are dropped. Closes the deferral recorded in v03.22.00.                                                                                                                                 |
 | **`mainsite-worker v02.21.00` + `mainsite-frontend v03.23.05`** | **Settings JSON Zod schema (worker only, issue #410).** The four settings PUTs now validate payloads with Zod schemas before the `mainsite_settings` upsert — invalid JSON or structurally wrong shapes return 400 without touching D1. The original text is still what persists (item extras like `isDonationTrigger` survive; the legacy root-`enabled` ratelimit shape stays accepted) and every fail-safe reader is untouched. Closes the deferral recorded in v02.18.00. |
 | **`mainsite-worker v02.20.01` + `mainsite-frontend v03.23.05`** | **Legacy AI Studio binding retired (worker only).** Drops the `GEMINI_API_KEY` binding, its two type declarations, the resolver `SECRET_KEYS` entry and the optional schema field — nothing had read the key since the Vertex migration. Also realigns `APP_VERSION`, which had stayed at `v02.19.05` while the sub-app changelog already recorded v02.20.00.                                                                                                                 |
@@ -110,15 +111,9 @@ Set `database_name` to the name created in step 2 (`example_db` in the example) 
 
 ### 4. Configure Cloudflare Secrets Store secrets
 
-Create or select your own Cloudflare Secrets Store, replace the repository-specific `store_id` values, and populate the bindings declared in `mainsite-worker/wrangler.json`. `VERTEX_SA_KEY` must contain the complete service-account JSON used to authenticate Vertex AI; `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` hold their respective service credentials.
+Create or select your own Cloudflare Secrets Store, replace the repository-specific `store_id` values, and populate the bindings declared in `mainsite-worker/wrangler.json`. `VERTEX_SA_KEY` must contain the complete service-account JSON used to authenticate Vertex AI; `GCP_NL_API_KEY` must likewise contain a complete service-account JSON, for the separate Natural Language moderation path — grant that account `roles/serviceusage.serviceUsageConsumer` and enable `language.googleapis.com` on its project; `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` hold their respective service credentials.
 
 Set the non-secret `VERTEX_PROJECT` Wrangler variable to your Google Cloud project ID; set `VERTEX_LOCATION` as well if you are not using the default `global` location. The worker does not infer either value from `VERTEX_SA_KEY`.
-
-`GCP_NL_API_KEY` is separate from Vertex AI and remains a native Worker secret for the Natural Language moderation path:
-
-```bash
-npx wrangler secret put GCP_NL_API_KEY --config mainsite-worker/wrangler.json
-```
 
 ### 5. Deploy
 

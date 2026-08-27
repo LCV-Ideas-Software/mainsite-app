@@ -7,7 +7,7 @@
  * Hono-based modular Worker com paridade total ao monolito.
  * Versão modular: todos os domínios em src/routes/*.ts
  */
-export const APP_VERSION = 'APP v02.21.00';
+export const APP_VERSION = 'APP v02.22.00';
 
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -167,6 +167,7 @@ function createRateLimiterMiddleware(bucketName: 'chatbot' | 'email' | 'comments
 
     const ip = c.req.header('cf-connecting-ip') || 'unknown';
     const bindingKey = RATE_LIMIT_BINDINGS[bucketName];
+    if (!bindingKey) return next();
     const limiter = c.env[bindingKey];
 
     const { success } = await limiter.limit({ key: `${bucketName}:${ip}` });

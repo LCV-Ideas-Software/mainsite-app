@@ -71,7 +71,7 @@ function inferExtensionFromMagicBytes(buffer: ArrayBuffer): string | null {
   // AVIF: ?? ?? ?? ?? 66 74 79 70 (offset 4-7 = 'ftyp'); ftyp brand at 8-11
   // We check 'ftyp' marker + accept 'avif'/'avis'/'heic'/'mif1' brands
   if (view[4] === 0x66 && view[5] === 0x74 && view[6] === 0x79 && view[7] === 0x70) {
-    const brand = String.fromCharCode(view[8], view[9], view[10], view[11]);
+    const brand = String.fromCharCode(view[8] ?? 0, view[9] ?? 0, view[10] ?? 0, view[11] ?? 0);
     if (brand === 'avif' || brand === 'avis' || brand === 'mif1' || brand === 'heic') return 'avif';
   }
   // PDF: 25 50 44 46 ('%PDF')
@@ -182,7 +182,7 @@ function applyPublicAssetHeaders(headers: Headers, origin: string | undefined) {
 }
 
 function applySvgSafetyHeaders(filename: string, headers: Headers) {
-  const contentType = headers.get('Content-Type')?.split(';')[0].trim().toLowerCase();
+  const contentType = headers.get('Content-Type')?.split(';')[0]?.trim().toLowerCase();
   if (contentType !== 'image/svg+xml' && !filename.toLowerCase().endsWith('.svg')) return;
 
   headers.set(

@@ -110,14 +110,14 @@ async function getCommentDepth(
     }
 
     if (current.parent_id === null) {
-      return { depth, error: undefined };
+      return { depth };
     }
 
     depth += 1;
     currentId = current.parent_id;
   }
 
-  return { depth, error: undefined };
+  return { depth };
 }
 
 async function requireTurnstileValidation(c: RouteContext, token: string | undefined): Promise<Response | null> {

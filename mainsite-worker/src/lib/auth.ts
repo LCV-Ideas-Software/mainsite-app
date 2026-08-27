@@ -100,6 +100,7 @@ async function verifyJwt(
     if (parts.length !== 3) return { valid: false, error: 'JWT malformado.' };
 
     const [headerB64, payloadB64, signatureB64] = parts;
+    if (!headerB64 || !payloadB64 || !signatureB64) return { valid: false, error: 'JWT malformado.' };
     const headerJson = JSON.parse(new TextDecoder().decode(base64UrlDecode(headerB64))) as {
       kid?: string;
       alg?: string;
@@ -141,7 +142,7 @@ async function verifyJwt(
     const isValid = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', publicKey, signature, signingInput);
 
     if (!isValid) return { valid: false, error: 'Assinatura JWT inválida.' };
-    return { valid: true, email: payloadJson.email };
+    return payloadJson.email === undefined ? { valid: true } : { valid: true, email: payloadJson.email };
   } catch (err) {
     return { valid: false, error: `Erro ao validar JWT: ${(err as Error).message}` };
   }
@@ -180,7 +181,8 @@ async function validateCfAccessJwt(
 
   const result = await verifyJwt(jwtToken, teamDomain, expectedAudiences);
   if (!result.valid) {
-    if (enforcement === 'block') return { isAuthenticated: false, source: 'cloudflare-access', error: result.error };
+    if (enforcement === 'block')
+      return { isAuthenticated: false, source: 'cloudflare-access', ...(result.error ? { error: result.error } : {}) };
     console.warn(`[mainsite-motor] [Auth] ${result.error}`);
     return null;
   }
@@ -219,9 +221,9 @@ async function validateRequestAuth(request: Request, env: Env): Promise<AuthCont
   }
 
   const jwtRejection = await validateCfAccessJwt(request, cfAccessEmail, {
-    teamDomain: env.CF_ACCESS_TEAM_DOMAIN,
-    audience: env.CF_ACCESS_AUD,
-    enforcement: env.ENFORCE_JWT_VALIDATION,
+    ...(env.CF_ACCESS_TEAM_DOMAIN ? { teamDomain: env.CF_ACCESS_TEAM_DOMAIN } : {}),
+    ...(env.CF_ACCESS_AUD ? { audience: env.CF_ACCESS_AUD } : {}),
+    ...(env.ENFORCE_JWT_VALIDATION ? { enforcement: env.ENFORCE_JWT_VALIDATION } : {}),
   });
   if (jwtRejection) return jwtRejection;
 
@@ -234,6 +236,7 @@ export const requireAuth = async (c: Context<{ Bindings: Env }>, next: Next) => 
     return c.json({ error: '401', message: auth.error || 'Unauthorized' }, 401);
   }
   await next();
+  return;
 };
 
 interface AdminEmailCache {
