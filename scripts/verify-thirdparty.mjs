@@ -1,10 +1,18 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { readdir, readFile } from "node:fs/promises";
+import { relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const ROOT_INVENTORY = "THIRDPARTY.md";
 const PUBLIC_INVENTORY = "mainsite-frontend/public/legal/THIRDPARTY.md";
+const EXCLUDED_DIRECTORIES = new Set([
+  ".git",
+  ".wrangler",
+  "build",
+  "coverage",
+  "dist",
+  "node_modules",
+]);
 const TABLE_HEADER = [
   "Pacote",
   "Componente",
@@ -21,11 +29,15 @@ function normalizeCell(value) {
   return value.trim().replace(/^`|`$/gu, "");
 }
 
+function tableCells(line) {
+  return line.trimStart().split("|").slice(1, -1).map(normalizeCell);
+}
+
 function parseTable(markdown) {
   const lines = markdown.split(/\r?\n/u);
   const headerIndex = lines.findIndex((line) => {
-    if (!line.startsWith("|")) return false;
-    const cells = line.split("|").slice(1, -1).map(normalizeCell);
+    if (!line.trimStart().startsWith("|")) return false;
+    const cells = tableCells(line);
     return (
       cells.length === TABLE_HEADER.length &&
       cells.every((cell, index) => cell === TABLE_HEADER[index])
@@ -33,13 +45,25 @@ function parseTable(markdown) {
   });
   assert.notEqual(headerIndex, -1, "THIRDPARTY table header is missing");
 
-  const header = lines[headerIndex].split("|").slice(1, -1).map(normalizeCell);
+  const header = tableCells(lines[headerIndex]);
   assert.deepEqual(header, TABLE_HEADER, "THIRDPARTY table header changed");
+  const separator = tableCells(lines[headerIndex + 1] ?? "");
+  assert.equal(
+    separator.length,
+    TABLE_HEADER.length,
+    "THIRDPARTY table separator is invalid",
+  );
+  assert.ok(
+    separator.every((cell) => /^:?-{3,}:?$/u.test(cell)),
+    "THIRDPARTY table separator is invalid",
+  );
 
   const records = [];
-  for (const line of lines.slice(headerIndex + 2)) {
-    if (!line.startsWith("|")) break;
-    const cells = line.split("|").slice(1, -1).map(normalizeCell);
+  let endIndex = headerIndex + 2;
+  for (; endIndex < lines.length; endIndex += 1) {
+    const line = lines[endIndex];
+    if (!line.trimStart().startsWith("|")) break;
+    const cells = tableCells(line);
     assert.equal(
       cells.length,
       TABLE_HEADER.length,
@@ -57,6 +81,12 @@ function parseTable(markdown) {
       origin: cells[8],
     });
   }
+  assert.equal(
+    lines.slice(endIndex).filter((line) => line.trimStart().startsWith("|"))
+      .length,
+    0,
+    "THIRDPARTY contains table rows after the inventory",
+  );
 
   assert.notEqual(records.length, 0, "THIRDPARTY table has no components");
   return records;
@@ -92,6 +122,13 @@ export function expectedInventory(manifests) {
         }
 
         const lockEntry = packageLock.packages?.[`node_modules/${name}`];
+        const isUninstalledOptionalPeer =
+          manifestKey === "peerDependencies" &&
+          packageJson.peerDependenciesMeta?.[name]?.optional === true &&
+          !lockEntry;
+        if (isUninstalledOptionalPeer) {
+          continue;
+        }
         assert.ok(lockEntry, `${id}/${name} is missing from package-lock.json`);
         assertNonEmptyString(
           lockEntry.version,
@@ -171,17 +208,38 @@ async function readJson(path) {
   return readFile(path, "utf8").then(JSON.parse);
 }
 
+export async function discoverManifestDirectories(root) {
+  const found = [];
+
+  async function visit(directory) {
+    const entries = await readdir(directory, { withFileTypes: true });
+    if (
+      entries.some((entry) => entry.isFile() && entry.name === "package.json")
+    ) {
+      const directoryRelative = relative(root, directory);
+      found.push(directoryRelative || ".");
+    }
+    await Promise.all(
+      entries
+        .filter(
+          (entry) =>
+            entry.isDirectory() && !EXCLUDED_DIRECTORIES.has(entry.name),
+        )
+        .map((entry) => visit(resolve(directory, entry.name))),
+    );
+  }
+
+  await visit(root);
+  return found.sort((left, right) => left.localeCompare(right, "en"));
+}
+
 async function main() {
   const root = process.cwd();
-  const specs = [
-    ["root", "."],
-    ["mainsite-frontend", "mainsite-frontend"],
-    ["mainsite-worker", "mainsite-worker"],
-  ];
+  const directories = await discoverManifestDirectories(root);
 
   const manifests = await Promise.all(
-    specs.map(async ([id, directory]) => ({
-      id,
+    directories.map(async (directory) => ({
+      id: directory === "." ? "root" : directory.split(sep).join("/"),
       packageJson: await readJson(resolve(root, directory, "package.json")),
       packageLock: await readJson(
         resolve(root, directory, "package-lock.json"),

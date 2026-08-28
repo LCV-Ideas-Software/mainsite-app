@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { test } from "node:test";
 
-import { verifyThirdPartyInventory } from "./verify-thirdparty.mjs";
+import {
+  discoverManifestDirectories,
+  verifyThirdPartyInventory,
+} from "./verify-thirdparty.mjs";
 
 const manifests = [
   {
@@ -9,7 +15,8 @@ const manifests = [
     packageJson: {
       dependencies: { alpha: "^1.0.0" },
       optionalDependencies: { gamma: "^3.0.0" },
-      peerDependencies: { delta: "^4.0.0" },
+      peerDependencies: { delta: "^4.0.0", zeta: "^5.0.0" },
+      peerDependenciesMeta: { zeta: { optional: true } },
       devDependencies: { delta: "^4.0.0" },
     },
     packageLock: {
@@ -84,6 +91,27 @@ test("accepts complete byte-identical inventories", () => {
   assert.doesNotThrow(() => verify());
 });
 
+test("discovers every source manifest and excludes generated directories", async () => {
+  const root = await mkdtemp(join(tmpdir(), "thirdparty-manifests-"));
+  try {
+    await Promise.all([
+      writeFile(join(root, "package.json"), "{}"),
+      mkdir(join(root, "future-package"), { recursive: true }),
+      mkdir(join(root, "dist", "generated"), { recursive: true }),
+    ]);
+    await Promise.all([
+      writeFile(join(root, "future-package", "package.json"), "{}"),
+      writeFile(join(root, "dist", "generated", "package.json"), "{}"),
+    ]);
+    assert.deepEqual(await discoverManifestDirectories(root), [
+      ".",
+      "future-package",
+    ]);
+  } finally {
+    await rm(root, { force: true, recursive: true });
+  }
+});
+
 test("rejects divergence between published copies", () => {
   assert.throws(
     () => verify({ publicInventory: `${inventory()}\n` }),
@@ -110,6 +138,19 @@ test("rejects a missing peer dependency", () => {
     () => verify({ rootInventory: inventory([alpha, deltaDev, gamma, beta]) }),
     /does not match/u,
   );
+});
+
+test("fails closed for an uninstalled required peer", () => {
+  const changed = structuredClone(manifests);
+  changed[0].packageJson.peerDependencies.eta = "^6.0.0";
+  assert.throws(
+    () => verify({ manifests: changed }),
+    /eta is missing from package-lock\.json/u,
+  );
+});
+
+test("omits an uninstalled optional peer", () => {
+  assert.doesNotThrow(() => verify());
 });
 
 test("uses optionalDependencies precedence over dependencies", () => {
@@ -153,6 +194,26 @@ test("rejects duplicate package/component rows", () => {
         rootInventory: inventory([alpha, alpha, deltaDev, delta, gamma, beta]),
       }),
     /duplicate/u,
+  );
+});
+
+test("rejects table-shaped rows after the canonical inventory", () => {
+  assert.throws(
+    () => verify({ rootInventory: `${inventory()}\n${alpha}\n` }),
+    /table rows after the inventory/u,
+  );
+});
+
+test("rejects a malformed table separator", () => {
+  assert.throws(
+    () =>
+      verify({
+        rootInventory: inventory().replace(
+          "|--------|------------|",
+          "| invalid |------------|",
+        ),
+      }),
+    /table separator is invalid/u,
   );
 });
 

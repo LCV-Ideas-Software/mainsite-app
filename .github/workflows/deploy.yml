@@ -38,6 +38,12 @@ jobs:
           check-latest: true
           package-manager-cache: false
 
+      - name: Install root validation dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Validate public assets and legal inventory
+        run: npm run format:public:check
+
       - name: Install Worker dependencies
         working-directory: mainsite-worker
         run: npm ci --ignore-scripts --no-audit --no-fund
