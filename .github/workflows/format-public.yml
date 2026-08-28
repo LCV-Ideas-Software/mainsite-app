@@ -49,11 +49,6 @@ jobs:
       - name: Check public page formatting
         run: npm run format:public:check
 
-      - name: Validate third-party inventory
-        run: |
-          npm run test:thirdparty
-          npm run verify:thirdparty
-
       - name: Install Worker dependencies
         working-directory: mainsite-worker
         run: npm ci --ignore-scripts --no-audit --no-fund

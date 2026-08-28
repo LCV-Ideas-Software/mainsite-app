@@ -12,6 +12,7 @@ const TABLE_HEADER = [
   "Versão declarada",
   "Versão efetiva",
   "Licença declarada no lockfile",
+  "Integridade do artefato",
   "Modificado?",
   "Origem",
 ];
@@ -51,8 +52,9 @@ function parseTable(markdown) {
       declaredVersion: cells[3],
       effectiveVersion: cells[4],
       license: cells[5],
-      modified: cells[6],
-      origin: cells[7],
+      integrity: cells[6],
+      modified: cells[7],
+      origin: cells[8],
     });
   }
 
@@ -69,23 +71,25 @@ export function expectedInventory(manifests) {
   const expected = [];
   const packageNames = new Set();
 
-  for (const { id, packageJson, packageLock } of manifests) {
+  for (const { id, packageJson, packageLock, modified = {} } of manifests) {
     assert.ok(!packageNames.has(id), `duplicate manifest id: ${id}`);
     packageNames.add(id);
 
-    const directNames = new Set();
+    const optionalNames = new Set(
+      Object.keys(packageJson.optionalDependencies ?? {}),
+    );
     for (const [manifestKey, relation] of [
       ["dependencies", "runtime"],
+      ["optionalDependencies", "optional"],
+      ["peerDependencies", "peer"],
       ["devDependencies", "development"],
     ]) {
       for (const [name, declaredVersion] of Object.entries(
         packageJson[manifestKey] ?? {},
       )) {
-        assert.ok(
-          !directNames.has(name),
-          `${id}/${name} appears in multiple dependency groups`,
-        );
-        directNames.add(name);
+        if (manifestKey === "dependencies" && optionalNames.has(name)) {
+          continue;
+        }
 
         const lockEntry = packageLock.packages?.[`node_modules/${name}`];
         assert.ok(lockEntry, `${id}/${name} is missing from package-lock.json`);
@@ -105,6 +109,12 @@ export function expectedInventory(manifests) {
           lockEntry.integrity,
           `${id}/${name} lacks artifact integrity metadata`,
         );
+        const modification = modified[`${name}\0${relation}`] ?? "Não";
+        assert.match(
+          modification,
+          /^(?:Sim|Não)$/u,
+          `${id}/${name}/${relation} has an invalid modification status`,
+        );
 
         expected.push({
           packageName: id,
@@ -113,7 +123,8 @@ export function expectedInventory(manifests) {
           declaredVersion,
           effectiveVersion: lockEntry.version,
           license: lockEntry.license,
-          modified: "Não",
+          integrity: lockEntry.integrity,
+          modified: modification,
           origin: lockEntry.resolved,
         });
       }
@@ -123,7 +134,8 @@ export function expectedInventory(manifests) {
   return expected.sort(
     (left, right) =>
       left.packageName.localeCompare(right.packageName, "en") ||
-      left.name.localeCompare(right.name, "en"),
+      left.name.localeCompare(right.name, "en") ||
+      left.relation.localeCompare(right.relation, "en"),
   );
 }
 
@@ -139,11 +151,13 @@ export function verifyThirdPartyInventory({
   );
 
   const actual = parseTable(rootInventory);
-  const keys = actual.map(({ packageName, name }) => `${packageName}\0${name}`);
+  const keys = actual.map(
+    ({ packageName, name, relation }) => `${packageName}\0${name}\0${relation}`,
+  );
   assert.equal(
     new Set(keys).size,
     keys.length,
-    "THIRDPARTY contains duplicate package/component rows",
+    "THIRDPARTY contains duplicate package/component/relation rows",
   );
 
   assert.deepEqual(
