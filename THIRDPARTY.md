@@ -1,61 +1,64 @@
 # Third-Party Components
 
-Public deploys: `mainsite-frontend` (Cloudflare Pages) + `mainsite-worker` (Cloudflare Worker). Both ship to production from this repo.
+This inventory covers every direct runtime, optional, peer, and development dependency
+declared by the root tooling package, `mainsite-frontend`, and `mainsite-worker`. Each effective version,
+license expression, source tarball, and integrity value is fail-closed against the
+corresponding committed `package-lock.json`; the full transitive trees remain recorded in
+those lockfiles and in GitHub's dependency graph rather than being duplicated here.
 
-## mainsite-frontend (React + Vite)
+The repository itself remains licensed under `AGPL-3.0-or-later`. Third-party components
+remain subject to their own terms, and none is modified or vendored by this repository.
 
-| Componente | Licença Original | Modificado? | Origem |
-|------------|------------------|-------------|--------|
-| @cloudflare/workers-types | MIT | Não | https://registry.npmjs.org/@cloudflare/workers-types |
-| @tanstack/react-query | MIT | Não | https://registry.npmjs.org/@tanstack/react-query |
-| dompurify | (MPL-2.0 OR Apache-2.0) | Não | https://registry.npmjs.org/dompurify |
-| lucide-react | ISC | Não | https://registry.npmjs.org/lucide-react |
-| react | MIT | Não | https://registry.npmjs.org/react |
-| react-dom | MIT | Não | https://registry.npmjs.org/react-dom |
-| @biomejs/biome | MIT | Não | https://registry.npmjs.org/@biomejs/biome |
-| @eslint/js | MIT | Não | https://registry.npmjs.org/@eslint/js |
-| @playwright/test | Apache-2.0 | Não | https://registry.npmjs.org/@playwright/test |
-| @tanstack/react-query-devtools | MIT | Não | https://registry.npmjs.org/@tanstack/react-query-devtools |
-| @testing-library/dom | MIT | Não | https://registry.npmjs.org/@testing-library/dom |
-| @testing-library/jest-dom | MIT | Não | https://registry.npmjs.org/@testing-library/jest-dom |
-| @testing-library/react | MIT | Não | https://registry.npmjs.org/@testing-library/react |
-| @types/node | MIT | Não | https://registry.npmjs.org/@types/node |
-| @types/react | MIT | Não | https://registry.npmjs.org/@types/react |
-| @types/react-dom | MIT | Não | https://registry.npmjs.org/@types/react-dom |
-| @vitejs/plugin-react | MIT | Não | https://registry.npmjs.org/@vitejs/plugin-react |
-| @vitest/coverage-v8 | MIT | Não | https://registry.npmjs.org/@vitest/coverage-v8 |
-| @vitest/ui | MIT | Não | https://registry.npmjs.org/@vitest/ui |
-| eslint | MIT | Não | https://registry.npmjs.org/eslint |
-| eslint-plugin-react-hooks | MIT | Não | https://registry.npmjs.org/eslint-plugin-react-hooks |
-| eslint-plugin-react-refresh | MIT | Não | https://registry.npmjs.org/eslint-plugin-react-refresh |
-| globals | MIT | Não | https://registry.npmjs.org/globals |
-| happy-dom | MIT | Não | https://registry.npmjs.org/happy-dom |
-| husky | MIT | Não | https://registry.npmjs.org/husky |
-| knip | ISC | Não | https://registry.npmjs.org/knip |
-| lint-staged | MIT | Não | https://registry.npmjs.org/lint-staged |
-| rollup-plugin-visualizer | MIT | Não | https://registry.npmjs.org/rollup-plugin-visualizer |
-| typescript | Apache-2.0 | Não | https://registry.npmjs.org/typescript |
-| typescript-eslint | MIT | Não | https://registry.npmjs.org/typescript-eslint |
-| vite | MIT | Não | https://registry.npmjs.org/vite |
-| vite-plugin-pwa | MIT | Não | https://registry.npmjs.org/vite-plugin-pwa |
-| vitest | MIT | Não | https://registry.npmjs.org/vitest |
-
-## mainsite-worker (Cloudflare Worker)
-
-| Componente | Licença Original | Modificado? | Origem |
-|------------|------------------|-------------|--------|
-| @google/genai | Apache-2.0 | Não | https://registry.npmjs.org/@google/genai |
-| @types/sanitize-html | MIT | Não | https://registry.npmjs.org/@types/sanitize-html |
-| hono | MIT | Não | https://registry.npmjs.org/hono |
-| sanitize-html | MIT | Não | https://registry.npmjs.org/sanitize-html |
-| zod | MIT | Não | https://registry.npmjs.org/zod |
-| @biomejs/biome | MIT | Não | https://registry.npmjs.org/@biomejs/biome |
-| @cloudflare/workers-types | MIT | Não | https://registry.npmjs.org/@cloudflare/workers-types |
-| @eslint/js | MIT | Não | https://registry.npmjs.org/@eslint/js |
-| @vitest/ui | MIT | Não | https://registry.npmjs.org/@vitest/ui |
-| eslint | MIT | Não | https://registry.npmjs.org/eslint |
-| globals | MIT | Não | https://registry.npmjs.org/globals |
-| typescript | Apache-2.0 | Não | https://registry.npmjs.org/typescript |
-| typescript-eslint | MIT | Não | https://registry.npmjs.org/typescript-eslint |
-| vitest | MIT | Não | https://registry.npmjs.org/vitest |
-| wrangler | MIT-0 | Não | https://registry.npmjs.org/wrangler |
+| Pacote            | Componente                       | Relação     | Versão declarada | Versão efetiva | Licença declarada no lockfile | Integridade do artefato                                                                         | Modificado? | Origem                                                                                         |
+| ----------------- | -------------------------------- | ----------- | ---------------- | -------------- | ----------------------------- | ----------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------- |
+| mainsite-frontend | `@biomejs/biome`                 | development | `^2.5.9`         | `2.5.9`        | MIT OR Apache-2.0             | sha512-KkgCvdHB4IhtpHpF564plA9jo6fDOwWGQ/3jvreLzgOtRLEDoPqr7QO9qejNA8jKwDsSkAKr77hqBHnyUbIw4g== | Não         | https://registry.npmjs.org/@biomejs/biome/-/biome-2.5.9.tgz                                    |
+| mainsite-frontend | `@cloudflare/workers-types`      | runtime     | `5.20260820.1`   | `5.20260820.1` | MIT OR Apache-2.0             | sha512-KFRmtV4toMf1LL2yXylFTIs7YAS1IYo6jrJCneBG8I1VXHcKCIdqPROH6lGum+gZ+ZgdcNZqxDgjM1yEMgma2w== | Não         | https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-5.20260820.1.tgz          |
+| mainsite-frontend | `@eslint/js`                     | development | `^10.0.1`        | `10.0.1`       | MIT                           | sha512-zeR9k5pd4gxjZ0abRoIaxdc7I3nDktoXZk2qOv9gCNWx3mVwEn32VRhyLaRsDiJjTs0xq/T8mfPtyuXu7GWBcA== | Não         | https://registry.npmjs.org/@eslint/js/-/js-10.0.1.tgz                                          |
+| mainsite-frontend | `@playwright/test`               | development | `^1.62.1`        | `1.62.1`       | Apache-2.0                    | sha512-DTcUc8qii+cpHvtOwggMtBRMjKZHXYWdw8syRYu2vtzuq4Wxphqq4NfCs5Zt44L6mA8rfDfj+PHnxFc/FeK6mQ== | Não         | https://registry.npmjs.org/@playwright/test/-/test-1.62.1.tgz                                  |
+| mainsite-frontend | `@tanstack/react-query`          | runtime     | `^5.101.4`       | `5.101.4`      | MIT                           | sha512-yRg2pfOCxIs4ZJW3XYYHU/WgtD04FHSnfHlpRT7h7pR77hwkdRG4wxbKe4aq6P0RvXUTBSQpQeadS1SUYUe+KA== | Não         | https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.101.4.tgz                     |
+| mainsite-frontend | `@tanstack/react-query-devtools` | development | `^5.101.4`       | `5.101.4`      | MIT                           | sha512-VeK2gtmfj7kvRBjtxS7TKxt/6qKhn8VzabY4UiYMr7NV9CddjSRYRgeYyld+NpjAkgMV9dd+2Qdr8ah5I03NeA== | Não         | https://registry.npmjs.org/@tanstack/react-query-devtools/-/react-query-devtools-5.101.4.tgz   |
+| mainsite-frontend | `@testing-library/dom`           | development | `^10.4.1`        | `10.4.1`       | MIT                           | sha512-o4PXJQidqJl82ckFaXUeoAW+XysPLauYI43Abki5hABd853iMhitooc6znOnczgbTYmEP6U6/y1ZyKAIsvMKGg== | Não         | https://registry.npmjs.org/@testing-library/dom/-/dom-10.4.1.tgz                               |
+| mainsite-frontend | `@testing-library/jest-dom`      | development | `^7.0.1`         | `7.0.1`        | MIT                           | sha512-oMDTC3oA+6CXSO2JZnvOI7CA6oVub6kij5ggk9ohwye5slmkwxYDXcPOVxgMw/RQlticjtO0C1RZkR97HgrWMw== | Não         | https://registry.npmjs.org/@testing-library/jest-dom/-/jest-dom-7.0.1.tgz                      |
+| mainsite-frontend | `@testing-library/react`         | development | `^16.3.2`        | `16.3.2`       | MIT                           | sha512-XU5/SytQM+ykqMnAnvB2umaJNIOsLF3PVv//1Ew4CTcpz0/BRyy/af40qqrt7SjKpDdT1saBMc42CUok5gaw+g== | Não         | https://registry.npmjs.org/@testing-library/react/-/react-16.3.2.tgz                           |
+| mainsite-frontend | `@types/node`                    | development | `^26.2.0`        | `26.2.0`       | MIT                           | sha512-5IviulTZeRNp2vAJ514cc/HUlY5nZ9fCbq9DMyC52BrhFZACo3nI0R7qBxhQmo/d27NFe96ur/b7Wwxklda+kg== | Não         | https://registry.npmjs.org/@types/node/-/node-26.2.0.tgz                                       |
+| mainsite-frontend | `@types/react`                   | development | `^19.2.18`       | `19.2.18`      | MIT                           | sha512-AnzbBERsrLKtk2XSfTbYRLjQPdy116Sty4q+T+Bp3IC4l6jNBvreVPAHmpq9qhXQM7CXZPjLVmGMw9sy+hxQ3w== | Não         | https://registry.npmjs.org/@types/react/-/react-19.2.18.tgz                                    |
+| mainsite-frontend | `@types/react-dom`               | development | `^19.2.4`        | `19.2.4`       | MIT                           | sha512-Bsc+QHgp+P/F02XDzNCY9jnZNCUuLki36KT7VKrTXXLdHf+vHMNZnW1rVu5DNW/rCK+fya3DATySbLM4yhtKUw== | Não         | https://registry.npmjs.org/@types/react-dom/-/react-dom-19.2.4.tgz                             |
+| mainsite-frontend | `@vitejs/plugin-react`           | development | `^6.1.0`         | `6.1.0`        | MIT                           | sha512-qd2BzUBehkov86WFhg0JkEFEYyCLG9uPCe6qWTY/kRlss9OvJrOF2UbIWT7p+8IzZHkEu0DNGHc4HSv+JdDLsw== | Não         | https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.1.0.tgz                       |
+| mainsite-frontend | `@vitest/coverage-v8`            | development | `^4.1.11`        | `4.1.11`       | MIT                           | sha512-8MVGEFnJIcdGjcbfKmeq8z0pZHH0JlVtoVZH9Q/qwUp6wyFnEJUBMrw9DCaj+ra3vShGmhavjalMIhPNxZAUcw== | Não         | https://registry.npmjs.org/@vitest/coverage-v8/-/coverage-v8-4.1.11.tgz                        |
+| mainsite-frontend | `@vitest/ui`                     | development | `^4.1.10`        | `4.1.11`       | MIT                           | sha512-r/rwyKoev21mWdRGSEkZOqkQ2BYy68mwjihg9M90nNRbf4NGrgzZ4cj6JNCEwlOGJkbKeMgsjlykvwKUbRr7gw== | Não         | https://registry.npmjs.org/@vitest/ui/-/ui-4.1.11.tgz                                          |
+| mainsite-frontend | `dompurify`                      | runtime     | `^3.4.14`        | `3.4.14`       | (MPL-2.0 OR Apache-2.0)       | sha512-dVoH9z+MY+C9IilgGCk3YfFqjLi3fChm2OiKJMzh6axrJ5qwxqWaZamgmHrpv22CN/KdbZJuGEGgfQoL00LTdg== | Não         | https://registry.npmjs.org/dompurify/-/dompurify-3.4.14.tgz                                    |
+| mainsite-frontend | `eslint`                         | development | `^10.8.1`        | `10.8.1`       | MIT                           | sha512-wqA7W2jbsC/BnV9Iv1UZpKVFkO1AdNoSmYW8NWG4HNOBbkAMvIqDZ27pI2f07dqn583NcIC44ckjAcOXDL1QbQ== | Não         | https://registry.npmjs.org/eslint/-/eslint-10.8.1.tgz                                          |
+| mainsite-frontend | `eslint-config-prettier`         | development | `^10.1.8`        | `10.1.8`       | MIT                           | sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w== | Não         | https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-10.1.8.tgz          |
+| mainsite-frontend | `eslint-plugin-react-hooks`      | development | `^7.1.1`         | `7.1.1`        | MIT                           | sha512-f2I7Gw6JbvCexzIInuSbZpfdQ44D7iqdWX01FKLvrPgqxoE7oMj8clOfto8U6vYiz4yd5oKu39rRSVOe1zRu0g== | Não         | https://registry.npmjs.org/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-7.1.1.tgz     |
+| mainsite-frontend | `eslint-plugin-react-refresh`    | development | `^0.5.4`         | `0.5.4`        | MIT                           | sha512-7bqTKz7T0r+HKWFarNXByDE9/5+73wI2ru+M3zuqGbR7s/b/5/pQJXZoufWlrngqGqoZto73ZkGumCdLxk+4rw== | Não         | https://registry.npmjs.org/eslint-plugin-react-refresh/-/eslint-plugin-react-refresh-0.5.4.tgz |
+| mainsite-frontend | `globals`                        | development | `^17.11.0`       | `17.11.0`      | MIT                           | sha512-Z2I8hM+PbJDXQDq3Icgpzv+mPdwr68iZUU9d5WW4FuXfDUQfkZaZuvjMv42/5crNyw154+9+VWXbYrUgDXbxNw== | Não         | https://registry.npmjs.org/globals/-/globals-17.11.0.tgz                                       |
+| mainsite-frontend | `husky`                          | development | `^9.1.7`         | `9.1.7`        | MIT                           | sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA== | Não         | https://registry.npmjs.org/husky/-/husky-9.1.7.tgz                                             |
+| mainsite-frontend | `jsdom`                          | development | `^30.0.1`        | `30.0.1`       | MIT                           | sha512-52v7mUVUfNQVYYqE1lcdaymWL0njO7lTLUog6ZvW2U5KsbiLk/GnZlVJ+qx0xfNJZ6Gn+KSpPNE52vurbxZwrA== | Não         | https://registry.npmjs.org/jsdom/-/jsdom-30.0.1.tgz                                            |
+| mainsite-frontend | `knip`                           | development | `^6.32.2`        | `6.32.2`       | ISC                           | sha512-WXTXbmocrw7gqm1A1TQvFN0OgJ7hUSU6E1g6SPRIzzHFogUBhXByc7cYeOFVtJ2uODg7DP4VbESYBYnfbtBYsg== | Não         | https://registry.npmjs.org/knip/-/knip-6.32.2.tgz                                              |
+| mainsite-frontend | `lint-staged`                    | development | `^17.3.0`        | `17.3.0`       | MIT                           | sha512-woZS3vNe3UKqBaLPvbLOtKRY4tLANpWQhom12MGWqC8Mh1lCOO+WgSwmX2amjJAqTY9BkXYW87fCUH5H9Ph6xw== | Não         | https://registry.npmjs.org/lint-staged/-/lint-staged-17.3.0.tgz                                |
+| mainsite-frontend | `lucide-react`                   | runtime     | `^1.33.0`        | `1.33.0`       | ISC                           | sha512-MTRwMy0ZlL8Ur/vOAiJ9XGHE+kFPC7brq6MxAm0GiGXEBj0qy0jA/pG4N675oSzciO/UCdX8T+5yUQdmDeTLxg== | Não         | https://registry.npmjs.org/lucide-react/-/lucide-react-1.33.0.tgz                              |
+| mainsite-frontend | `react`                          | runtime     | `^19.2.8`        | `19.2.8`       | MIT                           | sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw== | Não         | https://registry.npmjs.org/react/-/react-19.2.8.tgz                                            |
+| mainsite-frontend | `react-dom`                      | runtime     | `^19.2.8`        | `19.2.8`       | MIT                           | sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ== | Não         | https://registry.npmjs.org/react-dom/-/react-dom-19.2.8.tgz                                    |
+| mainsite-frontend | `rollup-plugin-visualizer`       | development | `^7.1.1`         | `7.1.1`        | MIT                           | sha512-ThaGiHTU8XW02OkK80TrTHATraJmM9OAduU4otal+7gyXLpYEtmGBLfx5kW+EHvvLwn03YGW2NnwKUIqsYlJAA== | Não         | https://registry.npmjs.org/rollup-plugin-visualizer/-/rollup-plugin-visualizer-7.1.1.tgz       |
+| mainsite-frontend | `typescript`                     | development | `~6.0.3`         | `6.0.3`        | Apache-2.0                    | sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw== | Não         | https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz                                   |
+| mainsite-frontend | `typescript-eslint`              | development | `^8.67.0`        | `8.67.0`       | MIT                           | sha512-S2udFs8tCKEKffuJ4TB1idGUZiXdCPGi3IPBGWXarbLQ5UPXORV8QEVzJ4gCRduURMb5EkpNCdjbk0eDIuI8Yg== | Não         | https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.67.0.tgz                    |
+| mainsite-frontend | `vite`                           | development | `^8.2.2`         | `8.2.2`        | MIT                           | sha512-cFKLV/PRgAUlIRm5WjMjJ86jrftzpqcgH+Us+DS8mI3CDNiH30Whrz8uHL3+MOLPAgqbMBAqWdAHAphOAM+z/Q== | Não         | https://registry.npmjs.org/vite/-/vite-8.2.2.tgz                                               |
+| mainsite-frontend | `vite-plugin-pwa`                | development | `^1.3.0`         | `1.3.0`        | MIT                           | sha512-c5kMgN+ITrOtHXp8PAtk2uOIEea6XjP/unCGxOWWBzQ6qa65qj/awHg0wf+QF9E/2u9vh86LqxPwzEPNbM2r5A== | Não         | https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-1.3.0.tgz                         |
+| mainsite-frontend | `vitest`                         | development | `^4.1.10`        | `4.1.11`       | MIT                           | sha512-fhACrNXUidIbGSBr5FlbuBkO7VWC1ZyLl0DO4CU2DrQoAPxX84Ysxs+HeGQpii5lZWV1Q4gBZTTu49mF+A6Edw== | Não         | https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz                                          |
+| mainsite-frontend | `wrangler`                       | development | `4.125.0`        | `4.125.0`      | MIT OR Apache-2.0             | sha512-yFpvggu+xk1Hdm/Uxwaqa19bb7GArME4CrCS3Vov68a2TZq2MPO+wLocKbbnIC9K0oLowcdau7/ycxbbNHKCEg== | Não         | https://registry.npmjs.org/wrangler/-/wrangler-4.125.0.tgz                                     |
+| mainsite-worker   | `@biomejs/biome`                 | development | `^2.5.9`         | `2.5.9`        | MIT OR Apache-2.0             | sha512-KkgCvdHB4IhtpHpF564plA9jo6fDOwWGQ/3jvreLzgOtRLEDoPqr7QO9qejNA8jKwDsSkAKr77hqBHnyUbIw4g== | Não         | https://registry.npmjs.org/@biomejs/biome/-/biome-2.5.9.tgz                                    |
+| mainsite-worker   | `@cloudflare/workers-types`      | development | `5.20260820.1`   | `5.20260820.1` | MIT OR Apache-2.0             | sha512-KFRmtV4toMf1LL2yXylFTIs7YAS1IYo6jrJCneBG8I1VXHcKCIdqPROH6lGum+gZ+ZgdcNZqxDgjM1yEMgma2w== | Não         | https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-5.20260820.1.tgz          |
+| mainsite-worker   | `@eslint/js`                     | development | `^10.0.1`        | `10.0.1`       | MIT                           | sha512-zeR9k5pd4gxjZ0abRoIaxdc7I3nDktoXZk2qOv9gCNWx3mVwEn32VRhyLaRsDiJjTs0xq/T8mfPtyuXu7GWBcA== | Não         | https://registry.npmjs.org/@eslint/js/-/js-10.0.1.tgz                                          |
+| mainsite-worker   | `@types/sanitize-html`           | runtime     | `^2.16.1`        | `2.16.1`       | MIT                           | sha512-n9wjs8bCOTyN/ynwD8s/nTcTreIHB1vf31vhLMGqUPNHaweKC4/fAl4Dj+hUlCTKYgm4P3k83fmiFfzkZ6sgMA== | Não         | https://registry.npmjs.org/@types/sanitize-html/-/sanitize-html-2.16.1.tgz                     |
+| mainsite-worker   | `@vitest/ui`                     | development | `^4.1.11`        | `4.1.11`       | MIT                           | sha512-r/rwyKoev21mWdRGSEkZOqkQ2BYy68mwjihg9M90nNRbf4NGrgzZ4cj6JNCEwlOGJkbKeMgsjlykvwKUbRr7gw== | Não         | https://registry.npmjs.org/@vitest/ui/-/ui-4.1.11.tgz                                          |
+| mainsite-worker   | `eslint`                         | development | `^10.8.1`        | `10.8.1`       | MIT                           | sha512-wqA7W2jbsC/BnV9Iv1UZpKVFkO1AdNoSmYW8NWG4HNOBbkAMvIqDZ27pI2f07dqn583NcIC44ckjAcOXDL1QbQ== | Não         | https://registry.npmjs.org/eslint/-/eslint-10.8.1.tgz                                          |
+| mainsite-worker   | `eslint-config-prettier`         | development | `^10.1.8`        | `10.1.8`       | MIT                           | sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w== | Não         | https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-10.1.8.tgz          |
+| mainsite-worker   | `globals`                        | development | `^17.11.0`       | `17.11.0`      | MIT                           | sha512-Z2I8hM+PbJDXQDq3Icgpzv+mPdwr68iZUU9d5WW4FuXfDUQfkZaZuvjMv42/5crNyw154+9+VWXbYrUgDXbxNw== | Não         | https://registry.npmjs.org/globals/-/globals-17.11.0.tgz                                       |
+| mainsite-worker   | `hono`                           | runtime     | `^4.13.3`        | `4.13.3`       | MIT                           | sha512-r8AO2mYHoLxSHkgafNeC/BXyb2vWRxD3jem4Ts+ptav8oTG5FIRifAjuJEmZI4bSvvc2ns0GxmIYiZnHqN3mMw== | Não         | https://registry.npmjs.org/hono/-/hono-4.13.3.tgz                                              |
+| mainsite-worker   | `sanitize-html`                  | runtime     | `^2.17.7`        | `2.17.7`       | MIT                           | sha512-PGtEkc9cbnedU3s9TmzDbpsZ8w086g/0Q8k8/oIO1NLNU3i5k9yn835CrjJSajp1KMmkisbO1qPXxNKO3welAg== | Não         | https://registry.npmjs.org/sanitize-html/-/sanitize-html-2.17.7.tgz                            |
+| mainsite-worker   | `typescript`                     | development | `~6.0.3`         | `6.0.3`        | Apache-2.0                    | sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw== | Não         | https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz                                   |
+| mainsite-worker   | `typescript-eslint`              | development | `^8.67.0`        | `8.67.0`       | MIT                           | sha512-S2udFs8tCKEKffuJ4TB1idGUZiXdCPGi3IPBGWXarbLQ5UPXORV8QEVzJ4gCRduURMb5EkpNCdjbk0eDIuI8Yg== | Não         | https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.67.0.tgz                    |
+| mainsite-worker   | `vitest`                         | development | `^4.1.7`         | `4.1.11`       | MIT                           | sha512-fhACrNXUidIbGSBr5FlbuBkO7VWC1ZyLl0DO4CU2DrQoAPxX84Ysxs+HeGQpii5lZWV1Q4gBZTTu49mF+A6Edw== | Não         | https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz                                          |
+| mainsite-worker   | `wrangler`                       | development | `4.125.0`        | `4.125.0`      | MIT OR Apache-2.0             | sha512-yFpvggu+xk1Hdm/Uxwaqa19bb7GArME4CrCS3Vov68a2TZq2MPO+wLocKbbnIC9K0oLowcdau7/ycxbbNHKCEg== | Não         | https://registry.npmjs.org/wrangler/-/wrangler-4.125.0.tgz                                     |
+| mainsite-worker   | `zod`                            | runtime     | `^4.4.3`         | `4.4.3`        | MIT                           | sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ== | Não         | https://registry.npmjs.org/zod/-/zod-4.4.3.tgz                                                 |
+| root              | `prettier`                       | development | `^3.9.6`         | `3.9.6`        | MIT                           | sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g== | Não         | https://registry.npmjs.org/prettier/-/prettier-3.9.6.tgz                                       |

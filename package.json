@@ -3,8 +3,10 @@
   "private": true,
   "scripts": {
     "format:public": "prettier --write \"**/index.html\"",
-    "format:public:check": "prettier --check \"**/index.html\"",
-    "test:official-actions": "node --test scripts/official-actions-contract.test.mjs"
+    "format:public:check": "prettier --check \"**/index.html\" && npm run test:thirdparty && npm run verify:thirdparty",
+    "test:official-actions": "node --test scripts/official-actions-contract.test.mjs",
+    "test:thirdparty": "node --test scripts/verify-thirdparty.test.mjs",
+    "verify:thirdparty": "node scripts/verify-thirdparty.mjs"
   },
   "devDependencies": {
     "prettier": "^3.9.6"
