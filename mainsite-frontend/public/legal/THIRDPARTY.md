@@ -1,23 +1,64 @@
 # Third-Party Components
 
-| Componente | Versão | Licença Original | Modificado? | Link de Origem |
-|------------|--------|------------------|-------------|----------------|
-| @cloudflare/workers-types | ^4.20260331.1 | MIT OR Apache-2.0 | Não | https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-4.20260331.1.tgz |
-| @eslint/js | ^10.0.1 | MIT | Não | https://registry.npmjs.org/@eslint/js/-/js-10.0.1.tgz |
-| @types/dompurify | ^3.2.0 | MIT | Não | https://registry.npmjs.org/@types/dompurify/-/dompurify-3.2.0.tgz |
-| @types/react | ^19.2.14 | MIT | Não | https://registry.npmjs.org/@types/react/-/react-19.2.14.tgz |
-| @types/react-dom | ^19.2.3 | MIT | Não | https://registry.npmjs.org/@types/react-dom/-/react-dom-19.2.3.tgz |
-| @vitejs/plugin-react | ^6.0.1 | MIT | Não | https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.0.1.tgz |
-| dompurify | ^3.3.3 | (MPL-2.0 OR Apache-2.0) | Não | https://registry.npmjs.org/dompurify/-/dompurify-3.3.3.tgz |
-| eslint | ^10.1.0 | MIT | Não | https://registry.npmjs.org/eslint/-/eslint-10.1.0.tgz |
-| eslint-plugin-react-hooks | ^7.0.1 | MIT | Não | https://registry.npmjs.org/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-7.0.1.tgz |
-| eslint-plugin-react-refresh | ^0.5.2 | MIT | Não | https://registry.npmjs.org/eslint-plugin-react-refresh/-/eslint-plugin-react-refresh-0.5.2.tgz |
-| globals | ^17.4.0 | MIT | Não | https://registry.npmjs.org/globals/-/globals-17.4.0.tgz |
-| hono | ^4.12.9 | MIT | Não | https://registry.npmjs.org/hono/-/hono-4.12.9.tgz |
-| lucide-react | ^1.7.0 | ISC | Não | https://registry.npmjs.org/lucide-react/-/lucide-react-1.7.0.tgz |
-| react | ^19.2.4 | MIT | Não | https://registry.npmjs.org/react/-/react-19.2.4.tgz |
-| react-dom | ^19.2.4 | MIT | Não | https://registry.npmjs.org/react-dom/-/react-dom-19.2.4.tgz |
-| typescript | ~6.0.3 | Apache-2.0 | Não | https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz |
-| typescript-eslint | ^8.66.0 | MIT | Não | https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.66.0.tgz |
-| vite | ^8.0.3 | MIT | Não | https://registry.npmjs.org/vite/-/vite-8.0.3.tgz |
-| wrangler | ^4.79.0 | MIT OR Apache-2.0 | Não | https://registry.npmjs.org/wrangler/-/wrangler-4.79.0.tgz |
+This inventory covers every direct runtime and development dependency declared by the
+root tooling package, `mainsite-frontend`, and `mainsite-worker`. Each effective version,
+license expression, source tarball, and integrity value is fail-closed against the
+corresponding committed `package-lock.json`; the full transitive trees remain recorded in
+those lockfiles and in GitHub's dependency graph rather than being duplicated here.
+
+The repository itself remains licensed under `AGPL-3.0-or-later`. Third-party components
+remain subject to their own terms, and none is modified or vendored by this repository.
+
+| Pacote            | Componente                       | Relação     | Versão declarada | Versão efetiva | Licença declarada no lockfile | Modificado? | Origem                                                                                         |
+| ----------------- | -------------------------------- | ----------- | ---------------- | -------------- | ----------------------------- | ----------- | ---------------------------------------------------------------------------------------------- |
+| mainsite-frontend | `@biomejs/biome`                 | development | `^2.5.9`         | `2.5.9`        | MIT OR Apache-2.0             | Não         | https://registry.npmjs.org/@biomejs/biome/-/biome-2.5.9.tgz                                    |
+| mainsite-frontend | `@cloudflare/workers-types`      | runtime     | `5.20260820.1`   | `5.20260820.1` | MIT OR Apache-2.0             | Não         | https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-5.20260820.1.tgz          |
+| mainsite-frontend | `@eslint/js`                     | development | `^10.0.1`        | `10.0.1`       | MIT                           | Não         | https://registry.npmjs.org/@eslint/js/-/js-10.0.1.tgz                                          |
+| mainsite-frontend | `@playwright/test`               | development | `^1.62.1`        | `1.62.1`       | Apache-2.0                    | Não         | https://registry.npmjs.org/@playwright/test/-/test-1.62.1.tgz                                  |
+| mainsite-frontend | `@tanstack/react-query`          | runtime     | `^5.101.4`       | `5.101.4`      | MIT                           | Não         | https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.101.4.tgz                     |
+| mainsite-frontend | `@tanstack/react-query-devtools` | development | `^5.101.4`       | `5.101.4`      | MIT                           | Não         | https://registry.npmjs.org/@tanstack/react-query-devtools/-/react-query-devtools-5.101.4.tgz   |
+| mainsite-frontend | `@testing-library/dom`           | development | `^10.4.1`        | `10.4.1`       | MIT                           | Não         | https://registry.npmjs.org/@testing-library/dom/-/dom-10.4.1.tgz                               |
+| mainsite-frontend | `@testing-library/jest-dom`      | development | `^7.0.1`         | `7.0.1`        | MIT                           | Não         | https://registry.npmjs.org/@testing-library/jest-dom/-/jest-dom-7.0.1.tgz                      |
+| mainsite-frontend | `@testing-library/react`         | development | `^16.3.2`        | `16.3.2`       | MIT                           | Não         | https://registry.npmjs.org/@testing-library/react/-/react-16.3.2.tgz                           |
+| mainsite-frontend | `@types/node`                    | development | `^26.2.0`        | `26.2.0`       | MIT                           | Não         | https://registry.npmjs.org/@types/node/-/node-26.2.0.tgz                                       |
+| mainsite-frontend | `@types/react`                   | development | `^19.2.18`       | `19.2.18`      | MIT                           | Não         | https://registry.npmjs.org/@types/react/-/react-19.2.18.tgz                                    |
+| mainsite-frontend | `@types/react-dom`               | development | `^19.2.4`        | `19.2.4`       | MIT                           | Não         | https://registry.npmjs.org/@types/react-dom/-/react-dom-19.2.4.tgz                             |
+| mainsite-frontend | `@vitejs/plugin-react`           | development | `^6.1.0`         | `6.1.0`        | MIT                           | Não         | https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.1.0.tgz                       |
+| mainsite-frontend | `@vitest/coverage-v8`            | development | `^4.1.11`        | `4.1.11`       | MIT                           | Não         | https://registry.npmjs.org/@vitest/coverage-v8/-/coverage-v8-4.1.11.tgz                        |
+| mainsite-frontend | `@vitest/ui`                     | development | `^4.1.10`        | `4.1.11`       | MIT                           | Não         | https://registry.npmjs.org/@vitest/ui/-/ui-4.1.11.tgz                                          |
+| mainsite-frontend | `dompurify`                      | runtime     | `^3.4.14`        | `3.4.14`       | (MPL-2.0 OR Apache-2.0)       | Não         | https://registry.npmjs.org/dompurify/-/dompurify-3.4.14.tgz                                    |
+| mainsite-frontend | `eslint`                         | development | `^10.8.1`        | `10.8.1`       | MIT                           | Não         | https://registry.npmjs.org/eslint/-/eslint-10.8.1.tgz                                          |
+| mainsite-frontend | `eslint-config-prettier`         | development | `^10.1.8`        | `10.1.8`       | MIT                           | Não         | https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-10.1.8.tgz          |
+| mainsite-frontend | `eslint-plugin-react-hooks`      | development | `^7.1.1`         | `7.1.1`        | MIT                           | Não         | https://registry.npmjs.org/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-7.1.1.tgz     |
+| mainsite-frontend | `eslint-plugin-react-refresh`    | development | `^0.5.4`         | `0.5.4`        | MIT                           | Não         | https://registry.npmjs.org/eslint-plugin-react-refresh/-/eslint-plugin-react-refresh-0.5.4.tgz |
+| mainsite-frontend | `globals`                        | development | `^17.11.0`       | `17.11.0`      | MIT                           | Não         | https://registry.npmjs.org/globals/-/globals-17.11.0.tgz                                       |
+| mainsite-frontend | `husky`                          | development | `^9.1.7`         | `9.1.7`        | MIT                           | Não         | https://registry.npmjs.org/husky/-/husky-9.1.7.tgz                                             |
+| mainsite-frontend | `jsdom`                          | development | `^30.0.1`        | `30.0.1`       | MIT                           | Não         | https://registry.npmjs.org/jsdom/-/jsdom-30.0.1.tgz                                            |
+| mainsite-frontend | `knip`                           | development | `^6.32.2`        | `6.32.2`       | ISC                           | Não         | https://registry.npmjs.org/knip/-/knip-6.32.2.tgz                                              |
+| mainsite-frontend | `lint-staged`                    | development | `^17.3.0`        | `17.3.0`       | MIT                           | Não         | https://registry.npmjs.org/lint-staged/-/lint-staged-17.3.0.tgz                                |
+| mainsite-frontend | `lucide-react`                   | runtime     | `^1.33.0`        | `1.33.0`       | ISC                           | Não         | https://registry.npmjs.org/lucide-react/-/lucide-react-1.33.0.tgz                              |
+| mainsite-frontend | `react`                          | runtime     | `^19.2.8`        | `19.2.8`       | MIT                           | Não         | https://registry.npmjs.org/react/-/react-19.2.8.tgz                                            |
+| mainsite-frontend | `react-dom`                      | runtime     | `^19.2.8`        | `19.2.8`       | MIT                           | Não         | https://registry.npmjs.org/react-dom/-/react-dom-19.2.8.tgz                                    |
+| mainsite-frontend | `rollup-plugin-visualizer`       | development | `^7.1.1`         | `7.1.1`        | MIT                           | Não         | https://registry.npmjs.org/rollup-plugin-visualizer/-/rollup-plugin-visualizer-7.1.1.tgz       |
+| mainsite-frontend | `typescript`                     | development | `~6.0.3`         | `6.0.3`        | Apache-2.0                    | Não         | https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz                                   |
+| mainsite-frontend | `typescript-eslint`              | development | `^8.67.0`        | `8.67.0`       | MIT                           | Não         | https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.67.0.tgz                    |
+| mainsite-frontend | `vite`                           | development | `^8.2.2`         | `8.2.2`        | MIT                           | Não         | https://registry.npmjs.org/vite/-/vite-8.2.2.tgz                                               |
+| mainsite-frontend | `vite-plugin-pwa`                | development | `^1.3.0`         | `1.3.0`        | MIT                           | Não         | https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-1.3.0.tgz                         |
+| mainsite-frontend | `vitest`                         | development | `^4.1.10`        | `4.1.11`       | MIT                           | Não         | https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz                                          |
+| mainsite-frontend | `wrangler`                       | development | `4.125.0`        | `4.125.0`      | MIT OR Apache-2.0             | Não         | https://registry.npmjs.org/wrangler/-/wrangler-4.125.0.tgz                                     |
+| mainsite-worker   | `@biomejs/biome`                 | development | `^2.5.9`         | `2.5.9`        | MIT OR Apache-2.0             | Não         | https://registry.npmjs.org/@biomejs/biome/-/biome-2.5.9.tgz                                    |
+| mainsite-worker   | `@cloudflare/workers-types`      | development | `5.20260820.1`   | `5.20260820.1` | MIT OR Apache-2.0             | Não         | https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-5.20260820.1.tgz          |
+| mainsite-worker   | `@eslint/js`                     | development | `^10.0.1`        | `10.0.1`       | MIT                           | Não         | https://registry.npmjs.org/@eslint/js/-/js-10.0.1.tgz                                          |
+| mainsite-worker   | `@types/sanitize-html`           | runtime     | `^2.16.1`        | `2.16.1`       | MIT                           | Não         | https://registry.npmjs.org/@types/sanitize-html/-/sanitize-html-2.16.1.tgz                     |
+| mainsite-worker   | `@vitest/ui`                     | development | `^4.1.11`        | `4.1.11`       | MIT                           | Não         | https://registry.npmjs.org/@vitest/ui/-/ui-4.1.11.tgz                                          |
+| mainsite-worker   | `eslint`                         | development | `^10.8.1`        | `10.8.1`       | MIT                           | Não         | https://registry.npmjs.org/eslint/-/eslint-10.8.1.tgz                                          |
+| mainsite-worker   | `eslint-config-prettier`         | development | `^10.1.8`        | `10.1.8`       | MIT                           | Não         | https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-10.1.8.tgz          |
+| mainsite-worker   | `globals`                        | development | `^17.11.0`       | `17.11.0`      | MIT                           | Não         | https://registry.npmjs.org/globals/-/globals-17.11.0.tgz                                       |
+| mainsite-worker   | `hono`                           | runtime     | `^4.13.3`        | `4.13.3`       | MIT                           | Não         | https://registry.npmjs.org/hono/-/hono-4.13.3.tgz                                              |
+| mainsite-worker   | `sanitize-html`                  | runtime     | `^2.17.7`        | `2.17.7`       | MIT                           | Não         | https://registry.npmjs.org/sanitize-html/-/sanitize-html-2.17.7.tgz                            |
+| mainsite-worker   | `typescript`                     | development | `~6.0.3`         | `6.0.3`        | Apache-2.0                    | Não         | https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz                                   |
+| mainsite-worker   | `typescript-eslint`              | development | `^8.67.0`        | `8.67.0`       | MIT                           | Não         | https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.67.0.tgz                    |
+| mainsite-worker   | `vitest`                         | development | `^4.1.7`         | `4.1.11`       | MIT                           | Não         | https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz                                          |
+| mainsite-worker   | `wrangler`                       | development | `4.125.0`        | `4.125.0`      | MIT OR Apache-2.0             | Não         | https://registry.npmjs.org/wrangler/-/wrangler-4.125.0.tgz                                     |
+| mainsite-worker   | `zod`                            | runtime     | `^4.4.3`         | `4.4.3`        | MIT                           | Não         | https://registry.npmjs.org/zod/-/zod-4.4.3.tgz                                                 |
+| root              | `prettier`                       | development | `^3.9.6`         | `3.9.6`        | MIT                           | Não         | https://registry.npmjs.org/prettier/-/prettier-3.9.6.tgz                                       |

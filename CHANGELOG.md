@@ -46,6 +46,11 @@
 
 ### Corrigido
 
+- As duas cópias de `THIRDPARTY.md` passam a inventariar, sem omissões nem
+  entradas obsoletas, todas as dependências diretas dos três manifestos. Um
+  gate local fail-closed agora confronta versões declaradas e efetivas,
+  licenças e origens com os respectivos lockfiles, cobrindo ausência, sobra,
+  duplicata e divergência (issue #496 / MAISITE-15).
 - Os 12 erros de typecheck acumulados desde a implantação do Vertex: quatro
   destructurings de JWT e leituras de bytes sem verificação de existência
   (`auth.ts`, `uploads.ts`), cinco campos opcionais recebendo `undefined`
