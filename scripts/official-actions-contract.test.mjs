@@ -3,7 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const CHECKOUT_SHA = "3d3c42e5aac5ba805825da76410c181273ba90b1";
-const LINEAR_ACTION_SHA = "0a25abab892a91062ebf42260dbb2ce6277aa205";
+const LINEAR_ACTION_SHA = "3f31fcf14c110cc53579fcc3575a26d469c413b4";
 const WRANGLER_ACTION_SHA = "ebbaa1584979971c8614a24965b4405ff95890e0";
 
 const repositoryRoot = new URL("../", import.meta.url);
