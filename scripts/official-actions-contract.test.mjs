@@ -3,7 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const CHECKOUT_SHA = "3d3c42e5aac5ba805825da76410c181273ba90b1";
-const LINEAR_ACTION_SHA = "0a25abab892a91062ebf42260dbb2ce6277aa205";
+const LINEAR_ACTION_SHA = "3f31fcf14c110cc53579fcc3575a26d469c413b4";
 const WRANGLER_ACTION_SHA = "ebbaa1584979971c8614a24965b4405ff95890e0";
 
 const repositoryRoot = new URL("../", import.meta.url);
@@ -82,7 +82,7 @@ test("Linear Release uses the signed official action and fails closed", () => {
     linearReleaseSource,
     /access_key: \$\{\{ secrets\.LINEAR_ACCESS_KEY \}\}/u,
   );
-  assert.match(linearReleaseSource, /cli_version: v0\.16\.0/u);
+  assert.match(linearReleaseSource, /cli_version: v0\.17\.1/u);
   assert.doesNotMatch(linearReleaseSource, /continue-on-error:\s*true/u);
   assert.doesNotMatch(
     linearReleaseSource,
@@ -137,7 +137,7 @@ test("actions.lock and agent policy encode the same contract", () => {
     lockChildBlock(actionsLockSource, `    '${linearAction}':\n`),
     [
       `    '${linearAction}':`,
-      "        ref: 'v0.16.0'",
+      "        ref: 'v0.17.1'",
       `        commit: 'sha1-${LINEAR_ACTION_SHA}'`,
       "        owner_id: 46686594",
       "        repo_id: 1150447766",
