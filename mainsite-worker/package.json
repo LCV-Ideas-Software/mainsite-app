@@ -25,10 +25,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.10",
-    "@cloudflare/workers-types": "5.20260823.1",
+    "@cloudflare/workers-types": "5.20260825.1",
     "@eslint/js": "^10.0.1",
     "@vitest/ui": "^4.1.11",
-    "eslint": "^10.9.0",
+    "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.11.0",
     "typescript": "~6.0.3",
