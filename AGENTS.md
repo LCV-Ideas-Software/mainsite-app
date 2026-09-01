@@ -118,9 +118,9 @@ com desvios `Bloqueado` e `Descartado`.
 ### Identificadores e credenciais em repositorio publico
 
 Tokens, chaves, senhas e outras credenciais reais nunca podem ser versionados ou publicados.
-Em regra, use placeholders para identificadores operacionais. A unica excecao autorizada
-neste repositorio e o `database_name`/`database_id` do binding D1 `bigdata_db` nos dois
-arquivos `wrangler.json`: o UUID e identificador, nao credencial, e a configuracao oficial
-do Wrangler exige o valor para selecionar a D1 existente. Essa autorizacao nao cria
-precedente; qualquer outro identificador real exige pedido fundamentado e nova autorizacao
-explicita do operador.
+Metadados e identificadores exigidos pela configuracao oficial podem e devem ser versionados
+quando forem necessarios ao funcionamento reproduzivel do repositorio. Isso inclui o
+`database_name`/`database_id` do binding D1 `bigdata_db` e `store_id`/`secret_name` dos
+bindings do Cloudflare Secrets Store nos arquivos `wrangler.json`: esses campos selecionam
+recursos existentes e nao contem seus valores secretos. Use placeholders somente para
+identificadores que nao sejam necessarios ao funcionamento da configuracao versionada.

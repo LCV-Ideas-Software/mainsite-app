@@ -70,7 +70,7 @@ Browser
         └──→ D1 (bigdata_db) + R2 (mainsite-media) + Workers AI + Vertex AI (Gemini models)
 ```
 
-The shared D1 binding is declared directly in both `wrangler.json` files. Its UUID is an identifier, not a credential; Cloudflare API tokens and application secrets remain outside the repository.
+The shared D1 binding is declared directly in both `wrangler.json` files. Its UUID is an identifier, not a credential. The Worker also versions the `store_id` and `secret_name` metadata required by Cloudflare's official Secrets Store binding; secret values, Cloudflare API tokens and application credentials remain outside the repository.
 
 ## Deploy your own fork
 
@@ -111,7 +111,7 @@ Set `database_name` to the name created in step 2 (`example_db` in the example) 
 
 ### 4. Configure Cloudflare Secrets Store secrets
 
-Create or select your own Cloudflare Secrets Store, replace the repository-specific `store_id` values, and populate the bindings declared in `mainsite-worker/wrangler.json`. `VERTEX_SA_KEY` must contain the complete service-account JSON used to authenticate Vertex AI; `GCP_NL_API_KEY` must likewise contain a complete service-account JSON, for the separate Natural Language moderation path — grant that account `roles/serviceusage.serviceUsageConsumer` and enable `language.googleapis.com` on its project; `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` hold their respective service credentials.
+Create or select your own Cloudflare Secrets Store, replace the repository-specific `store_id` and `secret_name` metadata, and populate the bindings declared in `mainsite-worker/wrangler.json`. Wrangler requires those identifiers in the versioned configuration, but the secret values themselves must never be committed. `CLOUDFLARE_PW` holds the private bearer credential expected by the Worker admin routes; `VERTEX_SA_KEY` must contain the complete service-account JSON used to authenticate Vertex AI; `GCP_NL_API_KEY` must likewise contain a complete service-account JSON, for the separate Natural Language moderation path — grant that account `roles/serviceusage.serviceUsageConsumer` and enable `language.googleapis.com` on its project; `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` hold their respective service credentials.
 
 Set the non-secret `VERTEX_PROJECT` Wrangler variable to your Google Cloud project ID; set `VERTEX_LOCATION` as well if you are not using the default `global` location. The worker does not infer either value from `VERTEX_SA_KEY`.
 
