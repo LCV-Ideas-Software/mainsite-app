@@ -6,7 +6,7 @@
 
 - A política local passa a reconhecer como regra que metadados e identificadores exigidos
   por configurações oficiais podem e devem ser versionados quando necessários ao
-  funcionamento reproduzivel. Para o Cloudflare Secrets Store, isso inclui `store_id` e
+  funcionamento reproduzível. Para o Cloudflare Secrets Store, isso inclui `store_id` e
   `secret_name` no `wrangler.json`; valores secretos, tokens e credenciais continuam fora
   do Git (MAISITE-16 / #498).
 - `GCP_NL_API_KEY` deixa de ser secret nativo e passa a vir do Secrets Store
