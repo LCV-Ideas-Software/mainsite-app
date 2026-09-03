@@ -1,9 +1,44 @@
 # Changelog — MainSite App
 
-## [Unreleased]
+## [v03.25.00 / v02.22.00] - 2026-09-03
+
+Release só do frontend; o worker permanece em v02.22.00, em produção desde o `Deploy` de
+27/08. As entradas abaixo consolidam tudo o que ficou em Unreleased desde 21/08, inclusive as
+do worker v02.22.00, e descrevem o estado final desta release.
 
 ### Alterado
 
+- **Governança nativa da organização.** O repositório passa a usar somente recursos
+  nativos do GitHub e integrações oficiais: saem o lockfile de Actions e seus
+  cabeçalhos, o workflow avançado do CodeQL (o default setup do CodeQL, aplicado pela
+  configuração de segurança da Enterprise, já analisa `actions` e
+  `javascript-typescript`), o workflow `Public Format` e os gatilhos de merge queue.
+  Entra o workflow `CI`, que roda em todo pull request para `main` os portões de
+  produto do `Deploy` (lint, Biome e testes do worker; lint, Biome, testes e build do
+  frontend) mais um dry-run estrito do Wrangler no worker; o `npm audit` dos dois
+  pacotes sai do caminho de pull request e fica só no `Deploy`, que o mantém junto com
+  os dois deploys do Wrangler, agora com `wranglerVersion` 4.125.0, a mesma versão dos
+  manifestos (esse input do workflow é atualizado à mão); a release no Linear passa a
+  ser registrada só para deploys por `push`, como no starter da organização. Entram também o `dependabot-auto-merge.yml`
+  canônico da organização e o `INBOUND.md`. Zizmor (v0.6.3), Scorecard, Pages (gatilho
+  de pull request, deploy-pages v5.0.1) e Dependency Review seguem os starters da
+  organização.
+- **Dependabot semanal e agrupado.** Verificação às segundas, 06:00 America/Sao_Paulo,
+  com um grupo `minor-e-patch` por ecossistema, majors em pull requests próprios,
+  cooldown de sete dias (sem cooldown para `actions/*` e `github/*` nas Actions),
+  `rebase-strategy: auto` e o bloqueio do TypeScript 6.1 preservado nos dois pacotes;
+  os dez grupos próprios e a entrada do pacote raiz saem.
+- **Inventário legal por nome, licença e fonte.** `THIRDPARTY.md` e a cópia servida em
+  `mainsite-frontend/public/legal/` listam cada dependência direta do frontend e do
+  worker sem versão, integridade ou tarball: versões e resoluções imutáveis vivem nos
+  manifestos e nos lockfiles, onde o Dependabot as atualiza, e o grafo de dependências
+  do GitHub é o inventário versionado.
+- **`browserslist` 4.28.8 e `fast-uri` 4.1.4 no frontend.** O `browserslist` sobe no
+  lockfile (GHSA-c83g-rgw3-j3cx e GHSA-73wf-gq98-2v4g, altas, publicadas em 01/09 depois
+  do último deploy e sem alerta do Dependabot); o `override` do `fast-uri` passa de 4.1.2
+  a 4.1.4 (GHSA-jqff-g426-hqxp, GHSA-fph4-wmhf-6fwf, GHSA-f65p-4m7j-42xc e
+  GHSA-5jgf-p345-68v8, altas, publicadas em 02/09; alertas #53–#56 do Dependabot). Sem os
+  dois bumps o `npm audit` do `Deploy` falharia no próximo push a `main`.
 - A política local passa a reconhecer como regra que metadados e identificadores exigidos
   por configurações oficiais podem e devem ser versionados quando necessários ao
   funcionamento reproduzível. Para o Cloudflare Secrets Store, isso inclui `store_id` e
@@ -20,24 +55,27 @@
   projeto de conta pessoal. O endereço da conta não é versionado (AGENTS.md,
   "Identificadores e credenciais em repositorio publico").
 - O writer pós-deploy da #461/MAISITE-9 troca o instalador customizado pela
-  `linear/linear-release-action` oficial v0.16.0, fixada pelo SHA assinado,
-  preservando o SHA implantado que origina a release. A fila usa `queue: max`,
-  e falhas da action tornam o workflow vermelho. O CLI é selecionado
-  explicitamente como v0.16.0; a falta de verificação do digest no
-  instalador upstream continua rastreada em `linear/linear-release-action#59`.
-- Os PRs Dependabot #431 e #432 foram consolidados: CodeQL usa v4.37.7 e o
-  Zizmor passa a usar diretamente a Action oficial v0.6.2 com CLI 1.29.0.
-- CodeQL, Dependency Review, OpenSSF Scorecard, Zizmor, GitHub Pages e os dois
-  deploys Cloudflare agora usam somente Actions oficiais fixadas por SHA e
-  permissões mínimas; wrappers, gates e validadores de governança próprios foram
-  aposentados.
+  `linear/linear-release-action` oficial, fixada pelo SHA assinado (v0.16.0 durante o
+  ciclo, v0.17.2 nesta release), preservando o SHA implantado que origina a release. A
+  fila usa `queue: max`, e falhas da action tornam o workflow vermelho. O CLI é
+  selecionado explicitamente (v0.17.2), e o instalador upstream passa a conferir o
+  SHA-256 publicado do CLI antes de executá-lo (`linear/linear-release-action#59`,
+  fechada em 26/08).
+- Os PRs Dependabot #431 e #432 foram consolidados: o Zizmor passa a usar diretamente
+  a Action oficial (v0.6.3 nesta release, sem pin próprio do CLI) e o `upload-sarif`
+  do Scorecard usa `codeql-action` v4.37.9; o workflow avançado do CodeQL sai (acima).
+- Dependency Review, OpenSSF Scorecard, Zizmor, GitHub Pages e os dois deploys
+  Cloudflare agora usam somente Actions oficiais fixadas por SHA e permissões
+  mínimas (o CodeQL roda no default setup, sem workflow); wrappers, gates e
+  validadores de governança próprios foram aposentados.
 - O binding D1 compartilhado passa a usar a configuração Wrangler oficial
   versionada; o segredo de CI `D1_DATABASE_ID` e a injeção `jq` deixam de ser
   necessários.
 - O cooldown npm do Dependabot passa a sete dias, sem atrasar security updates
   nem GitHub Actions.
-- Wrangler sobe para 4.123.0 e passa a estar fixado nos manifests/lockfiles dos
-  dois sub-apps, evitando instalação transitória fora do lockfile no deploy.
+- Wrangler sobe para 4.125.0 (4.123.0 durante o ciclo) e passa a estar fixado nos
+  manifests/lockfiles dos dois sub-apps e no `wranglerVersion` do `Deploy`, evitando
+  instalação transitória fora do lockfile no deploy.
 - `@biomejs/biome` sobe para 2.5.8 e `@cloudflare/workers-types` para
   5.20260813.1 nos dois sub-apps (PRs Dependabot #440 e #442); `globals` sobe
   para 17.11.0 também em ambos (#447 e #448). Todos são dependências de
@@ -52,10 +90,10 @@
 ### Corrigido
 
 - As duas cópias de `THIRDPARTY.md` passam a inventariar, sem omissões nem
-  entradas obsoletas, todas as dependências diretas dos três manifestos. Um
-  gate local fail-closed agora confronta versões declaradas e efetivas,
-  licenças e origens com os respectivos lockfiles, cobrindo ausência, sobra,
-  duplicata e divergência (issue #496 / MAISITE-15).
+  entradas obsoletas, todas as dependências diretas dos manifestos (issue #496 /
+  MAISITE-15); com a saída do pacote raiz restam os dois dos sub-apps. O gate local
+  fail-closed que confrontava o inventário com os lockfiles, introduzido nesse ciclo,
+  sai nesta mesma release (ver Removido).
 - Os 12 erros de typecheck acumulados desde a implantação do Vertex: quatro
   destructurings de JWT e leituras de bytes sem verificação de existência
   (`auth.ts`, `uploads.ts`), cinco campos opcionais recebendo `undefined`
@@ -65,6 +103,15 @@
 
 ### Removido
 
+- **Verificador legal próprio e pacote raiz.** Saem `scripts/verify-thirdparty.mjs`, seu
+  teste, `scripts/official-actions-contract.test.mjs` (nunca executado em CI), o
+  `package.json` e o `package-lock.json` da raiz, que existiam só para o Prettier do
+  `index.html`, para o verificador e para esse teste de contrato, os arquivos
+  `.prettierignore`, `.npmignore` e `.npmrc` da raiz, que ficariam sem consumidor, e os
+  dois passos do `Deploy` que instalavam e chamavam o pacote raiz.
+  Vulnerabilidades conhecidas passam a ser cobertas pelo Dependency Review, pelo
+  `npm audit` do `Deploy` e pelas atualizações de segurança do Dependabot; licenças,
+  pela regra Enterprise de conformidade de licenças; o CodeQL cobre o código.
 - Native Auto-merge, Auto-release e a automação customizada de Projects. Os
   Projects #12 e #17 usam Auto-add nativo, e este web app mantém somente suas
   versões internas sem GitHub Releases ou tags de versão.

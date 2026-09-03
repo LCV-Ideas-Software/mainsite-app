@@ -1,5 +1,18 @@
 # Changelog — Mainsite Frontend
 
+## [v03.25.00] - 2026-09-03
+
+### Alterado
+
+- **Governança nativa da organização.** O inventário legal servido em
+  `public/legal/THIRDPARTY.md` passa a listar cada dependência direta por nome, licença
+  e fonte, sem versão, integridade ou tarball; os portões de pull request passam a
+  correr no workflow `CI` do repositório.
+- **`browserslist` 4.28.8 no lockfile e `override` do `fast-uri` em 4.1.4.** Corrigem
+  GHSA-c83g-rgw3-j3cx e GHSA-73wf-gq98-2v4g (`browserslist`) e GHSA-jqff-g426-hqxp,
+  GHSA-fph4-wmhf-6fwf, GHSA-f65p-4m7j-42xc e GHSA-5jgf-p345-68v8 (`fast-uri`), todas
+  altas e publicadas depois do último deploy.
+
 ## [v03.24.00] - 2026-08-21
 
 ### Segurança

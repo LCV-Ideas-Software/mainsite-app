@@ -1,179 +1,91 @@
 version: 2
-
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "America/Sao_Paulo"
     cooldown:
       default-days: 7
       exclude:
         - "actions/*"
         - "github/*"
+    rebase-strategy: auto
     labels:
       - "dependencies"
-      - "github-actions"
     commit-message:
       prefix: "deps"
       include: "scope"
     open-pull-requests-limit: 10
     groups:
-      codeql-action:
+      minor-e-patch:
         applies-to: version-updates
         patterns:
-          - "github/codeql-action*"
-      codeql-action-security-updates:
-        applies-to: security-updates
-        patterns:
-          - "github/codeql-action*"
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
-    cooldown:
-      default-days: 7
-    labels:
-      - "dependencies"
-      - "npm"
-      - "public-format"
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    versioning-strategy: increase
-    groups:
-      public-format-tooling:
-        patterns:
-          - "prettier"
+          - "*"
         update-types:
-          - "major"
           - "minor"
           - "patch"
-    open-pull-requests-limit: 10
 
   - package-ecosystem: "npm"
     directory: "/mainsite-frontend"
     schedule:
-      interval: "daily"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "America/Sao_Paulo"
     cooldown:
       default-days: 7
+    rebase-strategy: auto
     labels:
       - "dependencies"
-      - "npm"
-      - "frontend"
     commit-message:
       prefix: "deps"
       include: "scope"
     versioning-strategy: increase
-    groups:
-      react:
-        patterns:
-          - "react"
-          - "react-dom"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-      pwa-build-chain:
-        patterns:
-          - "vite-plugin-pwa"
-          - "workbox*"
-          - "rollup-plugin-visualizer"
-          - "@rollup/*"
-          - "rollup"
-          - "magic-string"
-          - "source-map"
-          - "glob"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-      dev-dependencies:
-        patterns:
-          - "eslint*"
-          - "typescript"
-          - "@types/*"
-          - "wrangler"
-          - "@cloudflare/*"
-          - "vite*"
-          - "@vitest/*"
-          - "@biomejs/*"
-        exclude-patterns:
-          - "vite-plugin-pwa"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-      tanstack:
-        patterns:
-          - "@tanstack/*"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-      eslint-ecosystem:
-        patterns:
-          - "@eslint/*"
-          - "eslint-plugin-*"
-          - "typescript-eslint"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
     ignore:
-      # typescript-eslint 8.67.0 supports TypeScript only below 6.1.0.
+      # typescript-eslint supports TypeScript only below 6.1.0.
       - dependency-name: "typescript"
-        versions: [">=6.1.0"]
+        versions:
+          - ">=6.1.0"
     open-pull-requests-limit: 10
+    groups:
+      minor-e-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "/mainsite-worker"
     schedule:
-      interval: "daily"
-      time: "01:00"
-      timezone: "America/Los_Angeles"
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "America/Sao_Paulo"
     cooldown:
       default-days: 7
+    rebase-strategy: auto
     labels:
       - "dependencies"
-      - "npm"
-      - "worker"
     commit-message:
       prefix: "deps"
       include: "scope"
     versioning-strategy: increase
-    groups:
-      dev-dependencies:
-        patterns:
-          - "eslint*"
-          - "typescript"
-          - "@types/*"
-          - "wrangler"
-          - "@cloudflare/*"
-          - "vite*"
-          - "@vitest/*"
-          - "@biomejs/*"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-      eslint-ecosystem:
-        patterns:
-          - "@eslint/*"
-          - "eslint-plugin-*"
-          - "typescript-eslint"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
     ignore:
-      # typescript-eslint 8.67.0 supports TypeScript only below 6.1.0.
+      # typescript-eslint supports TypeScript only below 6.1.0.
       - dependency-name: "typescript"
-        versions: [">=6.1.0"]
+        versions:
+          - ">=6.1.0"
     open-pull-requests-limit: 10
+    groups:
+      minor-e-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"

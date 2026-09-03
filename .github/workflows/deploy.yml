@@ -1,5 +1,3 @@
-# This workflow is managed by gh actions-lock.
-
 name: Deploy
 
 on:
@@ -38,12 +36,6 @@ jobs:
           check-latest: true
           package-manager-cache: false
 
-      - name: Install root validation dependencies
-        run: npm ci --ignore-scripts --no-audit --no-fund
-
-      - name: Validate public assets and legal inventory
-        run: npm run format:public:check
-
       - name: Install Worker dependencies
         working-directory: mainsite-worker
         run: npm ci --ignore-scripts --no-audit --no-fund
@@ -78,7 +70,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: npm
           workingDirectory: mainsite-worker
-          wranglerVersion: "4.123.0"
+          wranglerVersion: "4.125.0"
           command: deploy --strict
 
       - name: Deploy frontend with Wrangler
@@ -88,5 +80,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: npm
           workingDirectory: mainsite-frontend
-          wranglerVersion: "4.123.0"
+          wranglerVersion: "4.125.0"
           command: pages deploy dist --project-name=mainsite-frontend --branch=main --commit-dirty=true

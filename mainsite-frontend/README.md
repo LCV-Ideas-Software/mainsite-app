@@ -5,7 +5,6 @@
 # React + Vite
 
 [![Deploy](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/deploy.yml/badge.svg)](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/deploy.yml)
-[![CodeQL](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/codeql.yml/badge.svg)](https://github.com/LCV-Ideas-Software/mainsite-app/actions/workflows/codeql.yml)
 [![framework: React 19 + Vite 8](https://img.shields.io/badge/framework-React%2019%20%2B%20Vite%208-61dafb.svg)](https://react.dev/)
 [![license: AGPL-3.0-or-later](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](../LICENSE)
 
@@ -18,12 +17,14 @@ Currently, two official plugins are available:
 
 ## Change History
 
-**Status.** Stable. Current internal version: **v03.23.05**. See [CHANGELOG.md](../CHANGELOG.md) for the full version history.
+**Status.** Stable. Current internal version: **v03.25.00**. See [CHANGELOG.md](../CHANGELOG.md) for the full version history.
 
 The version history at a glance:
 
 | Internal version | Notes                                                                                                                                              |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `v03.25.00`      | Inventário legal servido por nome, licença e fonte; portões de PR no workflow `CI`; `browserslist` 4.28.8 e `fast-uri` 4.1.4 (seis GHSA altas).    |
+| `v03.24.00`      | Tightening de `style` por allowlist de valor nos dois call sites DOMPurify (issue #411); fecha o diferimento registrado na v03.22.00.              |
 | `v03.23.05`      | Atualiza overrides de segurança, remove uma variável de build sem consumidor e simplifica o envio obrigatório do token Turnstile.                  |
 | `v03.23.04`      | Corrige GHSA-3jxr-9vmj-r5cp com versões de `brace-expansion` compatíveis com cada major de `minimatch`.                                            |
 | `v03.23.03`      | 4-gate quality directive compliance for the frontend release train, including Biome gating and APP_VERSION alignment.                              |
