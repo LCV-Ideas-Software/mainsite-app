@@ -17,9 +17,8 @@ compartilhado. Deploy exclusivamente via GitHub Actions.
 ## Mandatory Gates
 
 ```bash
-npm run format:public:check
 # nos dois pacotes do monorepo, cada um com npm ci antes:
-#   mainsite-worker/   -> npm run lint && npm run biome && npm test
+#   mainsite-worker/   -> npm run lint && npm run biome && npm test && npm exec -- wrangler deploy --dry-run --strict
 #   mainsite-frontend/ -> npm run lint && npm run biome && npm test && npm run build
 ```
 

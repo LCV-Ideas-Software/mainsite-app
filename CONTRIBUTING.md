@@ -35,6 +35,7 @@ For the frontend:
 cd mainsite-frontend
 npm ci
 npm run lint
+npm run biome
 npm test
 npm run build
 ```
@@ -45,11 +46,12 @@ For the worker:
 cd mainsite-worker
 npm ci
 npm run lint
+npm run biome
 npm test
-npx wrangler deploy --dry-run
+npx wrangler deploy --dry-run --strict
 ```
 
-All gates must be GREEN. CI re-runs these on push.
+All gates must be GREEN. The `CI` workflow re-runs them on every pull request to `main`; the `Deploy` workflow re-runs them on every push to `main`, adding `npm audit` and replacing the dry run with the real `wrangler deploy --strict`.
 
 ### PR description
 

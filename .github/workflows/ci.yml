@@ -1,27 +1,31 @@
-# This workflow is managed by gh actions-lock.
-
-name: Public Format
+name: CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
-  merge_group:
+    branches: ["main"]
+    # `edited` covers a pull request retargeted to main; without it the
+    # required check would not run until the next push.
     types:
-      - checks_requested
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - edited
+  workflow_dispatch:
 
 permissions: {}
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  NODE_OPTIONS: "--no-deprecation"
+
 concurrency:
-  group: public-format-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  prettier-public:
-    name: Check index.html formatting
+  ci:
+    name: CI
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -37,17 +41,7 @@ jobs:
         with:
           node-version: 24
           check-latest: true
-          cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            mainsite-worker/package-lock.json
-            mainsite-frontend/package-lock.json
-
-      - name: Install public-page dependencies
-        run: npm ci --ignore-scripts --no-audit --no-fund
-
-      - name: Check public page formatting
-        run: npm run format:public:check
+          package-manager-cache: false
 
       - name: Install Worker dependencies
         working-directory: mainsite-worker
@@ -56,10 +50,10 @@ jobs:
       - name: Validate Worker
         working-directory: mainsite-worker
         run: |
-          npm audit --audit-level=high
           npm run lint
           npm run biome
           npm test
+          npm exec -- wrangler deploy --dry-run --strict
 
       - name: Install frontend dependencies
         working-directory: mainsite-frontend
@@ -68,8 +62,9 @@ jobs:
       - name: Validate frontend
         working-directory: mainsite-frontend
         run: |
-          npm audit --audit-level=high
           npm run lint
           npm run biome
           npm test
           npm run build
+        env:
+          VITE_TURNSTILE_SITE_KEY: 0x4AAAAAAC11tvghUM34XXGV
