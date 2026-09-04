@@ -51,7 +51,7 @@ npm test
 npx wrangler deploy --dry-run --strict
 ```
 
-All gates must be GREEN. The `CI` workflow re-runs them on every pull request to `main`; the `Deploy` workflow re-runs them on every push to `main`, adding `npm audit` and replacing the dry run with the real `wrangler deploy --strict`.
+All gates must be GREEN. The `CI` workflow re-runs them on every pull request to `main`; the `Deploy` workflow re-runs them on every push to `main`, adding `npm audit` (a report with a high or critical finding stops the deploy; a failed advisory request to the npm registry only warns) and replacing the dry run with the real `wrangler deploy --strict`.
 
 ### PR description
 

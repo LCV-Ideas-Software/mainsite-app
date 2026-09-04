@@ -135,7 +135,7 @@ cd ..
 
 This repo's [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) runs on every push to `main`:
 
-1. `npm ci` + `npm audit --audit-level=high` for both sub-apps.
+1. `npm ci` + `npm audit --audit-level=high` for both sub-apps (a report with a high or critical finding stops the deploy; when the advisory request to the npm registry fails, the step warns and the deploy continues on the native coverage; any other npm error stops the deploy).
 2. `lint`, Biome and tests for both, plus the frontend build.
 3. The official Cloudflare Wrangler Action deploys the Worker and the Pages frontend with the versioned D1 binding.
 

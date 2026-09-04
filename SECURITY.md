@@ -34,7 +34,10 @@ Out of scope: social engineering, physical attacks, denial-of-service testing wi
   for `mainsite-worker`; lint, Biome, tests and build for `mainsite-frontend`), Dependency Review,
   zizmor and the Pages build; `npm audit` runs only on pushes to `main`, inside the `Deploy`
   workflow, together with lint, Biome and tests of both packages, the frontend build and the two
-  Wrangler deployments. The repository ruleset `main: required
+  Wrangler deployments. A report with a high or critical finding stops the deploy; when the
+  advisory request to the npm registry fails, the audit step records a warning and the deploy
+  continues on the native coverage (Dependabot alerts and security updates, Dependency Review,
+  CodeQL); any other npm error stops the deploy. The repository ruleset `main: required
   checks` requires `CI`, `Build Pages artifact`, `Dependency Review` and `Run zizmor` before any
   merge into `main`.
 - This repository handles its own Dependabot pull requests with the repository-local workflow

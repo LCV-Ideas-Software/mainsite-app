@@ -1,5 +1,20 @@
 # Changelog — MainSite App
 
+## [Unreleased]
+
+### Alterado
+
+- **`npm audit` do `Deploy` distingue vulnerabilidade de requisição de advisories falha.** O
+  passo de auditoria de cada pacote continua reprovando o deploy quando o relatório traz
+  vulnerabilidade alta ou crítica; quando a requisição de advisories ao registro do npm falha
+  (mensagem do próprio npm, "audit endpoint returned an error": serviço fora, inalcançável ou
+  respondendo qualquer coisa que não um relatório), registra um aviso e um resumo no job e o
+  deploy segue sobre a cobertura nativa (alertas e atualizações de segurança do Dependabot,
+  Dependency Review, CodeQL); qualquer erro do npm fora dessa requisição reprova. A espera por
+  uma requisição travada cai de cerca de quinze minutos para cerca de dois (`fetch-retries` 1,
+  `fetch-timeout` 60 s). Motivo: em 03/09 o serviço ficou horas sem responder e nenhum deploy
+  saía, hotfix incluído (MAISITE-20 / #531).
+
 ## [v03.25.00 / v02.22.00] - 2026-09-03
 
 Release só do frontend; o worker permanece em v02.22.00, em produção desde o `Deploy` de
