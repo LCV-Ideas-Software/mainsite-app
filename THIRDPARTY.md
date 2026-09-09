@@ -9,8 +9,9 @@ directory for monorepo packages). Versions, ranges and immutable resolutions liv
 the full transitive trees remain recorded in those lockfiles and in GitHub's dependency graph,
 which provides the SBOM on request, rather than being duplicated here.
 
-The repository itself remains licensed under `AGPL-3.0-or-later`. Third-party components
-remain subject to their own terms, and none is modified or vendored by this repository.
+The repository itself remains licensed under `AGPL-3.0-or-later`. Third-party packages
+remain subject to their own terms and are not modified or vendored. The static
+template asset documented below is copied unchanged and retains its upstream notice.
 
 The frontend build also publishes the bundled dependencies' full license texts at
 `/legal/DEPENDENCY-LICENSES.md`, using [Vite's native license output](https://vite.dev/config/build-options#build-license).
@@ -18,6 +19,44 @@ The legal page links to that build-specific report. Workbox is bundled separatel
 `generateSW`; `/legal/WORKBOX-LICENSE.txt` preserves the upstream MIT text shared by the
 Workbox 7.4.1 runtime packages, copied unchanged through Vite's public directory. Review
 that notice against the upstream package license when upgrading Workbox.
+
+## Copied static asset: create-vite icons
+
+`mainsite-frontend/public/icons.svg` is copied unchanged from the official
+[create-vite React TypeScript template](https://github.com/vitejs/vite/blob/b565af6f1123a62b3058253b2147574b8515e89f/packages/create-vite/template-react-ts/public/icons.svg)
+at Vite `v8.0.0`, commit `b565af6f1123a62b3058253b2147574b8515e89f`.
+Its SHA-256 is `b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a`.
+Vite copies this public asset to `/icons.svg` even though the current application
+does not reference it. It is not a bundled module and therefore has no entry in
+`/legal/DEPENDENCY-LICENSES.md`.
+
+The following notice reproduces the [upstream MIT license](https://github.com/vitejs/vite/blob/b565af6f1123a62b3058253b2147574b8515e89f/LICENSE).
+It applies to this copied asset, not to the whole application, which remains
+`AGPL-3.0-or-later`. It does not grant rights to the third parties' trademarks.
+
+```text
+MIT License
+
+Copyright (c) 2019-present, VoidZero Inc. and Vite contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
 | Pacote            | Componente                       | Relação     | Licença                 | Fonte                                                                                 |
 | ----------------- | -------------------------------- | ----------- | ----------------------- | ------------------------------------------------------------------------------------- |

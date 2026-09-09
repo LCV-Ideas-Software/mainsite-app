@@ -4,6 +4,12 @@
 
 ### Alterado
 
+- Preservado o aviso MIT integral do template oficial create-vite para
+  `mainsite-frontend/public/icons.svg` em `THIRDPARTY.md` e na cópia publicada
+  em `/legal/THIRDPARTY.md`. O asset estático é copiado pelo Vite fora do grafo
+  de módulos do relatório nativo. Sem alterar imagem, código, dependências,
+  workflows ou configurações do GitHub (GIT-207).
+
 - Corrigido o guia de fork para usar o empacotamento nativo de `wrangler deploy` no Worker,
   removendo a chamada a um script `build` que esse pacote não possui. O build do frontend
   permanece; nenhuma configuração ou implementação foi alterada (GIT-202/GIT-203).
