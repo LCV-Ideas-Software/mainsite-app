@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Corrigido
+
+- Atualizada a resolução transitiva de `sharp` para `0.35.4` nos dois subprojetos,
+  usando `overrides` nativo do npm e lockfiles regenerados pelo npm, para corrigir
+  GHSA-rgj7-g3m4-5g8c na cadeia de desenvolvimento do Wrangler/Miniflare. Os gates,
+  workflows, dependências diretas e configurações de deploy permanecem inalterados.
+
 ### Alterado
 
 - Preservado o aviso MIT integral do template oficial create-vite para
