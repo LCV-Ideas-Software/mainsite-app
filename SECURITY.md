@@ -28,6 +28,24 @@ In scope: application code, Workers/Pages functions, package publication, GitHub
 
 Out of scope: social engineering, physical attacks, denial-of-service testing without prior written authorization, spam, automated noisy scanning, and reports that rely only on outdated browser or dependency versions without a concrete vulnerable path in this repository.
 
+## Dependency updates
+
+Dependabot checks all configured ecosystems every day, including weekends, at
+05:00 (UTC-03:00), using the native `cron` schedule and `Etc/GMT+3`. GitHub may
+start the jobs later when its update queue is busy. Version updates retain the
+seven-day cooldown and existing groups; official `actions/*` and `github/*`
+updates are excluded from that cooldown.
+
+Security updates run independently of this schedule and cooldown. Each configured
+ecosystem and directory has its own security group, separate from version updates.
+A failing update can delay its security group; diagnose the failure before
+adjusting the native group configuration or recreating a pull request. Existing
+version ignores also constrain security fixes, so review them when upstream
+compatibility changes. Native auto-merge remains subject to every required check.
+
+See the [Dependabot options reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference)
+and [security update documentation](https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-security-updates).
+
 ## Automation and credentials
 
 - Pull requests against `main` run the `CI` workflow (lint, Biome, tests and a strict Wrangler dry run
