@@ -12,7 +12,7 @@
 ### Alterado
 
 - Atualizados os pins oficiais de CodeQL para 4.38.0 e zizmor-action para 0.6.4.
-  Os dois inputs do deploy usam o Wrangler 4.127.1 já fixado nos lockfiles.
+  Os dois inputs do deploy usam o Wrangler 4.129.0 já fixado nos lockfiles.
 
 - Preservado o aviso MIT integral do template oficial create-vite para
   `mainsite-frontend/public/icons.svg` em `THIRDPARTY.md` e na cópia publicada
