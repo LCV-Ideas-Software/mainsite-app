@@ -19,16 +19,16 @@
   "type": "module",
   "dependencies": {
     "@types/sanitize-html": "^2.16.1",
-    "hono": "^4.13.5",
+    "hono": "^4.13.7",
     "sanitize-html": "^2.17.7",
     "zod": "^4.5.4"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.12",
-    "@cloudflare/workers-types": "5.20260904.1",
+    "@cloudflare/workers-types": "5.20260905.1",
     "@eslint/js": "^10.0.1",
     "@vitest/ui": "^5.0.0",
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.12.0",
     "typescript": "~6.0.3",
