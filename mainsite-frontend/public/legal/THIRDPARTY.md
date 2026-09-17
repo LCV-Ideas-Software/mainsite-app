@@ -5,9 +5,9 @@ declared by `mainsite-frontend` and `mainsite-worker`, identified by name, licen
 the SPDX expression published by the package and the upstream repository it declares (with the
 directory for monorepo packages). Versions, ranges and immutable resolutions live in the two
 `package.json` files and their committed `package-lock.json`, where Dependabot updates them (the
-`Deploy` workflow repeats the Wrangler version in its `wranglerVersion` input, bumped by hand);
-the full transitive trees remain recorded in those lockfiles and in GitHub's dependency graph,
-which provides the SBOM on request, rather than being duplicated here.
+`Deploy` workflow runs the Wrangler that `npm ci` installs from each lockfile, without a
+separate version input); the full transitive trees remain recorded in those lockfiles and in
+GitHub's dependency graph, which provides the SBOM on request, rather than being duplicated here.
 
 The repository itself remains licensed under `AGPL-3.0-or-later`. Third-party packages
 remain subject to their own terms and are not modified or vendored. The static
