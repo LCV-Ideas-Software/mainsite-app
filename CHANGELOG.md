@@ -4,6 +4,12 @@
 
 ### Corrigido
 
+- Os dois passos de deploy da Cloudflare Wrangler Action (Worker e frontend)
+  deixam de pinar `wranglerVersion` e passam a usar o Wrangler que `npm ci`
+  instala a partir do lockfile de cada subprojeto, hoje 4.130.0; o pin manual
+  ficava para trás a cada atualização do Dependabot. O inventário de terceiros
+  e a cópia pública descrevem o novo modelo (MAISITE-27 / #571, GIT-230).
+
 - Atualizada a dependência transitiva opcional de desenvolvimento `@tybys/wasm-util`
   para `0.10.4` nos dois lockfiles, incluindo o aviso MIT integral publicado pelo upstream.
 
