@@ -116,7 +116,7 @@ export default defineConfig({
     target: 'esnext',
     cssCodeSplit: false,
     license: { fileName: 'legal/DEPENDENCY-LICENSES.md' },
-    rollupOptions: {
+    rolldownOptions: {
       output: {
         postBanner: '/*! Bundled dependency licenses: /legal/DEPENDENCY-LICENSES.md */',
         manualChunks(id): string | undefined {
