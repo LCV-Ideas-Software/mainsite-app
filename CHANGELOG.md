@@ -6,22 +6,23 @@
 
 - Os dois passos de deploy da Cloudflare Wrangler Action (Worker e frontend)
   deixam de pinar `wranglerVersion` e passam a usar o Wrangler que `npm ci`
-  instala a partir do lockfile de cada subprojeto, hoje 4.130.0; o pin manual
+  instala a partir do lockfile de cada subprojeto; o pin manual
   ficava para trás a cada atualização do Dependabot. O inventário de terceiros
   e a cópia pública descrevem o novo modelo (MAISITE-27 / #571, GIT-230).
 
 - Atualizada a dependência transitiva opcional de desenvolvimento `@tybys/wasm-util`
   para `0.10.4` nos dois lockfiles, incluindo o aviso MIT integral publicado pelo upstream.
 
-- Atualizada a resolução transitiva de `sharp` para `0.35.4` nos dois subprojetos,
-  usando `overrides` nativo do npm e lockfiles regenerados pelo npm, para corrigir
-  GHSA-rgj7-g3m4-5g8c na cadeia de desenvolvimento do Wrangler/Miniflare. Os gates,
-  workflows, dependências diretas e configurações de deploy permanecem inalterados.
+- Atualizado o Wrangler para `4.136.2` nos dois subprojetos, com pins exatos e
+  lockfiles regenerados pelo npm. Removidos os overrides redundantes de Sharp
+  e de Undici do Miniflare: a nova versão exige diretamente `0.35.4` e `7.29.0`.
+  O pin de `@cloudflare/workers-types` acompanha `5.20260921.1`, a versão mínima
+  exigida pelo peer opcional do novo Wrangler, sem mudar seu escopo nos pacotes.
+  Gates, workflows e configurações de deploy permanecem inalterados.
 
 ### Alterado
 
 - Atualizados os pins oficiais de CodeQL para 4.38.0 e zizmor-action para 0.6.4.
-  Os dois inputs do deploy usam o Wrangler 4.129.0 já fixado nos lockfiles.
 
 - Preservado o aviso MIT integral do template oficial create-vite para
   `mainsite-frontend/public/icons.svg` em `THIRDPARTY.md` e na cópia publicada
