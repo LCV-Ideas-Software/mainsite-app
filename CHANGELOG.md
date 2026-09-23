@@ -13,7 +13,7 @@
 - Atualizada a dependência transitiva opcional de desenvolvimento `@tybys/wasm-util`
   para `0.10.4` nos dois lockfiles, incluindo o aviso MIT integral publicado pelo upstream.
 
-- Atualizado o Wrangler para `4.136.2` nos dois subprojetos, com pins exatos e
+- Atualizado o Wrangler para `4.137.0` nos dois subprojetos, com pins exatos e
   lockfiles regenerados pelo npm. Removidos os overrides redundantes de Sharp
   e de Undici do Miniflare: a nova versão exige diretamente `0.35.4` e `7.29.0`.
   O pin de `@cloudflare/workers-types` acompanha `5.20260921.1`, a versão mínima
