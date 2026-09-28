@@ -22,6 +22,11 @@
 
 ### Alterado
 
+- Atualizado o Wrangler para `4.142.0` nos dois subprojetos, com pins exatos e
+  lockfiles regenerados pelo npm. `@cloudflare/workers-types` passa a
+  `5.20260928.1` nos dois manifestos para satisfazer o peer mínimo
+  `^5.20260926.1` exigido pelo Wrangler (MAISITE-31, LCV-239).
+
 - Atualizados os pins oficiais de CodeQL para 4.38.0 e zizmor-action para 0.6.4.
 
 - Preservado o aviso MIT integral do template oficial create-vite para
