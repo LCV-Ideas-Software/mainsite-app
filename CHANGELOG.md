@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Segurança
+
+- Aplicado temporariamente o `override` nativo do npm para `undici` 7.29.1
+  apenas sob `miniflare` nos dois subprojetos, enquanto a dependência da
+  Cloudflare exige 7.29.0 (MAISITE-33, LCV-241). Remover após a correção
+  upstream da Cloudflare.
+
 ### Corrigido
 
 - Corrigido o Deploy após a publicação defeituosa da Cloudflare Wrangler Action

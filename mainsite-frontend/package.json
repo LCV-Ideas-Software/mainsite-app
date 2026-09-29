@@ -79,6 +79,9 @@
     },
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@1.5.5",
     "@babel/core": "7.29.6",
-    "fast-uri": "4.1.4"
+    "fast-uri": "4.1.4",
+    "miniflare": {
+      "undici": "7.29.1"
+    }
   }
 }
