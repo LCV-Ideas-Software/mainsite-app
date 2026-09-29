@@ -4,6 +4,10 @@
 
 ### Corrigido
 
+- Corrigido o Deploy após a publicação defeituosa da Cloudflare Wrangler Action
+  v4.1.1: os passos do Worker e do frontend usam o commit compilado de v4.1.2,
+  fixado por SHA completo.
+
 - Os dois passos de deploy da Cloudflare Wrangler Action (Worker e frontend)
   deixam de pinar `wranglerVersion` e passam a usar o Wrangler que `npm ci`
   instala a partir do lockfile de cada subprojeto; o pin manual
