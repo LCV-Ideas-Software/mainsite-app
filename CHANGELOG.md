@@ -4,10 +4,10 @@
 
 ### Segurança
 
-- Aplicado temporariamente o `override` nativo do npm para `undici` 7.29.1
-  apenas sob `miniflare` nos dois subprojetos, enquanto a dependência da
-  Cloudflare exige 7.29.0 (MAISITE-33, LCV-241). Remover após a correção
-  upstream da Cloudflare.
+- Aplicado temporariamente o `override` nativo do npm para `undici@7.29.0`
+  em 7.29.1 apenas sob `miniflare` nos dois subprojetos (MAISITE-33,
+  LCV-241). Uma versão nova exigida pela Cloudflare não corresponde à regra;
+  remover o `override` obsoleto após a correção upstream.
 
 ### Corrigido
 

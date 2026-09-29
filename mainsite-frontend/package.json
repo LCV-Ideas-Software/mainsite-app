@@ -81,7 +81,7 @@
     "@babel/core": "7.29.6",
     "fast-uri": "4.1.4",
     "miniflare": {
-      "undici": "7.29.1"
+      "undici@7.29.0": "7.29.1"
     }
   }
 }
