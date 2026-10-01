@@ -4,6 +4,11 @@
 
 ### Segurança
 
+- Atualizados os pins de desenvolvimento para Wrangler `4.145.0` e
+  `@cloudflare/workers-types` `5.20260930.2` nos dois subprojetos, com os
+  lockfiles regenerados pelo npm. Os overrides de `brace-expansion` passam
+  a `5.0.12` em ambos os pacotes, e o de `fast-uri` do frontend a `4.1.5`.
+
 - Aplicado temporariamente o `override` nativo do npm para `undici@7.29.0`
   em 7.29.1 apenas sob `miniflare` nos dois subprojetos (MAISITE-33,
   LCV-241). Uma versão nova exigida pela Cloudflare não corresponde à regra;
