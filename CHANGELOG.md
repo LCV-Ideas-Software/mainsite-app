@@ -9,10 +9,10 @@
   lockfiles regenerados pelo npm. Os overrides de `brace-expansion` passam
   a `5.0.12` em ambos os pacotes, e o de `fast-uri` do frontend a `4.1.5`.
 
-- Aplicado temporariamente o `override` nativo do npm para `undici@7.29.0`
-  em 7.29.1 apenas sob `miniflare` nos dois subprojetos (MAISITE-33,
-  LCV-241). Uma versão nova exigida pela Cloudflare não corresponde à regra;
-  remover o `override` obsoleto após a correção upstream.
+- Removido dos dois subprojetos o `override` temporário de Miniflare para
+  `undici@7.29.0`, introduzido em MAISITE-33/LCV-241. O Miniflare oficial
+  selecionado pelo Wrangler 4.145.0 já exige Undici 7.29.1 diretamente;
+  os lockfiles foram regenerados pelo npm (LCV-256).
 
 ### Corrigido
 
