@@ -4,14 +4,14 @@
 
 ### Segurança
 
-- Atualizados os pins de desenvolvimento para Wrangler `4.145.0` e
-  `@cloudflare/workers-types` `5.20260930.2` nos dois subprojetos, com os
+- Atualizados os pins de desenvolvimento para Wrangler `4.147.0` e
+  `@cloudflare/workers-types` `5.20261001.1` nos dois subprojetos, com os
   lockfiles regenerados pelo npm. Os overrides de `brace-expansion` passam
   a `5.0.12` em ambos os pacotes, e o de `fast-uri` do frontend a `4.1.5`.
 
 - Removido dos dois subprojetos o `override` temporário de Miniflare para
   `undici@7.29.0`, introduzido em MAISITE-33/LCV-241. O Miniflare oficial
-  selecionado pelo Wrangler 4.145.0 já exige Undici 7.29.1 diretamente;
+  selecionado pelo Wrangler 4.147.0 já exige Undici 7.29.1 diretamente;
   os lockfiles foram regenerados pelo npm (LCV-256).
 
 ### Corrigido
