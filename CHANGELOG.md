@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Atualizado o Vitest para 5.0.3, que seleciona o `why-is-node-running` oficial 3.2.1 sem `stackback`; manifestos e lockfiles regenerados pelo npm.
+
 ### Segurança
 
 - Atualizados os pins de desenvolvimento para Wrangler `4.147.0` e

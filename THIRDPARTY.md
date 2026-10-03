@@ -110,3 +110,7 @@ SOFTWARE.
 | mainsite-worker   | `vitest`                         | development | MIT                     | https://github.com/vitest-dev/vitest (`packages/vitest`)                              |
 | mainsite-worker   | `wrangler`                       | development | MIT OR Apache-2.0       | https://github.com/cloudflare/workers-sdk (`packages/wrangler`)                       |
 | mainsite-worker   | `zod`                            | runtime     | MIT                     | https://github.com/colinhacks/zod                                                     |
+
+## Atualização documental — 02/10/2026 (LCV-183 / LCV-211)
+
+O Vitest 5.0.3 seleciona `why-is-node-running` 3.2.1, cuja publicação oficial não depende de `stackback`. A árvore exata permanece nos lockfiles regenerados pelo npm. Fonte: https://github.com/vitest-dev/vitest/pull/11316 e https://github.com/vitest-dev/vitest/releases/tag/v5.0.3. Esta atualização de ferramenta de teste não afirma incorporação no produto distribuído.
