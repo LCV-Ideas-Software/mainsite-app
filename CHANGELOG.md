@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Alinhada a data de compatibilidade dos dois projetos Cloudflare para `2026-10-03`, conforme decisão do operador, preservando os flags e bindings existentes.
+
 - Atualizado o Vitest para 5.0.3, que seleciona o `why-is-node-running` oficial 3.2.1 sem `stackback`; manifestos e lockfiles regenerados pelo npm.
 
 ### Segurança
