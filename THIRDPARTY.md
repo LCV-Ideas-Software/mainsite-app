@@ -20,6 +20,14 @@ The legal page links to that build-specific report. Workbox is bundled separatel
 Workbox 7.4.1 runtime packages, copied unchanged through Vite's public directory. Review
 that notice against the upstream package license when upgrading Workbox.
 
+## Temporary security exception and release tooling (LCV-316)
+
+The operator authorized the npm override `miniflare` → `sharp@0.35.5` in both subprojects for GHSA-wq5f-xc86-pv6w. Official Wrangler 4.147.0 still selects Miniflare 5.20261001.0-alpha with Sharp 0.35.4. Remove this override once the selected official upstream version incorporates Sharp 0.35.5 or later. These packages remain development tooling; their official package artifacts and licenses are preserved by the npm lockfiles.
+
+The frontend selects the official `@tanstack/react-query-devtools@5.102.8` package while the current Solid dependency pins vulnerable Seroval. This release retains the devtools interface used by the application and its published build has no Seroval module. The application keeps its current TanStack Query runtime dependency.
+
+Linear Release uses official Action v0.18.1 (`30f9ae77461ec29f07fffe0c52edd1909bfbb6f5`) with official CLI v0.18.0 selected explicitly. The upstream installer verifies the CLI executable against the published checksums. This release tooling runs after successful Deploy and is not incorporated into application artifacts.
+
 ## Copied static asset: create-vite icons
 
 `mainsite-frontend/public/icons.svg` is copied unchanged from the official

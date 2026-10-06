@@ -30,7 +30,7 @@
     "@biomejs/biome": "^2.5.14",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
-    "@tanstack/react-query-devtools": "^5.104.0",
+    "@tanstack/react-query-devtools": "5.102.8",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
@@ -64,6 +64,9 @@
     ]
   },
   "overrides": {
+    "miniflare": {
+      "sharp": "0.35.5"
+    },
     "minimatch@^10.0.0": {
       "brace-expansion": "5.0.12"
     },
