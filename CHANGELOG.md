@@ -8,6 +8,10 @@
 
 ### Segurança
 
+- Fixados os Devtools oficiais do TanStack Query em 5.102.8 para retirar a cadeia crítica de Seroval do frontend, mantendo o TanStack Query da aplicação. Os dois subprojetos usam o override npm temporário e autorizado de `sharp@0.35.5` sob Miniflare para a vulnerabilidade de librsvg (LCV-316).
+
+- Atualizada a Action oficial Linear Release para v0.18.1 por SHA completo, com a CLI oficial v0.18.0 selecionada explicitamente e a verificação de checksum preservada.
+
 - Atualizados os pins de desenvolvimento para Wrangler `4.147.0` e
   `@cloudflare/workers-types` `5.20261001.1` nos dois subprojetos, com os
   lockfiles regenerados pelo npm. Os overrides de `brace-expansion` passam
