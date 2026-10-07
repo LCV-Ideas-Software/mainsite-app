@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Atualizada a Action oficial `actions/upload-artifact` para v7.0.2 no Scorecard, com SHA completo e sem alterar inputs ou permissões.
+
 - Alinhada a data de compatibilidade dos dois projetos Cloudflare para `2026-10-03`, conforme decisão do operador, preservando os flags e bindings existentes.
 
 - Atualizado o Vitest para 5.0.3, que seleciona o `why-is-node-running` oficial 3.2.1 sem `stackback`; manifestos e lockfiles regenerados pelo npm.
@@ -12,8 +14,8 @@
 
 - Atualizada a Action oficial Linear Release para v0.18.1 por SHA completo, com a CLI oficial v0.18.0 selecionada explicitamente e a verificação de checksum preservada.
 
-- Atualizados os pins de desenvolvimento para Wrangler `4.147.0` e
-  `@cloudflare/workers-types` `5.20261001.1` nos dois subprojetos, com os
+- Atualizados os pins de desenvolvimento para Wrangler `4.148.0` e
+  `@cloudflare/workers-types` `5.20261007.1` nos dois subprojetos, com os
   lockfiles regenerados pelo npm. Os overrides de `brace-expansion` passam
   a `5.0.12` em ambos os pacotes, e o de `fast-uri` do frontend a `4.1.5`.
 
