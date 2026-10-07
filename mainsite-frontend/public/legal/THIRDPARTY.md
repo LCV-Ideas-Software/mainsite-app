@@ -22,7 +22,7 @@ that notice against the upstream package license when upgrading Workbox.
 
 ## Temporary security exception and release tooling (LCV-316)
 
-The operator authorized the npm override `miniflare` → `sharp@0.35.5` in both subprojects for GHSA-wq5f-xc86-pv6w. Official Wrangler 4.147.0 still selects Miniflare 5.20261001.0-alpha with Sharp 0.35.4. Remove this override once the selected official upstream version incorporates Sharp 0.35.5 or later. These packages remain development tooling; their official package artifacts and licenses are preserved by the npm lockfiles.
+The operator authorized the npm override `miniflare` → `sharp@0.35.5` in both subprojects for GHSA-wq5f-xc86-pv6w. Official Wrangler 4.148.0 still selects Miniflare 5.20261006.0-alpha with Sharp 0.35.4. Remove this override once the selected official upstream version incorporates Sharp 0.35.5 or later. These packages remain development tooling; their official package artifacts and licenses are preserved by the npm lockfiles.
 
 The frontend selects the official `@tanstack/react-query-devtools@5.102.8` package while the current Solid dependency pins vulnerable Seroval. This release retains the devtools interface used by the application and its published build has no Seroval module. The application keeps its current TanStack Query runtime dependency.
 
