@@ -10,7 +10,7 @@
 
 ### Segurança
 
-- Fixados os Devtools oficiais do TanStack Query em 5.102.8 para retirar a cadeia crítica de Seroval do frontend, mantendo o TanStack Query da aplicação. Os dois subprojetos usam o override npm temporário e autorizado de `sharp@0.35.5` sob Miniflare para a vulnerabilidade de librsvg (LCV-316).
+- Atualizados os Devtools oficiais do TanStack Query para 5.104.0 no PR canônico do Dependabot #628. O `npm audit fix` oficial regenerou o lockfile com Solid 1.9.16 e Seroval/Seroval Plugins 1.6.8, sem mudar os manifestos ou os pins diretos, corrigindo os advisories de Seroval e zerando a auditoria npm (LCV-334). Os dois subprojetos mantêm o override npm temporário e autorizado de `sharp@0.35.5` sob Miniflare para a vulnerabilidade de librsvg (LCV-316).
 
 - Atualizada a Action oficial Linear Release para v0.18.1 por SHA completo, com a CLI oficial v0.18.0 selecionada explicitamente e a verificação de checksum preservada.
 
