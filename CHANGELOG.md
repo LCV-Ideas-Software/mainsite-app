@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Update the official CodeQL SARIF upload Action to v4.38.3 at its complete release commit SHA (LCV-336).
+
 - Atualizada a Action oficial `actions/upload-artifact` para v7.0.2 no Scorecard, com SHA completo e sem alterar inputs ou permissões.
 
 - Alinhada a data de compatibilidade dos dois projetos Cloudflare para `2026-10-03`, conforme decisão do operador, preservando os flags e bindings existentes.
@@ -56,7 +58,7 @@
   `5.20260928.1` nos dois manifestos para satisfazer o peer mínimo
   `^5.20260926.1` exigido pelo Wrangler (MAISITE-31, LCV-239).
 
-- Atualizados os pins oficiais de CodeQL para 4.38.0 e zizmor-action para 0.6.4.
+- Atualizados os pins oficiais de CodeQL para 4.38.3 e zizmor-action para 0.6.4.
 
 - Preservado o aviso MIT integral do template oficial create-vite para
   `mainsite-frontend/public/icons.svg` em `THIRDPARTY.md` e na cópia publicada
