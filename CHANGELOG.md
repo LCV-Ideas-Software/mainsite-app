@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Remove the obsolete mainsite-worker esbuild 0.28.1 override so the official Wrangler 4.149.0 CLI selects its declared esbuild 0.28.2; regenerate the worker lockfile with npm and preserve the other authorized dependency corrections (LCV-341).
+
 - Atualizada a CLI oficial Cloudflare Wrangler para 4.149.0, com lockfiles regenerados pelo npm. O Miniflare oficial 5.20261006.1-alpha exige Sharp 0.35.5 diretamente; retirado o override temporário de Sharp dos manifestos que usam apenas esse upstream estável (LCV-341).
 
 - Update the official CodeQL SARIF upload Action to v4.38.3 at its complete release commit SHA (LCV-336).

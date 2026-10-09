@@ -1,5 +1,7 @@
 # Third-Party Components
 
+The official Wrangler 4.149.0 CLI requires esbuild 0.28.2 exactly. The obsolete global esbuild 0.28.1 override has been removed from mainsite-worker; npm regenerates its lockfile from the upstream dependency declarations. The other authorized dependency corrections and the independent frontend package remain unchanged (LCV-341).
+
 This inventory covers every direct runtime, optional, peer, and development dependency
 declared by `mainsite-frontend` and `mainsite-worker`, identified by name, license and source:
 the SPDX expression published by the package and the upstream repository it declares (with the
