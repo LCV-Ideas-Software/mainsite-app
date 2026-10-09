@@ -22,7 +22,7 @@ that notice against the upstream package license when upgrading Workbox.
 
 ## Temporary security exception and release tooling (LCV-316)
 
-The operator authorized the npm override `miniflare` → `sharp@0.35.5` in both subprojects for GHSA-wq5f-xc86-pv6w. Official Wrangler 4.148.0 still selects Miniflare 5.20261006.0-alpha with Sharp 0.35.4. Remove this override once the selected official upstream version incorporates Sharp 0.35.5 or later. These packages remain development tooling; their official package artifacts and licenses are preserved by the npm lockfiles.
+The operator authorized the temporary npm override `miniflare` → `sharp@0.35.5` in both subprojects for GHSA-wq5f-xc86-pv6w (LCV-316). Official Wrangler 4.149.0 now selects Miniflare 5.20261006.1-alpha, which requires Sharp 0.35.5 directly. Both overrides have therefore been removed, and npm regenerates the lockfiles using the official upstream dependency ranges (LCV-341). These packages remain development tooling; their official package artifacts and licenses are preserved by the npm lockfiles.
 
 The frontend selects the official `@tanstack/react-query-devtools@5.104.0` package. Its lockfile resolves `solid-js@1.9.16`, `seroval@1.6.8`, and `seroval-plugins@1.6.8`. The application imports the default devtools entry point, whose published implementation returns `null` outside development. The build-specific license report above records the dependencies included by Vite.
 

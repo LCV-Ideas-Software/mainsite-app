@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Atualizada a CLI oficial Cloudflare Wrangler para 4.149.0, com lockfiles regenerados pelo npm. O Miniflare oficial 5.20261006.1-alpha exige Sharp 0.35.5 diretamente; retirado o override temporário de Sharp dos manifestos que usam apenas esse upstream estável (LCV-341).
+
 - Update the official CodeQL SARIF upload Action to v4.38.3 at its complete release commit SHA (LCV-336).
 
 - Atualizada a Action oficial `actions/upload-artifact` para v7.0.2 no Scorecard, com SHA completo e sem alterar inputs ou permissões.
@@ -12,7 +14,7 @@
 
 ### Segurança
 
-- Atualizados os Devtools oficiais do TanStack Query para 5.104.0 no PR canônico do Dependabot #628. O `npm audit fix` oficial regenerou o lockfile com Solid 1.9.16 e Seroval/Seroval Plugins 1.6.8, sem mudar os manifestos ou os pins diretos, corrigindo os advisories de Seroval e zerando a auditoria npm (LCV-334). Os dois subprojetos mantêm o override npm temporário e autorizado de `sharp@0.35.5` sob Miniflare para a vulnerabilidade de librsvg (LCV-316).
+- Atualizados os Devtools oficiais do TanStack Query para 5.104.0 no PR canônico do Dependabot #628. O `npm audit fix` oficial regenerou o lockfile com Solid 1.9.16 e Seroval/Seroval Plugins 1.6.8, sem mudar os manifestos ou os pins diretos, corrigindo os advisories de Seroval e zerando a auditoria npm (LCV-334). Naquela atualização, os dois subprojetos mantinham o override npm temporário e autorizado de `sharp@0.35.5` sob Miniflare para a vulnerabilidade de librsvg (LCV-316); o upstream estável corrigido permite sua retirada na LCV-341.
 
 - Atualizada a Action oficial Linear Release para v0.18.1 por SHA completo, com a CLI oficial v0.18.0 selecionada explicitamente e a verificação de checksum preservada.
 
